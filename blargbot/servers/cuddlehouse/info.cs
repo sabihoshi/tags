@@ -71,20 +71,20 @@
 		{set;~values;[]}
 		{void;{inject;{regexreplace;{args};/(\w+)\s?:\s?(.+)/g;{lb}push{semi}~names{semi}$1{rb}{lb}push{semi}~values{semi}$2{rb}}}}
 		{for;~i;0;<;{length;{get;~names}};
-			{switch;{lower;{get;~names;{get;~i}}};
-				age;{set;~age;{get;~values;{get;~i}}};
-				gender;{set;~g;{get;~values;{get;~i}}}{execcc;gender};
-				height;{set;~height;{get;~values;{get;~i}}};
-				weight;{set;~weight;{get;~values;{get;~i}}};
-				birthday;{set;~birthday;{get;~values;{get;~i}}};
-				cuddles;{set;~cuddles;{get;~values;{get;~i}}};
-				spoon;{set;~s;{get;~values;{get;~i}}}{execcc;spoon};
-				location;{set;~L;{get;~values;{get;~i}}}{execcc;location};
-				description;{set;~description;{get;~values;{get;~i}}};
-				image;{set;~image;{get;~values;{get;~i}}};
-				color;{set;~color;{color;{get;~values;{get;~i}}}};
-				likes;{set;~likes;{get;~values;{get;~i}}};
-				dislikes;{set;~dislikes;{get;~values;{get;~i}}}
+			{switch;true;
+				{bool;age;includes;{lower;{get;~names;{get;~i}}}};{set;~age;{get;~values;{get;~i}}};
+				{bool;gender;includes;{lower;{get;~names;{get;~i}}}};{set;~g;{get;~values;{get;~i}}}{execcc;gender};
+				{bool;height;includes;{lower;{get;~names;{get;~i}}}};{set;~height;{get;~values;{get;~i}}};
+				{bool;weight;includes;{lower;{get;~names;{get;~i}}}};{set;~weight;{get;~values;{get;~i}}};
+				{bool;birthday;includes;{lower;{get;~names;{get;~i}}}};{set;~birthday;{get;~values;{get;~i}}};
+				{bool;cuddles;includes;{lower;{get;~names;{get;~i}}}};{set;~cuddles;{get;~values;{get;~i}}};
+				{bool;{lower;{get;~names;{get;~i}}};inclues;spoon};{set;~s;{get;~values;{get;~i}}}{execcc;spoon};
+				{logic;||;{bool;country;includes;{lower;{get;~names;{get;~i}}};};{bool;location;inclues;{lower;{get;~names;{get;~i}}}}};{set;~L;{get;~values;{get;~i}}}{execcc;location};
+				{bool;description;includes;{lower;{get;~names;{get;~i}}}};{set;~description;{get;~values;{get;~i}}};
+				{bool;image;includes;{lower;{get;~names;{get;~i}}}};{set;~image;{get;~values;{get;~i}}};
+				{bool;color;includes;{lower;{get;~names;{get;~i}}}};{set;~color;{color;{get;~values;{get;~i}}}};
+				{bool;likes;includes;{lower;{get;~names;{get;~i}}}};{set;~likes;{get;~values;{get;~i}}};
+				{bool;dislikes;includes;{lower;{get;~names;{get;~i}}}};{set;~dislikes;{get;~values;{get;~i}}}
 			}
 		}
 		{if;{get;_{userid}info};!=;;
@@ -96,7 +96,7 @@
 				title:{username}'s Profile;
 				description:{clean;
 					{if;{get;~description};!=;;{get;~description};Something about me!}
-				};
+				}{newline}[DM Me!](https://canary.discordapp.com/users/{userid});
 				fields.name:Personal;
 				fields.value:{clean;
 					Gender: **{if;{get;_{userid}gender};!=;;{get;_{userid}gender};Other}**
