@@ -28,8 +28,7 @@
 			fields.inline:true;
 			fields.name:Examples:;
 			fields.value:{clean;
-				**{repeat;{zws}{space}{zws};4}`{prefix}{commandname} @Kao#0001` - Views the info of Kao#0001.```cs{newline}{prefix}{commandname} set
-				Age: 16
+				**{repeat;{zws}{space}{zws};4}`{prefix}{commandname} @Kao#0001` - Views the info of Kao#0001.```cs{newline}{prefix}{commandname} set Age: 16
 				Gender: Male
 				Height:	168cm
 				Weight: 48kg
@@ -70,10 +69,10 @@
 	set;
 		{set;~names;[]}
 		{set;~values;[]}
-		{void;{inject;{regexreplace;{args};/(\w+)\s?:\s?(.+)/g;{lb}push{semi}~name{semi}$1{rb}{lb}push{semi}value{semi}$2{rb}}}}
+		{void;{inject;{regexreplace;{args};/(\w+)\s?:\s?(.+)/g;{lb}push{semi}~names{semi}$1{rb}{lb}push{semi}~values{semi}$2{rb}}}}
 		{for;~i;0;<;{length;{get;~names}};
 			{switch;{lower;{get;~names;{get;~i}}};
-				age;;
+				age;{set;~age;{get;~values;{get;~i}}};
 				gender;{set;~g;{get;~values;{get;~i}}}{execcc;gender};
 				height;{set;~height;{get;~values;{get;~i}}};
 				weight;{set;~weight;{get;~values;{get;~i}}};
@@ -103,6 +102,7 @@
 					Gender: **{if;{get;_{userid}gender};!=;;{get;_{userid}gender};Other}**
 					{if;{get;~height};!=;;Height: **{get;~height}**}
 					{if;{get;~weight};!=;;Weight: **{get;~weight}**}
+					{if;{get;~age};!=;;Age: **{get;~age}**}
 					{if;{get;~birthday};!=;;Birthday: **{get;~birthday}**}
 				};
 				fields.inline:true;
