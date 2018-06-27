@@ -68,47 +68,63 @@
 {delete}
 {switch;{lower;{args;0}};
 	set;
-		{regexmatch;{args};
-		{if;{flagset;g};{set;~g;{flag;g}}{execcc;gender}}
-		{if;{flagset;l};{set;~L;{flag;l}}{execcc;location}}
-		{if;{flagset;s};{set;~s;{flag;s}}{execcc;spoon}}
+		{set;~names;[]}
+		{set;~values;[]}
+		{void;{regexreplace;{args};/(\w+)\s?:\s?(.+)/g;{lb}push{semi}~name{semi}$1{rb}{lb}push{semi}value{semi}$2{rb}}}
+		{for;~i;0;<;{length;{get;~names}};
+			{switch;{lower;{get;~names;{get;~i}}};
+				age;;
+				gender;{set;~g;{get;~values;{get;~i}}}{execcc;gender};
+				height;{set;~height;{get;~values;{get;~i}}};
+				weight;{set;~weight;{get;~values;{get;~i}}};
+				birthday;{set;~birthday;{get;~values;{get;~i}}};
+				cuddles;{set;~cuddles;{get;~values;{get;~i}}};
+				spoon;{set;~s;{get;~values;{get;~i}}}{execcc;spoon};
+				location;{set;~L;{get;~values;{get;~i}}}{execcc;location};
+				description;{set;~description;{get;~values;{get;~i}}};
+				image;{set;~image;{get;~values;{get;~i}}};
+				color;{set;~color;{color;{get;~values;{get;~i}}}};
+				likes;{set;~likes;{get;~values;{get;~i}}};
+				dislikes;{set;~dislikes;{get;~values;{get;~i}}}
+			}
+		}
 		{if;{get;_{userid}info};!=;;
 			{void;{delete;445286098323767296;{get;_{userid}info}}}
 		}
 		{set;~embed;
 			{embedbuild;
-				thumbnail.url:{if;{flagset;i};{flag;i};{useravatar}};
+				thumbnail.url:{if;{get;~image};!=;;{get;~image};{useravatar}};
 				title:{username}'s Profile;
 				description:{clean;
-					{if;{flagset;d};{flag;d};Something about me!}
+					{if;{get;~description};!=;;{get;~description};Something about me!}
 				};
 				fields.name:Personal;
 				fields.value:{clean;
 					Gender: **{if;{get;_{userid}gender};!=;;{get;_{userid}gender};Other}**
-					{if;{flagset;h};Height: **{flag;h}**}
-					{if;{flagset;w};Weight: **{flag;w}**}
-					{if;{flagset;b};Birthday: **{flag;b}**}
+					{if;{get;~height};!=;;Height: **{get;~height}**}
+					{if;{get;~weight};!=;;Weight: **{get;~weight}**}
+					{if;{get;~birthday};!=;;Birthday: **{get;~birthday}**}
 				};
 				fields.inline:true;
 				fields.name:Info;
 				fields.value:{clean;
-					Cuddles with: **{if;{flagset;c};{flag;c};None}**
+					Cuddles with: **{if;{get;~cuddles};!=;;{get;~cuddles};None}**
 					Spoon type: {if;{get;_{userid}spoon};!=;;**{get;_{userid}spoon}**}
 					Location: **{if;{get;_{userid}location};!=;;{get;_{userid}location};Space}**
 				};
 				fields.inline:true;
 				fields.name:Likes;
 				fields.value:
-					{if;{flagset;L};{set;~c;0}{foreach;~i;{split;{flag;L};,};{repeat;{zws}{space}{zws};4}{increment;~c}. **{clean;{get;~i}}**{newline}}};
+					{if;{get;~likes};!=;;{set;~c;0}{foreach;~i;{split;{get;~likes};,};{repeat;{zws}{space}{zws};4}{increment;~c}. **{clean;{get;~i}}**{newline}}};
 				fields.inline:true;
 				fields.name:Dislikes:;
 				fields.value:
-					{if;{flagset;D};{set;~c;0}{foreach;~i;{split;{flag;D};,};{repeat;{zws}{space}{zws};4}{increment;~c}. **{clean;{get;~i}}**{newline}}};
+					{if;{get;~dislikes};!=;;{set;~c;0}{foreach;~i;{split;{get;~dislikes};,};{repeat;{zws}{space}{zws};4}{increment;~c}. **{clean;{get;~i}}**{newline}}};
 				fields.inline:true;
 				footer.icon_url:{useravatar};
 				footer.text:{username}#{userdiscrim};
 				timestamp:{time};
-				color:{if;{flagset;C};{if;{color;{flag;C}};!=;`Invalid color`;{color;{flag;C}};{exec;ecolor}};{exec;ecolor}}
+				color:{if;{get;~color};!=;;{if;{get;~color};!=;`Invalid color`;{get;~color};{exec;ecolor}};{exec;ecolor}}
 			}
 		}
 		{void;{dm;{userid};Your <#445286098323767296> post was a success! Preview:;{get;~embed}}}
