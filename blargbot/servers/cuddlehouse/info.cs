@@ -65,8 +65,8 @@
 	{return}
 }
 {delete}
-{switch;{lower;{args;0}};
-	set;
+{switch;true;
+	{bool;{args;0};startswith;set};
 		{set;~names;[]}
 		{set;~values;[]}
 		{void;{inject;{regexreplace;{args};/(\w+)\s?:\s?(.+)/g;{lb}push{semi}~names{semi}$1{rb}{lb}push{semi}~values{semi}$2{rb}}}}
@@ -77,11 +77,11 @@
 				{bool;height;includes;{lower;{get;~names;{get;~i}}}};{set;~height;{get;~values;{get;~i}}};
 				{bool;weight;includes;{lower;{get;~names;{get;~i}}}};{set;~weight;{get;~values;{get;~i}}};
 				{bool;birthday;includes;{lower;{get;~names;{get;~i}}}};{set;~birthday;{get;~values;{get;~i}}};
-				{bool;cuddles;includes;{lower;{get;~names;{get;~i}}}};{set;~cuddles;{get;~values;{get;~i}}};
+				{bool;cuddles with;includes;{lower;{get;~names;{get;~i}}}};{set;~cuddles;{get;~values;{get;~i}}};
 				{bool;{lower;{get;~names;{get;~i}}};inclues;spoon};{set;~s;{get;~values;{get;~i}}}{execcc;spoon};
 				{logic;||;{bool;country;includes;{lower;{get;~names;{get;~i}}};};{bool;location;inclues;{lower;{get;~names;{get;~i}}}}};{set;~L;{get;~values;{get;~i}}}{execcc;location};
 				{bool;description;includes;{lower;{get;~names;{get;~i}}}};{set;~description;{get;~values;{get;~i}}};
-				{bool;image;includes;{lower;{get;~names;{get;~i}}}};{set;~image;{get;~values;{get;~i}}};
+				{bool;image link;includes;{lower;{get;~names;{get;~i}}}};{set;~image;{get;~values;{get;~i}}};
 				{bool;color;includes;{lower;{get;~names;{get;~i}}}};{set;~color;{color;{get;~values;{get;~i}}}};
 				{bool;likes;includes;{lower;{get;~names;{get;~i}}}};{set;~likes;{get;~values;{get;~i}}};
 				{bool;dislikes;includes;{lower;{get;~names;{get;~i}}}};{set;~dislikes;{get;~values;{get;~i}}}
@@ -95,8 +95,8 @@
 				thumbnail.url:{if;{get;~image};!=;;{get;~image};{useravatar}};
 				title:{username}'s Profile;
 				description:{clean;
-					{if;{get;~description};!=;;{get;~description};Something about me!}
-				}{newline}[DM Me!](https://canary.discordapp.com/users/{userid});
+					{if;{get;~description};!=;;{get;~description};Something about me.}
+				}{newline}**[DM Me!](https://canary.discordapp.com/users/{userid})**;
 				fields.name:Personal;
 				fields.value:{clean;
 					Gender: **{if;{get;_{userid}gender};!=;;{get;_{userid}gender};Other}**
