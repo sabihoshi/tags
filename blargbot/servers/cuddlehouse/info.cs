@@ -72,23 +72,23 @@
 		{void;{inject;{regexreplace;{args};/(\w+)\s?:\s?(.+)/g;{lb}push{semi}~names{semi}$1{rb}{lb}push{semi}~values{semi}$2{rb}}}}
 		{for;~i;0;<;{length;{get;~names}};
 			{switch;true;
-				{bool;{lower;{get;~names;{get;~i}}}};includes;age;{set;~age;{get;~values;{get;~i}}};
-				{bool;{lower;{get;~names;{get;~i}}}};includes;gender;{set;~g;{get;~values;{get;~i}}}{execcc;gender};
-				{bool;{lower;{get;~names;{get;~i}}}};includes;height;{set;~height;{get;~values;{get;~i}}};
-				{bool;{lower;{get;~names;{get;~i}}}};includes;weight;{set;~weight;{get;~values;{get;~i}}};
-				{bool;{lower;{get;~names;{get;~i}}}};includes;birthday;{set;~birthday;{get;~values;{get;~i}}};
-				{bool;{lower;{get;~names;{get;~i}}}};includes;cuddles;{set;~cuddles;{get;~values;{get;~i}}};
+				{bool;{lower;{get;~names;{get;~i}}};includes;age};{set;~age;{get;~values;{get;~i}}};
+				{bool;{lower;{get;~names;{get;~i}}};includes;gender};{set;~g;{get;~values;{get;~i}}}{execcc;gender};
+				{bool;{lower;{get;~names;{get;~i}}};includes;height};{set;~height;{get;~values;{get;~i}}};
+				{bool;{lower;{get;~names;{get;~i}}};includes;weight};{set;~weight;{get;~values;{get;~i}}};
+				{bool;{lower;{get;~names;{get;~i}}};includes;birthday};{set;~birthday;{get;~values;{get;~i}}};
+				{bool;{lower;{get;~names;{get;~i}}};includes;cuddles};{set;~cuddles;{get;~values;{get;~i}}};
 				{bool;{lower;{get;~names;{get;~i}}};inclues;spoon};{set;~s;{get;~values;{get;~i}}}{execcc;spoon};
 				{logic;||;
 					{bool;{lower;{get;~names;{get;~i}}};includes;country};
 					{bool;{lower;{get;~names;{get;~i}}};includes;location}
 				};
 					{set;~L;{get;~values;{get;~i}}}{execcc;location};
-				{bool;{lower;{get;~names;{get;~i}}}};includes;description;{set;~description;{get;~values;{get;~i}}};
-				{bool;image {lower;{get;~names;{get;~i}}}};includes;link;{set;~image;{get;~values;{get;~i}}};
-				{bool;{lower;{get;~names;{get;~i}}}};includes;color;{set;~color;{color;{get;~values;{get;~i}}}};
-				{bool;{lower;{get;~names;{get;~i}}}};includes;likes;{set;~likes;{get;~values;{get;~i}}};
-				{bool;{lower;{get;~names;{get;~i}}}};includes;dislikes;{set;~dislikes;{get;~values;{get;~i}}}
+				{bool;{lower;{get;~names;{get;~i}}};includes;description};{set;~description;{get;~values;{get;~i}}};
+				{bool;image {lower;{get;~names;{get;~i}}};includes;link};{set;~image;{get;~values;{get;~i}}};
+				{bool;{lower;{get;~names;{get;~i}}};includes;color};{set;~color;{color;{get;~values;{get;~i}}}};
+				{bool;{lower;{get;~names;{get;~i}}};includes;likes};{set;~likes;{get;~values;{get;~i}}};
+				{bool;{lower;{get;~names;{get;~i}}};includes;dislikes};{set;~dislikes;{get;~values;{get;~i}}}
 			}
 		}
 		{if;{get;_{userid}info};!=;;
