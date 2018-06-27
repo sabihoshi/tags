@@ -65,6 +65,7 @@
 	{timer;{void;{delete;{get;~message}}};60s}
 	{return}
 }
+{delete}
 {switch;{lower;{args;0}};
 	set;
 		{set;~names;[]}
@@ -128,5 +129,4 @@
 		}
 		{void;{dm;{userid};Your <#445286098323767296> post was a success! Preview:;{get;~embed}}}
 		{set;_{userid}info;{send;445286098323767296;{get;~embed}}}
-		{delete}
 }
