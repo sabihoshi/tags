@@ -1,0 +1,10 @@
+{aset;{userid}credits;{if;==;NaN;{aget;{userid}credits};{usercredits};{if;==;;{aget;{userid}credits};{usercredits};{if;>=;{aget;{userid}credits};0;{aget;{userid}credits};{usercredits}}}}}{aset;{userid;{args;0}}credits;{if;==;NaN;{aget;{userid;{args;0}}credits};{usercredits;{args;0}};{if;==;;{aget;{userid;{args;0}}credits};{usercredits;{args;0}};{if;>=;{aget;{userid;{args;0}}credits};0;{aget;{userid;{args;0}}credits};{usercredits;{args;0}}}}}}{if;==;NaN;{abs;{args;1}};💳 | **{username}**, **{if;==;{userid};{userid;{args;0}};you have;{username;{args;0}} has} a balance of 💴 {usercredits;{args;0}} credits!** (Simulated: **{aget;{userid;{args;0}}credits}**);{if;==;{username;{args;0}};`User not found`;🔍 | **{username}**, the user could not be found.;{if;>;{args;1};0;{if;>=;{aget;{userid}credits};{args;1};{aset;{userid}transact;{if;>;{args;1};0;{if;>=;{aget;{userid}credits};{args;1};1;0}}}🏧 | **Simulated Credit Transfer**
+
+```Transferring ¥ {aset;{userid}crtrans;{args;1}}{aget;{userid}crtrans} to user {aset;{userid}rec;{userid;{args;0}}}{username;{aget;{userid}rec}}
+
+Amount due after tax:{repeat; ;8}¥ {aset;{userid}transfer;{round;{math;*;{args;1};0.8}}}{aget;{userid}transfer}
+Current credits balance:{repeat; ;5}¥ {aget;{userid}credits}
+Balance after transfer:{repeat; ;6}¥ {aset;{userid}newcred;{if;>=;{aget;{userid}credits};{args;1};{math;-;{aget;{userid}credits};{args;1}};{aget;{userid}credits}}}{aget;{userid}newcred}
+
+# Confirmation Pin: {aset;{userid}confr;{randint;0;9999}}{aset;{userid}confirm;{switch;{length;{aget;{userid}confr}};1;000;2;00;3;0}{aget;{userid}confr}}{aget;{userid}confirm}```
+➡ | To confirm, type `t!t confirm {aget;{userid}confirm}` or type `t!t cancel` to close the transaction;💳 | **{username}, you have insufficient credits to make a transaction.**;❎ | **{username}, please enter a valid amount of credits to transfer.**}}}}

@@ -1,0 +1,18 @@
+**🏥 | {username}'s Pet Stats:**
+
+{if;==;;{aget;{userid}pet};**None**;**{aget;{userid}pet} {aget;{userid}pet#class}**
+Name: **{aget;{userid}pet#name}**{if;!=;;{aget;{userid}pet#gend};
+Gender: **{aget;{userid}pet#gend}}**
+Health: **{repeat;♥;{round;{math;/;{aget;{userid}pet#hp};10}}} {aget;{userid}pet#hp} HP**
+Age: {set;age;{time;-;{time;x};{aget;{userid}pet#born}}}{set;YYYY;{math;-;{abs;{time;YYYY;{get;age};x}};1970}}{set;MM;{abs;{time;MM;{get;age};x}}}{set;DD;{abs;{time;DD;{get;age};x}}}{set;H;{abs;{time;H;{get;age};x}}}{set;mm;{abs;{time;mm;{get;age};x}}}{set;ss;{abs;{time;ss;{get;age};x}}} {if;!=;0;{get;YYYY};**{get;YYYY}** year{if;>;{get;YYYY};1;s},} {if;!=;0;{get;MM};**{get;MM}** month{if;>;{get;MM};1;s},} {if;!=;0;{get;DD};**{get;DD}** day{if;>;{get;DD};1;s},} {if;!=;0;{get;H};**{get;H}** hour{if;>;{get;H};1;s},} {if;!=;0;{get;mm};**{get;mm}** minute{if;>;{get;mm};1;s}, and} **{get;ss}** second{if;>;{get;YYYY};1;s}.
+**Equipment**
+{if;!=;;{aget;{userid}pet#eqhead};
+Head: {aget;{userid}pet#eqhead}}{if;!=;;{aget;{userid}pet#eqbody};
+Body: {aget;{userid}pet#eqbody}}{if;!=;;{aget;{userid}pet#eqleg};
+Legs: {aget;{userid}pet#eqleg}}{if;!=;;{aget;{userid}pet#eqweap};
+Weapon: {aget;{userid}pet#eqweap}}
+
+**⚔ | {aget;{userid}pet#name}'s Battle Stats:**
+Fights: **{aget;{userid}pet#fightcnt}**
+Wins: **{aget;{userid}pet#fightwin}**
+Ratio: **{math;*;{aget;{userid}pet#fightin};{math;/;{aget;{userid}pet#fightcnt};100}}%**}

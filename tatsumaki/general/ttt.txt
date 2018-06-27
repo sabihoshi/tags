@@ -1,0 +1,38 @@
+{set;state;{if;!=;1;{aget;{userid}game};0;{switch;{lower;{args;0}};a1;a1;a2;a2;a3;a3;b1;b1;b2;b2;b3;b3;c1;c1;c2;c2;c3;c3;-1}}}
+{set;m;{switch;{get;state};0;0;-1;0;{lower;{args;0}}}}
+{aset;{userid}a1;{switch;{get;state};0;⬛;a1;{aget;{userid}s};
+{aset;{userid}a2;{switch;{get;state};0;⬛;a2;{aget;{userid}s};
+{aset;{userid}a3;{switch;{get;state};0;⬛;a3;{aget;{userid}s};
+{aset;{userid}b1;{switch;{get;state};0;⬛;b1;{aget;{userid}s};
+{aset;{userid}b2;{switch;{get;state};0;⬛;b2;{aget;{userid}s};
+{aset;{userid}b3;{switch;{get;state};0;⬛;b3;{aget;{userid}s};
+{aset;{userid}c1;{switch;{get;state};0;⬛;c1;{aget;{userid}s};
+{aset;{userid}c2;{switch;{get;state};0;⬛;c2;{aget;{userid}s};
+{aset;{userid}c3;{switch;{get;state};0;⬛;c3;{aget;{userid}s};
+{aset;{userid}game;1}
+{aset;{userid}shape;{if;==;{get;state};0;{randchoice;⭕;❌}};{aget;{userid}shape}}
+{aset;{userid}b;{if;==;{get;state};0;a1a2a3b1b2b3c1c2c3;{aget;{userid}b}}}
+{set;en;{switch;{aget;{userid}shape};⭕;❌;⭕}}
+{switch;{get;state};0;Game started! Your shape is {aget;{userid}shape} The moves are defined by `t!t ttt a1` in which the letter is horizontal and number is vertical.
+A{repeat; ;6}B{repeat; ;6}C
+⬛⬛⬛ 1
+⬛⬛⬛ 2
+⬛⬛⬛ 3;-1;:x: That is an invalid move!
+A{repeat; ;6}B{repeat; ;6	}C
+⬛⬛⬛ 1
+⬛⬛⬛ 2		
+⬛⬛⬛ 3;You moved! {aget;{userid}shape} to {get;m}
+{aget;{userid}a1}{aget;{userid}b1}{aget;{userid}c1}
+{aget;{userid}a2}{aget;{userid}b2}{aget;{userid}c2}
+{aget;{userid}a3}{aget;{userid}b3}{aget;{userid}c3}
+{aset;{userid}b;{if;==;0;{get;m};{aget;{userid}b};{regexreplace;{aget;{userid}b};/{get;m}/;}}}
+{set;enm;{substr;{aget;{userid}b};{randint;0;{math;/;{length;{aget;{userid}b}};2}};2}}
+{aset;{userid}a1;{switch;{get;state};0;⬛;a1;{aget;{userid}s};
+{aset;{userid}a2;{switch;{get;state};0;⬛;a2;{aget;{userid}s};
+{aset;{userid}a3;{switch;{get;state};0;⬛;a3;{aget;{userid}s};
+{aset;{userid}b1;{switch;{get;state};0;⬛;b1;{aget;{userid}s};
+{aset;{userid}b2;{switch;{get;state};0;⬛;b2;{aget;{userid}s};
+{aset;{userid}b3;{switch;{get;state};0;⬛;b3;{aget;{userid}s};
+{aset;{userid}c1;{switch;{get;state};0;⬛;c1;{aget;{userid}s};
+{aset;{userid}c2;{switch;{get;state};0;⬛;c2;{aget;{userid}s};
+{aset;{userid}c3;{switch;{get;state};0;⬛;c3;{aget;{userid}s};

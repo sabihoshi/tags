@@ -1,0 +1,34 @@
+t!t test {set;empt;;{aset;index;0}{aset;pair;0}
+{inject;
+ {regexreplace;
+314547763637649419,298523181570850817
+71090325715693568,180858782912479232
+263679956842708993,342286872501944321
+157894371683860481,267410931192037376
+308511652784111617,180858782912479232
+275331662865367040,146442757643173888
+308511652784111617,284516922744111115
+131429516970033152,213111411352535041
+84305328123936768,146501137913085952
+182401955518218240,243442788463542272
+284516922744111115,146442757643173888
+323506578395234304,178927951956541441
+196629780345389066,270349157884100608
+294467103736463360,102643895296360448
+306373675471339520,323562610140250112
+180858782912479232,254359474339446784
+275331662865367040,263679956842708993
+159748997236523008,214635105736589314;/(\d{lb}17,18{rb})/g;{lb}aset{semi}pair{lb}aget{semi}pair{rb}_{lb}aget{semi}index{rb}{semi}$1{rb}{lb}if{semi}=={semi}1{semi}{lb}aget{semi}index{rb}{semi}{lb}aset{semi}index{semi}0{rb}{lb}aset{semi}pair{semi}{lb}incr{semi}{lb}aget{semi}pair{rb}{rb}{rb}{semi}{lb}aset{semi}index{semi}{lb}incr{semi}{lb}aget{semi}index{rb}{rb}{rb}{rb}}}}{loop;0;{decr;{aget;pair}};{set;empt;;{aset;return}
+ {if;||;{aget;{aget;pair{i}_0}status};{aget;{aget;pair{i}_1}status};{aset;return;true};
+{aset;{aget;pair{i}_0}status;1}
+{aset;{aget;pair{i}_1}status;1}
+{aset;{aget;pair{i}_0}marrmath;0}
+{aset;{aget;pair{i}_1}marrmath;0}
+{aset;{aget;pair{i}_0}partner;{aget;pair{i}_1}}
+{aset;{aget;pair{i}_1}partner;{aget;pair{i}_0}}
+{aset;{aget;pair{i}_0}proby;0}
+{aset;{aget;pair{i}_1}proby;0}
+{aset;{aget;pair{i}_0}proposed;0}
+{aset;{aget;pair{i}_1}proposed;0}
+ }}{if;==;true;{aget;return};:x: {if;==;1;{aget;{aget;pair{i}_0}status};**{username;{aget;pair{i}_0}} is married!**} {if;==;1;{aget;{aget;pair{i}_1}status};**{username;{aget;pair{i}_1}} is married!**};:wedding: | **{username;{aget;pair{i}_0}}, you are now successfully wed with {username;{aget;pair{i}_1}}!**};{nl}
+}

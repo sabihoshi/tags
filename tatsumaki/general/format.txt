@@ -1,0 +1,1 @@
+{set;0;{lower;{args;0}}}{aget;def{switch;{get;0};;or;{if;==;;{aget;def#{get;0}};er;#{get;0}}}}

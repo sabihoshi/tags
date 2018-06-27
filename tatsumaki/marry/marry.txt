@@ -1,0 +1,173 @@
+{regexreplace;
+{aset;return}
+{aset;hash;
+	#
+}
+{aset;marerm;```rb
+`Marriage Menu` ```
+Always prefix tags with `t!t`.
+
+**1. `t!t marry propose @user` - Proposes to the user.
+2. `t!t marry deny` - Denies the proposal.
+3. `t!t marry cancel` - Cancels the proposal.
+4. `t!t marry accept` - Accepts the marriage.
+5. `t!t marry divorce` - Divorces a marriage.
+6. `t!t marry status [@user]` - Checks your status. If `@user` - is specified, it checks the status of that user.**
+
+```py
+>>> This marriage system was made by Kao#0001```
+}
+{if;!=;832961;{aget;scd};
+	```rb
+	`Marriage System v4.6` ```
+	**Introduction:**
+	You have copied this tag from the creator, {if;==;`User not found`;{userid;246903976937783296};**Kao{aget;hash}0001**;<@246903976937783296>}.
+	This will only show once! So do not worry. To get help, just do `t!t marry help`
+	{aget;marerm}
+	{aset;scd;832961}
+	{aset;return;true}
+}
+{if;==;true;{aget;return};;
+{aset;1mo;2678400000}{aset;1d;86400000}{aset;2wk;604800000}
+{aset;nl;​{nl}​}
+{switch;{lower;{args;0}};;{regexreplace;{aget;marerm};/\t+|^​?[\r\n]+/gm;};
+	help;{regexreplace;
+		{aget;marerm};/\t+|^​?[\r\n]+/gm;};
+	status;{regexreplace;
+		{aset;{userid}info;{if;==;info;{lower;{args;1}};{if;==;;{args;2};{aget;{userid}info};{if;==;clear;{lower;{args;2}};;{args;2;n}}};{aget;{userid}info}}}
+		{if;!=;info;{lower;{args;1}};
+			{if;==;{userid;{args;1}};
+				`User not found`;🔍 | That user does not exist;
+				Relationship status of {username;{args;1}}: **{if;==;1;{aget;{userid;{args;1}}status};Married;Single}**{if;!=;;{aget;{userid;{args;1}}info};{aget;nl}Info: {aget;{userid;{args;1}}info}}{if;==;{aget;{userid;{args;1}}status};1;{aget;nl}💒 | {randchoice;Happily;Is;Successfully;Bound and;Vowed and} {set;a;{randchoice;wedded;married;together;coupled}}{get;a} {randchoice;with;{if;==;together;{get;a};{randchoice;along;with};to};together with} **{regexreplace;{username;{aget;{userid;{args;1}}partner}};/(\*|_|~)/igm;\$1}{get;hash}{userdiscrim;{aget;{userid;{args;1}}partner}} {if;!=;{username;{aget;{userid;{args;1}}partner}};{usernick;{aget;{userid;{args;1}}partner}};({regexreplace;{usernick;{aget;{userid;{args;1}}partner}};/(\*|_|~)/igm;\$1})}**}
+			};
+			{if;==;;{args;2};
+				❎ | Not a valid info. To clear your info, do `t!!t info clear`.;
+			{if;==;clear;{lower;{args;2}};
+				🆗 | Cleared your info;🆗 | Set your info.
+			}}	
+		};/\t+|^​?[\r\n]+/gm;};
+	divorce;{regexreplace;
+		{aset;{userid}time;{time;x;now}}
+		{aset;{userid}omarrmath;{aget;{userid}marrmath}}
+		{aset;{userid}smarrmath;{if;>=;{aget;{userid}time};{aget;{userid}omarrmath};1;0}}
+		{aset;{userid}divelig;
+			{if;==;0;{aget;{userid}smarrmath};0;
+			{if;!=;1;{aget;{userid}status};0;
+				{if;==;accept;{args;1};1;0}
+			}}
+		}
+		{aset;{userid}refmath;{math;-;{aget;{userid}marrmath};{aget;{userid}time}}}
+		{if;!=;1;{aget;{userid}status};❎ | You are not married.;
+		{if;==;{aget;{userid}smarrmath};0;
+			❎ **| You can not divorce so soon! Time left before you can divorce: {time;DD;{aget;{userid}refmath};GMT} days, {time;HH;{aget;{userid}refmath};GMT} hours, {abs;{time;mm;{aget;{userid}refmath};GMT}} minutes and {abs;{time;ss;{aget;{userid}refmath};GMT}} seconds.**;
+		{if;==;;{args;1};
+			💔 | This will divorce you and your partner. You wo not be able to marry this user again. Are you sure? Type`t!t marry divorce accept`.;
+		{if;==;accept;{args;1};
+			💔 | {username} and {username;{aget;{userid}partner}} have divorced.;
+			❎ | That is not a recognized response.
+		}}}}
+		{if;==;1;{aget;{userid}divelig};
+			{aset;{userid}_{aget;{userid}partner};1}
+			{aset;{userid}proposed;0}
+			{aset;{userid}propose;0}
+			{aset;{userid}status;0}
+			{aset;{userid}proby;0}
+			{aset;{aget;{userid}partner}proposed;0}
+			{aset;{aget;{userid}partner}propose;0}
+			{aset;{aget;{userid}partner}status;0}
+			{aset;{aget;{userid}partner}proby;0}
+			{aset;{aget;{userid}partner}partner;0}
+			{aset;{userid}partner;0}
+		};/\t+|^​?[\r\n]+/gm;};
+	propose;{regexreplace;
+		{if;==;;{args;1};{aget;marerm};
+		{aset;{userid}marrystat;{if;>;{math;-;{time;x;now};{aget;2wk}};{round;{usercreatedat}};1;0}}
+		{aset;user;{userid;{args;1}}}
+		{aset;{aget;user}marrystat;{if;>;{math;-;{time;x;now};{aget;2wk}};{round;{usercreatedat;{args;1}}};1;0}}
+		{if;!=;832961;{aget;scd};
+			❎ | An error occured!;
+		{if;==;1;{aget;{userid}bl};
+			❎ | You are blacklisted!;
+		{if;==;1;{aget;{aget;user}bl};
+			❎ | User you proposed to is blacklisted!;
+		{if;==;1;{aget;{userid}status};
+			❎ | You are already married!;
+		{if;==;1;{aget;{aget;user}status};
+			❎ | This user is already married!;
+		{if;==;1;{aget;{userid}proposed};
+			❎ | You cannot propose two times, do `t!t marry cancel` to remove your previous proposal.;
+		{if;==;;{args;1};
+			❎ | Please provide a user!;
+		{if;==;{userid;{args;1}};`User not found`;
+			🔍 | User cannot be found.;
+		{if;==;1;{aget;{userid}proby};
+			❎ | You have already been proposed by <@{aget;{aget;user}propose}>, to accept type `t!t marry accept`.;
+		{if;==;1;{aget;{aget;user}proby};
+			{if;==;{userid};{aget;{aget;user}propose};
+				❎ | You have already proposed to this user! <@{aget;{aget;user}propose}>, to accept type `t!t marry accept`.;
+				❎ | This user has already been proposed by {username;{aget;{userid;{args;1}}propose}} and has not answered yet!};
+		{if;==;{userid};{userid;{args;1}};
+			❎ | You cannot marry yourself!;
+		{if;==;0;{aget;{userid}marrystat};
+			❎ | Your account is too young!;
+		{if;==;0;{aget;{aget;user}marrystat};
+			❎ | Users account is too young!;
+		{if;==;{aget;user};{aget;{userid}propose};
+			⛪ | You have already proposed to {username;{get;@{userid}propose}}!{aget;nl}<@{aget;{aget;user}propose}>{aget;pre14}, to accept type `t!t marry accept`.;
+		{if;==;1;{aget;{userid}_{aget;user}};
+			❎ | You have divorced with this person before!;
+		{if;==;1;{aget;{aget;user}_{userid}};
+			❎ | This person has divorced with you before!;
+			⛪ | {username}, you have proposed to {username;{args;1}}.{aget;nl}<@{aget;user}>, to accept type `t!t marry accept`.
+			{aset;{userid}propose;{aget;user}}
+			{aset;{aget;user}propose;{userid}}
+			{aset;{userid}proposed;0}
+			{aset;{aget;user}proby;1}
+		}}}}}}}}}}}}}}}}};/\t+|^​?[\r\n]+/gm;};{regexreplace;
+		{switch;{lower;{args;0}};;{aget;marerm}
+			{aset;return;true};
+			cancel;{inject};
+			accept;{inject};
+			deny;{inject};
+			{aget;marerm}
+			{aset;return;true}
+		}
+		{if;==;true;{aget;return};;
+		{if;==;{userid};{aget;bl};
+			❎ | User you proposed to is blacklisted!
+			{aset;return;true};
+		{aset;{userid}time;{time;x;now}}
+		{if;==;1;{aget;{userid}status};
+			❎ | You are already married!;
+		{switch;{lower;{args;0}};
+			cancel;
+				💔 | You have cancelled the proposal.
+				{aset;user;{aget;{userid}proposed}}
+				{aset;{userid}proposed;0}
+				{aset;{aget;user}proposed;0}
+				{aset;{userid}proby;0}
+				{aset;{aget;user}proby;0};
+			deny;
+				💔 | You have denied the proposal!
+				{aset;user;{aget;{userid}proposed}}
+				{aset;{userid}proposed;0}
+				{aset;{aget;user}proposed;0}
+				{aset;{userid}proby;0}
+				{aset;{aget;user}proby;0};
+			accept;
+				{if;==;1;{aget;{userid}proposed};
+					❎ | You can not answer your own proposal!;
+				{if;==;0;{aget;{userid}proby};
+					❎ | No one has proposed to you yet! Propose by doing `t!t marry propose @user`.
+				💒 | {username}, you are now successfully wed with <@{aget;{userid}propose}>
+				{aset;{userid}status;1}
+				{aset;{userid;{aget;{userid}propose}}status;1}
+				{aset;{userid}marrmath;{math;+;{aget;{userid}time};{aget;1mo}}}
+				{aset;{aget;{userid}propose}marrmath;{aget;{userid}marrmath}}
+				{aset;{userid}partner;{aget;{userid}propose}}
+				{aset;{aget;{userid}propose}partner;{userid}}
+				{aset;{userid}proby;0};
+				}};
+			{aget;marerm}
+		}}}};/\t+|^​?[\r\n]+/gm;}
+}};/\t+|^​?[\r\n]+/gm;}

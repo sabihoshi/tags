@@ -1,0 +1,2 @@
+{set;pt;{args;0}}{set;time;{regexplace;{args;1n};/day(|s)/g;d}}{set;time;{regexplace;{args;1n};/day(|s)/g;d}}{set;day;{regexreplace;{args;1;n};/
+{set;persist;{regexreplace;{args;0;1};/\d\s+((d(?!\S)|days?)|(h(?!\S|hours?)|(m(?!\S)|mins?|minutes?))/g;1}}

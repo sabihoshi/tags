@@ -1,0 +1,33 @@
+t!t edit ldupdate {exec;trim;{set;array;top}
+{aset;user;{randuser}}
+{if;==;0;{length;{aget;{get;array}_userid}};
+	{aset;{get;array}_userid;{aget;{get;array}_userid},{aget;user}}
+}
+{if;==;`User not found`;{userid;{aget;user}};❌ Invalid user;
+	{if;==;-1;{indexof;{aget;{get;array}_userid};{aget;user}};
+	{aset;{get;array}_userid;{aget;{get;array}_userid},{aget;user}}
+	{set;length;{length;{regexreplace;{aget;{get;array}_userid};/,\d+/g;1}}}
+	{aset;{get;array}_rank{get;length};{aget;user}}
+	}
+}
+{set;length;{length;{regexreplace;{aget;{get;array}_userid};/,\d+/g;1}}}
+{set;maxpg;{ceil;{math;/;{get;length};10}}}{exec;void;/}
+{set;pg;
+	{if;==;0;{argslen};1;
+	{if;==;NaN;{abs;{args;0}};1;
+	{if;>;{args;0};{get;maxpg};{get;maxpg};
+	{if;==;0;{floor;{args;0}};1;
+	{abs;{floor;{args;0}}}
+}}}}}
+{set;st;{math;*;{decr;{get;pg}};10}}
+{set;mg;{math;+;0{get;st};10}}
+{set;index;{get;length}}
+{loop;1;{decr;{get;length}};
+	{exec;foreach;{get;index}}{set;index;{decr;{get;index}}}
+}
+}:credit_card:  **|  Credits Leaderboard** ```rb
+{exec;trim;{loop;{get;st};{get;mg};{set;user;{aget;{get;array}_rank{i}}}{if;!=;;{get;user};{pad;r;[{i}];8;{space}}> #{username;{get;user}}
+{repeat;{space};11}Credits: {usercredits;{get;user}}};{nl}}}
+-------------------------------------
+# Your Credit Stats
+😐 Rank: {loop;1;{get;length};{if;==;{userid;{aget;user}};{aget;{get;array}_rank{i}};{i}}}/{get;length}{repeat;{space};4}Credits: {usercredits;{aget;user}}```

@@ -1,0 +1,31 @@
+a-e
+
+1-5=-4
+
+{loop;1;
+	{abs;
+		{math;-;
+			{get;{substr;{lower;{args;1}};0;1}};        #a = 1
+			{get;{substr;{lower;{args;2}};0;1}}         #e = 5
+		}
+	};
+	{if;==;0;{aget;{get;p}{
+
+Wait, why did I have to use math.
+
+a-e
+
+1-5=-4
+
+{set;int;
+	{if;<;
+		{get;{substr;{lower;{args;1}};0;1}};
+		{get;{substr;{lower;{args;2}};0;1}};
+		1{set;int_2;2};
+		2{set;int_2;1}
+	}
+}
+{loop;
+	{get;{substr;{lower;{args;{get;int}}};0;1}};
+	{get;{substr;{lower;{args;{get;int_2}}};0;1}};
+	{if;==;0;{aget;{get;p}{

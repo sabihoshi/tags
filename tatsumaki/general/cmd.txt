@@ -1,0 +1,446 @@
+{regexreplace;
+	{switch;{lower;{args;0}};
+		abs;
+			**Tag: __abs__**```ruby
+			Usage: {lb}abs{semi}number{rb}```Description: Returns the absolute value of `number` ```ruby
+			Example In: {lb}abs{semi}-3.14{rb}
+			Example Out: 3.14```;
+		aget;
+			**Tag: __aget__**```ruby
+			Usage: {lb}aget{semi}name[{semi}default]{rb}```Description: Returns the value of the variable `name`, tied to the author of the tag. If the variable is empty, it returns `default`.```ruby
+			Example In: {lb}aget{semi}balance{rb}
+			Example Out: 57.12```;
+		args;
+			**Tag: __args__**```ruby
+			Usage: {lb}args[{semi}start[{semi}end]]{rb}```Description: Returns the arguments passed by tag caller from index `start` to index `end` The default value of `start` is `0`, the default value of `end` is `start + 1` If you put "n" for `end` it will become `{lb}argslen{rb}` ```ruby
+			Example In: {lb}args{semi}1{rb}
+			Example Out: World!```;
+		argslen;
+			**Tag: __argslen__**```ruby
+			Usage: {lb}argslen{rb}```Description: Returns the amount of arguments passed by the tag caller.```ruby
+			Example In: {lb}argslen{rb}
+			Example Out: 2```;
+		aset;
+			**Tag: __aset__**```ruby
+			Usage: {lb}aset{semi}name{semi}value{rb}```Description: Sets the value of the variable `name` to `value`, tied to the author of the tag ```ruby
+			Example In: {lb}aset{semi}balance{semi}100{rb}
+			Example Out: ```;
+		avg;
+			**Tag: __avg__**```ruby
+			Usage: {lb}avg{semi}number1{semi}number2[{semi}number3...]{rb}```Description: Returns the average of all `number`s given.```ruby
+			Example In: {lb}avg{semi}1{semi}4{semi}6{semi}9{rb}
+			Example Out: 5```;
+		base;
+			**Tag: __base__**```ruby
+			Usage: {lb}base{semi}number{semi}in_radix{semi}out_radix{rb}```Description: Converts the radix of `number` from `in_radix` to `out_radix` ```ruby
+			Example In: {lb}base{semi}1001{semi}2{semi}10{rb}
+			Example Out: 9```;
+		bit;
+			**Tag: __bit__**```ruby
+			Usage: {lb}bit{semi}operator{semi}number1[{semi}number2]{rb}```Description: Preforms the bitwise operator onto the given number(s). If the operation only requires one number (`!`, `~`), it will preform onto `number1` If the operation requires two numbers (`&`, `^`, `|`, `<<`, `>>`, `>>>`), it will preform onto `number1` and `number2` ```ruby
+			Example In: {lb}bit{semi}&{semi}6{semi}3{rb}
+			Example Out: 2```;
+		ceil;
+			**Tag: __ceil__**```ruby
+			Usage: {lb}ceil{semi}number{rb}```Description: Rounds `number` up.```ruby
+			Example In: {lb}ceil{semi}5.13{rb}
+			Example Out: 6```;
+		channelid;
+			**Tag: __channelid__**```ruby
+			Usage: {lb}channelid{rb}```Description: Returns the current id of the channel.```ruby
+			Example In: {lb}channelid{rb}
+			Example Out: 272212345340690443```;
+		channelname;
+			**Tag: __channelname__**```ruby
+			Usage: {lb}channelname{rb}```Description: Returns the current name of the channel.```ruby
+			Example In: {lb}channelname{rb}
+			Example Out: general```;
+		channeltopic;
+			**Tag: __channeltopic__**```ruby
+			Usage: {lb}channeltopic{rb}```Description: Returns the current topic of the channel.```ruby
+			Example In: {lb}channeltopic{rb}
+			Example Out: Website of Tatsumaki  is here: https://www.tatsumaki.xyz```;
+		emojis;
+			**Tag: __emojis__**```ruby
+			Usage: {lb}emojis{semi}query[{semi}amount[{semi}offset[{semi}seperator]]]{rb}```Description: Searches for `amount` emoijis related to `query` with an offset of `offset` joined together by `seperator` ```ruby
+			Example In: {lb}emojis{semi}life{semi}4{semi}0{semi}, {rb}
+			Example Out: ✌, 😌, 🙌, ♻```;
+		floor;
+			**Tag: __floor__**```ruby
+			Usage: {lb}floor{semi}number{rb}```Description: Rounds `number` down.```ruby
+			Example In: {lb}floor{semi}5.82418{rb}
+			Example Out: 5```;
+		get;
+			**Tag: __get__**```ruby
+			Usage: {lb}get{semi}name[{semi}default]{rb}```Description: Returns the value of tag variable `name`. If the variable is empty, it returns `default`.```ruby
+			Example In: {lb}get{semi}count{rb}
+			Example Out: 12```;
+		space;**Tag: __space__**```ruby
+			Usage: {lb}space[{semi}number]{rb}```Description: Returns spaces amounting to `number`. Defaults to 1. (for escaping purposes)
+			:warning: `number` is currently broken!```ruby
+			Example In: {lb}space{semi}5{rb}
+			Example Out: ```;
+		if;
+			**Tag: __if__**```ruby
+			Usage: {lb}if{semi}comparator{semi}value1{semi}value2{semi}then{semi}else{rb}```Description: Compares `value1` to `value2` using `comparator` If true returns `then`, if false returns `else` Valid compators are: `==`, `!=`, `<`, `>`, `<=`, `>=`, `||`, `&&` ```ruby
+			Example In: {lb}set{semi}score{semi}80{rb}
+			{lb}if{semi}>{semi}{lb}get{semi}score{rb}{semi}50{semi}You passed!{semi}You failed...{rb}
+			Example Out: You passed!```;
+		lb;
+			**Tag: __lb__**```ruby
+			Usage: {lb}lb{rb}```Description: Returns a left brace (for escaping purposes).```ruby
+			Example In: {lb}lb{rb}
+			Example Out: {lb}```;
+		length;
+			**Tag: __length__**```ruby
+			Usage: {lb}length{semi}string{rb}```Description: Returns the length of `string` ```ruby
+			Example In: {lb}length{semi}potatos{rb}
+			Example Out: 7```;
+		lower;
+			**Tag: __lower__**```ruby
+			Usage: {lb}lower{semi}string{rb}```Description: Returns a copy of `string` all in lowercase letters.```ruby
+			Example In: {lb}lower{semi}suPeRMaN{rb}
+			Example Out: superman```;
+		math;
+			**Tag: __math__**```ruby
+			Usage: {lb}math{semi}operator{semi}number1[{semi}number2[{semi}number3...]]{rb}```Description: Preforms `operator` on all given `number`s. Valid `operator`s are: `+`, `-`, `/`, `*`, `%`, `^`, `sqrt`, `cbrt` ```ruby
+			Example In: {lb}math{semi}*{semi}5{semi}6{rb}
+			Example Out: 30```;
+		pad;
+			**Tag: __pad__**```ruby
+			Usage: {lb}pad{semi}direction{semi}text{semi}size{semi}pattern{rb}```Description: Adds `pattern` to the `direction` of `text` until its length is `size` ```ruby
+			Example In: {lb}pad{semi}l{semi}> Vapor{semi}11{semi}-={rb}
+			Example Out: -=-=> Vapor```;
+		randarg;
+			**Tag: __randarg__**```ruby
+			Usage: {lb}randarg{rb}```Description: Returns a random argument provided by the tag caller.```ruby
+			Example In:	{lb}randarg{rb}
+			Example Out: World!```;
+		randchoice;
+			**Tag: __randchoice__**```ruby
+			Usage: {lb}randarg{semi}choice1{semi}choice2[{semi}choice3...]{rb}```Description: Randomly chooses one of the choices and returns it.```ruby
+			Example In: {lb}randchoice{semi}dog{semi}snake{semi}cat{semi}horse{rb}
+			Example Out: snake```;
+		randint;
+			**Tag: __randint__**```ruby
+			Usage: {lb}randint{semi}value1{semi}value2{rb}```Description: Randomly chooses a value between `value1` and `value2` and returns it. The default value of `value1` is `0` and the default value of `value2` is `9` ```ruby
+			Example In: {lb}randint{semi}12{semi}30{rb}
+			Example Out: 20```;
+		randstr;
+			**Tag: __randstr__**```ruby
+			Usage: {lb}randstr{semi}string{semi}amount{rb}```Description: Randomly chooses a character from `string` and returns it. Can specify how many characters to return, default is `1` ```ruby
+			Example In: {lb}randstr{semi}0123456789abcdef{semi}32{rb}
+			Example Out: 41c5294cebf0d87b2ff3aa663dfef34f```;
+		randuser;
+			**Tag: __randuser__**```ruby
+			Usage: {lb}randuser{rb}```Description: Randomly chooses a member from all the members in a guild and returns his ID.```ruby
+			Example In: {lb}randuser{rb}
+			Example Out: 140912052657979392```;
+		rb;
+			**Tag: __rb__**```ruby
+			Usage: {lb}rb{rb}```Description: Returns a right brace (for escaping purposes).```ruby
+			Example In: {lb}rb{rb}
+			Example Out: {rb}```;
+		regexreplace;
+			**Tag: __regexreplace__**```ruby
+			Usage: {lb}regexreplace{semi}string{semi}regexFrom{semi}to{rb}```Description: Use a regular expression (`regexFrom`) to replace something in `string` with `to` ```ruby
+			Example In: {lb}regexreplace{semi}hello world!{semi}/[^a-z0-9]/gi{semi}-{rb}
+			Example Out: hello-world-```;
+		repeat;
+			**Tag: __repeat__**```ruby
+			Usage: {lb}repeat{semi}string{semi}amount{rb}```Description: Repeats `string` for a `amount` number of times and returns it.```ruby
+			Example In: {lb}repeat{semi}color{semi}3{rb}
+			Example Out: colorcolorcolor```;
+		replace;
+			**Tag: __replace__**```ruby
+			Usage: {lb}replace{semi}string{semi}from{semi}to{rb}```Description: Replace something in `string`, from `from` to `to` ```ruby
+			Example In: {lb}replace{semi}I love rain{semi}love{semi}hate{rb}
+			Example Out: I hate rain```;
+		reverse;
+			**Tag: __reverse__**```ruby
+			Usage: {lb}reverse{semi}string{rb}```Description: Reverses a string.```ruby
+			Example In: {lb}reverse{semi}lemmons{rb}
+			Example Out: snommel```;
+		round;
+			**Tag: __round__**```ruby
+			Usage: {lb}round{semi}value{rb}```Description: Rounds `value` to the nearest integer. Note that `49` will be rounded down and `5` will be rounded up.```ruby
+			Example In: {lb}round{semi}2.62{rb}
+			Example Out: 3```;
+		semi;
+			**Tag: __semi__**```ruby
+			Usage: {lb}semi{rb}```Description: Returns a semicolon (for escaping purposes).```ruby
+			Example In: {lb}semi{rb}
+			Example Out: {semi}```;
+		serverid;
+			**Tag: __serverid__**```ruby
+			Usage: {lb}serverid{rb}```Description: Returns the current server id.```ruby
+			Example In: {lb}serverid{rb}
+			Example Out: 234364573456374346```;
+		servername;
+			**Tag: __servername__**```ruby
+			Usage: {lb}servername{rb}```Description: Returns the current server name.```ruby
+			Example In: {lb}servername{rb}
+			Example Out: The Cafe Lounge```;
+		serverusers;
+			**Tag: __serverusers__**```ruby
+			Usage: {lb}serverusers{rb}```Description: Returns the current server member count.```ruby
+			Example In: {lb}serverusers{rb}
+			Example Out: 363```;
+		set;
+			**Tag: __set__**```ruby
+			Usage: {lb}set{semi}name{semi}value{rb}```Description: Sets the value of tag variable `name` to `value` ```ruby
+			Example In: {lb}set{semi}count{semi}23{rb}
+			Example Out: ```;
+		shuffle;
+			**Tag: __shuffle__**```ruby
+			Usage: {lb}shuffle{semi}string{rb}```Description: Shuffles the characters of a string and returns it.```ruby
+			Example In: {lb}shuffle{semi}apple{rb}
+			Example Out: plaep```;
+		substr;
+			**Tag: __substr__**```ruby
+			Usage: {lb}substr{semi}string{semi}start{semi}length{rb}```Description: Returns the characters of `string` between 0 indexed `start` and until length is `length`. Default value for `start` is `0` and for `length` it is the `string`s length.```ruby
+			Example In: {lb}substr{semi}Is this working?{semi}8{semi}4{rb}
+			Example Out: work```;
+		switch;	
+			**Tag: __switch__**```ruby
+			Usage: {lb}switch{semi}value{semi}case1{semi}content1{semi}[{semi}case2{semi}content2...][{semi}default]{rb}```Description: Finds the `case` that is equal to `value`, and returns the corresponding `content` If no equal `case` is found will return `default` ```ruby
+			Example In: {lb}set{semi}wins{semi}4{rb}
+			{lb}switch{semi}{lb}get{semi}wins{rb}{semi}
+				{repeat;{space};4}1{semi}You got at least 1 win{semi}
+				{repeat;{space};4}2{semi}You got 2 wins, not too bad{semi}
+				{repeat;{space};4}3{semi}3 wins the charm!{semi}
+				{repeat;{space};4}4{semi}So close, yet so far!
+				{repeat;{space};4}5{semi}You won everything!{semi}
+				{repeat;{space};4}You won more than 5!
+			{rb}
+			Example Out: So close, yet so far!```;
+		time;
+			**Tag: __time__**```ruby
+			Usage: {lb}time[{semi}format[{semi}timestamp[{semi}timezone]]]{rb}```Description: Returns a UNIX `timestamp` in a certain time `format` and in a certain TZ `timezone` Default of `format` is `LTS`, for `timestamp` is the current time and for `timezone` is `Asia/Singapore` ```ruby
+			Example In: {lb}time{semi}YYYY MM DD{semi}now{semi}GMT{rb}
+			Example Out: 2017 03 01```;
+		upper;
+			**Tag: __upper__**```ruby
+			Usage: {lb}upper{semi}string{rb}```Description: Returns a copy of `string` all in uppercase letters.```ruby
+			Example In: {lb}upper{semi}suPeRmaN{rb}
+			Example Out: SUPERMAN```;
+		usercreatedat;
+			**Tag: __usercreatedat__**```ruby
+			Usage: {lb}usercreatedat[{semi}user]{rb}```Description: Returns a UNIX timestamp of the `user`s account creation date. The `user` value can be anything with an id in it (including @mentions). Default `user` is the person that called the command.```ruby
+			Example In: {lb}usercreatedat{semi}@Tatsumaki{rb}
+			Example Out: 1453648451```;
+		usercredits;
+			**Tag: __usercredits__**```ruby
+			Usage: {lb}usercredits[{semi}user]{rb}```Description: Returns the amount of Tatsumaki credits that `user` has. The `user` value can be anything with an id in it (including @mentions). Default `user` is the person that called the command.```ruby
+			Example In: {lb}usercredits{semi}140912052657979392{rb}
+			Example Out: 3457```;
+		userdiscrim;
+			**Tag: __userdiscrim__**```ruby
+			Usage: {lb}userdiscrim[{semi}user]{rb}```Description: Returns the `user`s discriminator. The `user` value can be anything with an id in it (including @mentions). Default `user` is the person that called the command.```ruby
+			Example In: {lb}userdiscrim{semi}@Tatsumaki{rb}
+			Example Out: 8792```;
+		userid;
+			**Tag: __userid__**```ruby
+			Usage: {lb}userid[{semi}user]{rb}```Description: Returns the `user`s ID. The `user` value can be anything with an id in it (including @mentions). Default `user` is the person that called the command.```ruby
+			Example In: {lb}userid{semi}@Tatsumaki{rb}
+			Example Out: 172002275412279296```;
+		username;
+			**Tag: __username__**```ruby
+			Usage: {lb}username[{semi}user]{rb}```Description: Returns the `user`s discord username. The `user` value can be anything with an id in it (including @mentions). Default `user` is the person that called the command.```ruby
+			Example In: {lb}username{semi}@Tatsumaki{rb}
+			Example Out: Tatsumaki```;
+		usernick;
+			**Tag: __usernick__**```ruby
+			Usage: {lb}usernick[{semi}user]{rb}```Description: Returns the `user`s nickname in the current server. The `user` value can be anything with an id in it (including @mentions). Default `user` is the person that called the command.```ruby
+			Example In: {lb}usernick{semi}@Tatsumaki{rb}
+			Example Out: The Tornado```;
+		userperms;
+			**Tag: __userperms__**```ruby
+			Usage: {lb}userperms[{semi}user]{rb}```Description: Returns the `user`s allowed permissions number. The `user` value can be anything with an id in it (including @mentions). Default `user` is the person that called the command.```ruby
+			Example In: {lb}userperms{semi}@Tatsumaki{rb}
+			Example Out: 2080374847```;
+		userpoints;
+			**Tag: __userpoints__**```ruby
+			Usage: {lb}userpoints[{semi}user]{rb}```Description: Returns the `user`s server points from the current server. The `user` value can be anything with an id in it (including @mentions). Default `user` is the person that called the command.```ruby
+			Example In: {lb}userpoints{semi}@David{rb}
+			Example Out: 2732```;
+		userrep;
+			**Tag: __userrep__**```ruby
+			Usage: {lb}userrep[{semi}user]{rb}```Description: Returns the `user`s global reputation points. The `user` value can be anything with an id in it (including @mentions). Default `user` is the person that called the command.```ruby
+			Example In: {lb}userrep{semi}@David{rb}
+			Example Out: 62```;
+		userrole;
+			**Tag: __userrole__**```ruby
+			Usage: {lb}userrole[{semi}user[{semi}index]]{rb}```Description: Returns the `user`s role id at the `index` The `user` value can be anything with an id in it (including @mentions). The `index` value is the index of the role you want to get, roles are zero-based indexed. If `index` is -1, it will get the role at the top of their roles list. Default `user` is the person that called the command. Default `index` is -1.```ruby
+			Example In: {lb}userrole{semi}@Vap0r1ze{semi}-1{rb}
+			Example Out: 175654938540638208```;
+		userxp;
+			**Tag: __userxp__**```ruby
+			Usage: {lb}userxp[{semi}user]{rb}```Description: Returns the `user`s amount of global experience. The `user` value can be anything with an id in it (including @mentions). Default `user` is the person that called the command.```ruby
+			Example In: {lb}userxp{semi}@David{rb}
+			Example Out: 319675```;
+		avars;
+			**Tag: __avars__**```ruby
+			Usage: {lb}avars[{semi}index]{rb}```Description: Without any arguments returns the number of author variables that the user executing the tag has. If a valid zero based `index` is passed, returns the name of the author variable at that `index` based on the date of its creation. The first variable is 0, the second 1, and so on.```ruby
+			Example In: {lb}avars{rb}
+			Example Out: 4```;
+		exec;
+			**Tag: __exec__**```ruby
+			Usage: {lb}exec{semi}tag[{semi}args{semi}args{semi}...]{rb}```Description: Executes a `tag` available on the current guild (server). Arguments can be passed to the tag separated by semi-colons```ruby
+			Example In: {lb}exec{semi}say{semi}this{rb}
+			Example Out: this```;
+		i;
+			**Tag: __i__**```ruby
+			Usage: {lb}i[{semi}depth]{rb}```Description: Returns the current value of the `loop` variable, at a given `depth`, default value of which is zero. The `depth` is 0 for one loop, 1 for a loop inside a loop and 2 for 3 nested loops. Works only inside a `loop` tag.```ruby
+			Example In: {lb}loop{semi}0{semi}5{semi}{lb}i{rb}{semi} {rb}
+			Example Out: 0 1 2 3 4 5```;
+		indexof;
+			**Tag: __indexof__**```ruby
+			Usage: {lb}indexof{semi}text{semi}query{rb}```Description: Finds the first zero based index of `query` in `text` ```ruby
+			Example In: {lb}indexof{semi}hello{semi}l{rb}
+			Example Out: 2```;
+		inject;
+			**Tag: __inject__**```ruby
+			Usage: {lb}inject{semi}code{rb}.```Description: Executes escaped tag `code` and returns the result```ruby
+			Example In: {lb}inject{semi}{lb}lb{rb}math{lb}semi{rb}+{lb}semi{rb}1{lb}semi{rb}2{lb}rb{rb}{rb}
+			Example Out: 3```;
+		lastindexof;
+			**Tag: __lastindexof__**```ruby
+			Usage: {lb}lastindexof{semi}text{semi}query{rb}```Description: Finds the last index of `query` in `text` ```ruby
+			Example In: {lb}lastindexof{semi}hello{semi}l{rb}
+			Example Out: 3```;
+		loop;
+			**Tag: __loop__**```ruby
+			Usage: {lb}loop{semi}initialValue{semi}finalValue{semi}code[{semi}separator]{rb}```Description: Executes `code` in a loop from `initialValue` to `finalValue` separated by `separator` `initialValue` and `finalValue` must be numbers such that `initialValue` is less than or equal to `finalValue` ```ruby
+			Example In: {lb}loop{semi}0{semi}5{semi}{lb}i{rb}{semi} {rb}
+			Example Out: 0 1 2 3 4 5```;
+		nl;
+			**Tag: __nl__**```ruby
+			Usage: {lb}nl{rb}```Description: Returns a new line character. (for escaping purposes)```ruby
+			Example In: {lb}nl{rb}
+			Example Out: ```;
+		vars;
+			**Tag: __vars__**```ruby
+			Usage: {lb}vars[{semi}index]{rb}```Description: Returns number of tag variables when no arguments are passed. Returns the name of the tag variable at `index` if specified.```ruby
+			Example In: {lb}vars{rb}
+			Example Out: 4```;
+		decr;
+			**Tag: __decr__**```ruby
+			Usage: {lb}decr{semi}number{rb}```Description: Decrases `number` by 1.```ruby
+			Example In: {lb}decr{semi}5{rb}
+			Example Out: 4```;
+		incr;
+			**Tag: __incr__**```ruby
+			Usage: {lb}incr{semi}number{rb}```Description: Increases number by 1.```ruby
+			Example In: {lb}incr{semi}5{rb}
+			Example Out: 6```;
+		userscore;
+			**Tag: __userscore__**```ruby
+			Usage: {lb}userscore[{semi}userid]{rb}```Description: Displays `userid`s current score, defaults to the user calling the tag.
+			:warning: `userid` is currently broken!```ruby
+			Example In: {lb}userscore{semi}@Kao#0001{rb}
+			Example Out: 81624```;
+		randexp;
+			**Tag: randexp**```ruby
+			Usage: {lb}randexp{semi}pattern[{semi}flags]{rb}```Description: Creates random strings that match a given regular expression.
+			https://fent.github.io/randexp.js/ ```ruby
+			Example In: {lb}expr{semi}(5*5)^2{rb}
+			Example Out: 125```;
+		expr;
+			**Tag: __expr__**```ruby
+			Usage: {lb}expr{semi}expression{rb}```Description: Uses `t!math` api```ruby
+			Example In: {lb}expr{semi}max(5,15,30,25){rb}
+			Example Out: 30```;
+		cooldown;
+			**Cooldown parser** (`from seconds or milliseconds`) - @stupid cat#8160 
+			**Input: **
+				{repeat;{space};4}1. The `maxcooldown` between commands. If unprovided, defaults to 10. MUST BE A NUMBER
+				{repeat;{space};4}2. The `key` of the cooldown. This lets you have multiple cooldowns in a single tag. Defaults to empty.
+				{repeat;{space};4}3. The `unit` of the cooldown. Use `X` for seconds and `x` for milliseconds. The `key` must correspond to this.
+			**Output:** `{lb}get{semi}cooldown{rb}`
+				{repeat;{space};4}`true` if enough time has passed, else returns a number indicating the time (in seconds) until the next command```ruby
+				{lb}set{semi}key{semi}{rb}
+				{lb}set{semi}unit{semi}x{rb}
+				{lb}set{semi}maxcooldown{semi}10000{rb}
+				{lb}set{semi}cooldown{lb}userid{rb}_{lb}get{semi}key{rb}{semi}{lb}abs{semi}0{lb}get{semi}cooldown{lb}userid{rb}_{lb}get{semi}key{rb}{semi}0{rb}{rb}{rb}
+				{lb}if{semi}>={semi}{lb}math{semi}-{semi}{lb}time{semi}{lb}get{semi}unit{rb}{rb}{semi}{lb}get{semi}cooldown{lb}userid{rb}_{lb}get{semi}key{rb}{rb}{rb}{semi}{lb}get{semi}maxcooldown{rb}{semi}
+					{repeat;{space};4}{lb}set{semi}cooldown{lb}userid{rb}_{lb}get{semi}key{rb}{semi}{lb}time{semi}{lb}get{semi}unit{rb}{rb}{rb}
+					{repeat;{space};4}{lb}set{semi}cooldown{semi}true{rb}{semi}
+					{repeat;{space};4}{lb}set{semi}cooldown{semi}{lb}math{semi}-{semi}{lb}get{semi}maxcooldown{rb}{semi}
+						{repeat;{space};8}{lb}math{semi}-{semi}{lb}time{semi}{lb}get{semi}unit{rb}{rb}{semi}{lb}get{semi}cooldown{lb}userid{rb}_{lb}get{semi}key{rb}{rb}{rb}
+					{repeat;{space};4}{rb}{rb}
+				{rb}```;
+		timer;
+			**Time passed timer** (`from seconds`) - @Allen Miquel#8168
+			This snippet will convert any given time provided (in seconds) to display in Days, Hours, Minutes and Seconds in a more traditional way, rather than a long/big number in seconds. 
+			```py
+			{lb}inject{semi}{semi}Your time in Seconds to show the Time "Since":{rb}
+			{lb}set{semi}time{semi}177955{rb}
+
+			{lb}inject{semi}{semi}Parse Time to Days:{rb}
+			{lb}set{semi}d{semi}{lb}floor{semi}{lb}math{semi}/{semi}{lb}get{semi}time{rb}{semi}86400{rb}{rb}{rb}
+			{lb}inject{semi}{semi}Parse Remaining Hours in Days:{rb}
+			{lb}set{semi}dh{semi}{lb}floor{semi}{lb}math{semi}/{semi}{lb}math{semi}%{semi}{lb}get{semi}time{rb}{semi}86400{rb}{semi}3600{rb}{rb}{rb}
+			{lb}inject{semi}{semi}Parse Time to Hours:{rb}
+			{lb}set{semi}h{semi}{lb}floor{semi}{lb}math{semi}/{semi}{lb}get{semi}time{rb}{semi}3600{rb}{rb}{rb}
+			{lb}inject{semi}{semi}Parse Time to Minutes:{rb}
+			{lb}set{semi}m{semi}{lb}floor{semi}{lb}math{semi}/{semi}{lb}math{semi}%{semi}{lb}get{semi}time{rb}{semi}3600{rb}{semi}60{rb}{rb}{rb}
+			{lb}inject{semi}{semi}Parse Time to Seconds:{rb}
+			{lb}set{semi}s{semi}{lb}floor{semi}{lb}math{semi}%{semi}{lb}get{semi}time{rb}{semi}60{rb}{rb}{rb}
+
+			{lb}inject{semi}{semi}Result. Feel free to {lb}get{rb} any of these variables in whichever way/format you like:{rb}
+			**Original Time**: `{lb}get{semi}time{rb}s`
+			**Time in Days**: `{lb}get{semi}d{rb}d {lb}get{semi}dh{rb}h {lb}get{semi}m{rb}m {lb}get{semi}s{rb}s`
+			**Time in Hours**: `{lb}get{semi}h{rb}h {lb}get{semi}m{rb}m {lb}get{semi}s{rb}s` ```;
+		unset;
+			**Math with unset variables**
+			```ruby
+			Usage: 0{lb}get{semi}var{rb}```
+			This will add a '0' to the beginning of the variable, the variable that should contain a number. If the variable does not exist, the `{get}` returns nothing so the '0' will be default value. Else, that will not change the value (since '6' and '06' are the same). This also fixes when a `NaN` error occurs and sets it to 0.```ruby
+			Example: {lb}set{semi}var{semi}{lb}incr{semi}0{lb}get{semi}var{rb}{rb}{rb}```;
+		void;
+			**Void command**
+			```ruby
+			Usage: (Any of these will work)
+				{lb}replace{semi}{semi}[code]{rb}
+				{lb}repeat{semi}{semi}[code]{rb}
+				{lb}upper{semi}{semi}[code]{rb}
+				{lb}lower{semi}{semi}[code]{rb}```;
+		list;
+			```ruby
+			`Tags Tutorial Menu` ```
+			Use `t!t cmd [tag]` to get more info on a reserved tag, for example: `t!t cmd username`
+
+			**1. Statements - `if` | `switch`
+			2. Operations - `abs` | `avg` | `base` | `bit` | `ceil` | `floor` | `math` | `round` | `incr` | `decr`
+			3. Randomizers - `randarg` | `randchoice` | `randint` | `randstr` | `randuser` | `shuffle` | `emojis`
+			4. Evaluators - `args` | `argslen` | `length` | `substr` | `time` | `indexof` | `lastindexof`
+			5. Manipulators - `lower` | `pad` | `regexreplace` | `repeat` | `replace` | `reverse` | `upper`
+			6. Executors - `loop` | `inject` | `exec`
+			7. Variables - `get` | `aget` | `set` | `aset` | `vars` | `avars`
+			8. Channel - `channelid` | `channelname` | `channeltopic`
+			9. Server - `serverid` | `servername` | `serverusers`
+			10. User - `usercreatedat` | `usercredits` | `userdiscrim` | `userid` | `username` | `usernick` | `userperms` | `userpoints` | `userscore ` | `userrep` | `userrole` | `userxp`
+			11. Noparse - `lb` | `rb` | `nl` | `semi` | `space`
+			12. Special - `timer` | `cooldown` | `unset` | `void`**
+			```py
+			>>> To learn how to create a tag, use 't!t cmd'
+			>>> If you want the complete list, get the tagdocs here 'https://the-lazy-learner.github.io/tatsu-tags.html'```;
+			```py
+			'Tags Tutorial Menu'```
+			**Default prefix is `t!t` or `t!tags`**
+			`t!t <delete | raw | info> tagName`
+			When creating or editing a tag, `t!t <create | edit> tagName <message>`
+
+			Example: `t!t create meme lol`
+			User: `t!t meme`
+			Tatsumaki: `lol`
+
+			There are also reserved tags that are enclosed in `{lb}` `{rb}` and it will perform that tag
+			Example: `t!t create greet Hello {lb}username{rb}!`
+			David: `t!t greet`
+			Tatsumaki: `Hello David!`
+			```py
+			>>> To view the full list of reserved tags, do 't!t cmd list'```
+	};
+/\t/g;}

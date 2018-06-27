@@ -1,0 +1,40 @@
+t!t test {set;empt;;{aset;index;0}
+{inject;
+ {regexreplace;
+  314547763637649419,298523181570850817
+  71090325715693568,180858782912479232
+  263679956842708993,342286872501944321
+  157894371683860481,267410931192037376
+  308511652784111617,180858782912479232
+  275331662865367040,146442757643173888
+  308511652784111617,284516922744111115
+  131429516970033152,213111411352535041
+  84305328123936768,146501137913085952
+  182401955518218240,243442788463542272
+  284516922744111115,146442757643173888
+  323506578395234304,178927951956541441
+  196629780345389066,270349157884100608
+  294467103736463360,102643895296360448
+  306373675471339520,323562610140250112
+  180858782912479232,254359474339446784
+  275331662865367040,263679956842708993
+  159748997236523008,214635105736589314
+  ;/(\d{lb}17,18{rb})/g;
+  {lb}aset{semi}index_{lb}aget{semi}index{rb}{semi}$1{rb}
+  {lb}aset{semi}index{semi}{lb}incr{semi}{lb}aget{semi}index{rb}{rb}{rb}
+ }
+}}{loop;0;{decr;{aget;index}};{set;empt;;{aset;return}
+ {if;!=;1;{aget;{aget;index_{i}}status};{aset;return;true};
+  {aset;u;{aget;{aget;index_{i}}partner}}
+  {aset;{aget;index_{i}}status;0}
+  {aset;{aget;index_{i}}marrmath;0}
+  {aset;{aget;index_{i}}partner;0}
+  {aset;{aget;index_{i}}proby;0}
+  {aset;{aget;index_{i}}proposed;0}
+  {aset;{aget;u}status;0}
+  {aset;{aget;u}marrmath;0}
+  {aset;{aget;u}partner;0}
+  {aset;{aget;u}proby;0}
+  {aset;{aget;u}proposed;0}
+ }}{if;==;true;{aget;return};:x: {username;{aget;index_{i}}} is already single!;💔 | {username;{aget;index_{i}}} and {username;{aget;u}} have divorced.};{nl}
+}

@@ -1,0 +1,66 @@
+{exec;void;{set;0;0}{set;1;0}{set;2;0}{set;3;0}{set;4;0}
+{set;int;{if;==;0;{argslen};100;{if;==;NaN;{abs;{args;0}};100;{abs;{args;0}}}}}
+{if;<=;{get;int};100;
+	{set;continue;{get;int}}
+	{set;looper;0}
+	{set;loop;0};
+	{if;>;{get;int};10000;
+		{set;looper;{floor;{math;/;{get;int};1000}}}
+		{set;loop;{floor;{math;/;{math;-;{get;int};{math;*;{get;looper};1000}};100}}}
+		{set;continue;{math;-;{get;int};{math;*;{get;looper};1000};{math;*;{get;loop};100}}};
+		{set;looper;0}
+		{set;loop;{floor;{math;/;{get;int};100}}}
+		{set;continue;{math;-;{get;int};{math;*;{get;loop};100}}}
+}}
+{if;!=;0;{get;looper};
+	{loop;1;{get;looper};
+		{loop;1;100;
+			{loop;1;100;
+				{set;f;{randint;1;10000}}
+				{if;<=;{get;f};15;
+					{set;3;{incr;{get;3}}};
+				{if;<=;{get;f};1015;
+					{set;2;{incr;{get;2}}};
+				{if;<=;{get;f};4500;
+					{set;1;{incr;{get;1}}};
+					{set;0;{incr;{get;0}}}
+				}}}
+				{set;4;{incr;{get;4}}}
+			}
+		}
+	}
+}
+{if;!=;0;{get;loop};
+	{loop;1;{get;loop};
+		{loop;1;100;
+			{set;f;{randint;1;10000}}
+			{if;<=;{get;f};15;
+				{set;3;{incr;{get;3}}};
+			{if;<=;{get;f};1015;
+				{set;2;{incr;{get;2}}};
+			{if;<=;{get;f};4500;
+				{set;1;{incr;{get;1}}};
+				{set;0;{incr;{get;0}}}
+			}}}
+			{set;4;{incr;{get;4}}}
+		}
+	}
+}
+{loop;1;{get;continue};
+	{set;f;{randint;1;10000}}
+	{if;<=;{get;f};15;
+		{set;3;{incr;{get;3}}};
+	{if;<=;{get;f};1015;
+		{set;2;{incr;{get;2}}};
+	{if;<=;{get;f};4500;
+		{set;1;{incr;{get;1}}};
+		{set;0;{incr;{get;0}}}
+	}}}
+	{set;4;{incr;{get;4}}}
+}}Total of **{substr;{math;*;{math;/;100;{get;4}};{get;0}};0;6}**% > Garbage ({get;0}/{get;4})
+Total of **{substr;{math;*;{math;/;100;{get;4}};{get;1}};0;6}**% > Common ({get;1}/{get;4})
+Total of **{substr;{math;*;{math;/;100;{get;4}};{get;2}};0;6}**% > Uncommon ({get;2}/{get;4})
+Total of **{substr;{math;*;{math;/;100;{get;4}};{get;3}};0;6}**% > Rare ({get;3}/{get;4})
+{math;*;6;{get;0}} + {math;*;12;{get;1}} + {math;*;20;{get;2}} + {math;*;1250;{get;3}} = ¥ {math;+;{math;*;6;{get;0}};{math;*;12;{get;1}};{math;*;20;{get;2}};{math;*;1250;{get;3}}} / {math;*;10;{get;4}}
+**{set;p;{math;*;{math;/;1;{math;*;10;{get;4}}};{math;+;{math;*;6;{get;0}};{math;*;12;{get;1}};{math;*;20;{get;2}};{math;*;1250;{get;3}}}}}{get;p}**% from original value
+¥ {if;>=;{get;p};1;{math;-;{math;+;{math;*;6;{get;0}};{math;*;12;{get;1}};{math;*;20;{get;2}};{math;*;1250;{get;3}}};{math;*;10;{get;4}}} Credits gained;{math;-;{math;*;10;{get;4}};{math;+;{math;*;6;{get;0}};{math;*;12;{get;1}};{math;*;20;{get;2}};{math;*;1250;{get;3}}}} Credits lost}

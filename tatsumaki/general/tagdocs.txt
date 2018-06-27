@@ -1,0 +1,431 @@
+1. Statements - if | switch
+2. Operations - abs | avg | base | bit | ceil | floor | math | round | incr | decr
+3. Randomizers - randarg | randchoice | randint | randstr | randuser | shuffle | emojis
+4. Evaluators - args | argslen | length | substr | time | indexof | lastindexof
+5. Manipulators - lower | pad | regexreplace | repeat | replace | reverse | upper
+6. Executors - loop | inject | exec
+7. Variables - get | aget | set | aset | vars | avars
+8. Channel - channelid | channelname | channeltopic
+9. Server - serverid | servername | serverusers
+10. User - usercreatedat | usercredits | userdiscrim | userid | username | usernick | userperms | userpoints | userscore  | userrep | userrole | userxp
+11. Noparse - lb | rb | nl | semi | space
+
+abs:
+	Usage: {abs;number}
+	Description: Returns the absolute value of `number` 
+	Example In: {abs;-3.14}
+	Example Out: 3.14
+
+aget:
+	Usage: {aget;name[;default]}
+	Description: Returns the value of the variable `name`, tied to the author of the tag. If the variable is empty, it returns `default`.
+	Example In: {aget;balance}
+	Example Out: 57.12
+
+args:
+	Usage: {args[;start[;end]]}
+	Description: Returns the arguments passed by tag caller from index `start` to index `end` The default value of `start` is `0`, the default value of `end` is `start + 1` If you put "n" for `end` it will become `{argslen}` 
+	Example In: {args;1}
+	Example Out: World!
+
+argslen:
+	Usage: {argslen}
+	Description: Returns the amount of arguments passed by the tag caller.
+	Example In: {argslen}
+	Example Out: 2
+
+aset:
+	Usage: {aset;name;value}
+	Description: Sets the value of the variable `name` to `value`, tied to the author of the tag 
+	Example In: {aset;balance;100}
+	Example Out: 
+
+avars:
+	Usage: {avars[;index]}
+	Description: Without any arguments returns the number of author variables that the user executing the tag has. If a valid zero based `index` is passed, returns the name of the author variable at that `index` based on the date of its creation. The first variable is 0, the second 1, and so on.
+	Example In: {avars}
+	Example Out: 4
+
+avg:
+	Usage: {avg;number1;number2[;number3...]}
+	Description: Returns the average of all `number`s given.
+	Example In: {avg;1;4;6;9}
+	Example Out: 5
+
+base:
+	Usage: {base;number;in_radix;out_radix}
+	Description: Converts the radix of `number` from `in_radix` to `out_radix` 
+	Example In: {base;1001;2;10}
+	Example Out: 9
+
+bit:
+	Usage: {bit;operator;number1[;number2]}
+	Description: Preforms the bitwise operator onto the given number(s). If the operation only requires one number (`!`, `~`), it will preform onto `number1` If the operation requires two numbers (`&`, `^`, `|`, `<<`, `>>`, `>>>`), it will preform onto `number1` and `number2` 
+	Example In: {bit;&;6;3}
+	Example Out: 2
+
+ceil:
+	Usage: {ceil;number}
+	Description: Rounds `number` up.
+	Example In: {ceil;5.13}
+	Example Out: 6
+
+channelid:
+	Usage: {channelid}
+	Description: Returns the current id of the channel.
+	Example In: {channelid}
+	Example Out: 272212345340690443
+
+channelname:
+	Usage: {channelname}
+	Description: Returns the current name of the channel.
+	Example In: {channelname}
+	Example Out: general
+
+channeltopic:
+	Usage: {channeltopic}
+	Description: Returns the current topic of the channel.
+	Example In: {channeltopic}
+	Example Out: Website of Tatsumaki  is here: https://www.tatsumaki.xyz
+
+decr:
+	Usage: {decr;number}
+	Description: Decrases `number` by 1.
+	Example In: {decr;5}
+	Example Out: 4
+
+emojis:
+	Usage: {emojis;query[;amount[;offset[;seperator]]]}
+	Description: Searches for `amount` emoijis related to `query` with an offset of `offset` joined together by `seperator` 
+	Example In: {emojis;life;4;0;, }
+	Example Out: ✌, 😌, 🙌, ♻
+
+exec:
+	Usage: {exec;tag[;args;args;...]}
+	Description: Executes a `tag` available on the current guild (server). Arguments can be passed to the tag separated by semi-colons
+	Example In: {exec;say;this}
+	Example Out: this
+
+expr:
+	Usage: {expr;expression}
+	Description: Uses `t!math` api
+	Example In: {expr;max(5,15,30,25)}
+	Example Out: 30
+
+floor:
+	Usage: {floor;number}
+	Description: Rounds `number` down.
+	Example In: {floor;5.82418}
+	Example Out: 5
+
+get:
+	Usage: {get;name[;default]}
+	Description: Returns the value of tag variable `name`. If the variable is empty, it returns `default`.
+	Example In: {get;count}
+	Example Out: 12
+
+space:
+	Usage: {space[;number]}
+	Description: Returns spaces amounting to `number`. Defaults to 1. (for escaping purposes)
+	⚠ `number` is currently broken!
+	Example In: {space;5}
+	Example Out: 
+
+i:
+	Usage: {i[;depth]}
+	Description: Returns the current value of the `loop` variable, at a given `depth`, default value of which is zero. The `depth` is 0 for one loop, 1 for a loop inside a loop and 2 for 3 nested loops. Works only inside a `loop` tag.
+	Example In: {loop;0;5;{i}; }
+	Example Out: 0 1 2 3 4 5
+
+if:
+	Usage: {if;comparator;value1;value2;then;else}
+	Description: Compares `value1` to `value2` using `comparator` If true returns `then`, if false returns `else` Valid compators are: `==`, `!=`, `<`, `>`, `<=`, `>=`, `||`, `&&` 
+	Example In: {set;score;80}
+	{if;>;{get;score};50;You passed!;You failed...}
+	Example Out: You passed!
+
+incr:
+	Usage: {incr;number}
+	Description: Increases number by 1.
+	Example In: {incr;5}
+	Example Out: 6
+
+indexof:
+	Usage: {indexof;text;query}
+	Description: Finds the first zero based index of `query` in `text` 
+	Example In: {indexof;hello;l}
+	Example Out: 2
+
+inject:
+	Usage: {inject;code}.
+	Description: Executes escaped tag `code` and returns the result
+	Example In: {inject;{lb}math{semi}+{semi}1{semi}2{rb}}
+	Example Out: 3
+
+lastindexof:
+	Usage: {lastindexof;text;query}
+	Description: Finds the last index of `query` in `text` 
+	Example In: {lastindexof;hello;l}
+	Example Out: 3
+
+lb:
+	Usage: {lb}
+	Description: Returns a left brace (for escaping purposes).
+	Example In: {lb}
+	Example Out: {
+
+length:
+	Usage: {length;string}
+	Description: Returns the length of `string` 
+	Example In: {length;potatos}
+	Example Out: 7
+
+loop:
+	Usage: {loop;initialValue;finalValue;code[;separator]}
+	Description: Executes `code` in a loop from `initialValue` to `finalValue` separated by `separator` `initialValue` and `finalValue` must be numbers such that `initialValue` is less than or equal to `finalValue` 
+	Example In: {loop;0;5;{i}; }
+	Example Out: 0 1 2 3 4 5
+
+lower:
+	Usage: {lower;string}
+	Description: Returns a copy of `string` all in lowercase letters.
+	Example In: {lower;suPeRMaN}
+	Example Out: superman
+
+math:
+	Usage: {math;operator;number1[;number2[;number3...]]}
+	Description: Preforms `operator` on all given `number`s. Valid `operator`s are: `+`, `-`, `/`, `*`, `%`, `^`, `sqrt`, `cbrt` 
+	Example In: {math;*;5;6}
+	Example Out: 30
+
+nl:
+	Usage: {nl}
+	Description: Returns a new line character. (for escaping purposes)
+	Example In: {nl}
+	Example Out: 
+
+pad:
+	Usage: {pad;direction;text;size;pattern}
+	Description: Adds `pattern` to the `direction` of `text` until its length is `size` 
+	Example In: {pad;l;> Vapor;11;-=}
+	Example Out: -=-=> Vapor
+
+randarg:
+	Usage: {randarg}
+	Description: Returns a random argument provided by the tag caller.
+	Example In:	{randarg}
+	Example Out: World!
+
+randchoice:
+	Usage: {randarg;choice1;choice2[;choice3...]}
+	Description: Randomly chooses one of the choices and returns it.
+	Example In: {randchoice;dog;snake;cat;horse}
+	Example Out: snake
+
+randexp:
+	Usage: {randexp;pattern[;flags]}
+	Description: Creates random strings that match a given regular expression.
+	https://fent.github.io/randexp.js/ 
+	Example In: {expr;(5*5)^2}
+	Example Out: 125
+
+randint:
+	Usage: {randint;value1;value2}
+	Description: Randomly chooses a value between `value1` and `value2` and returns it. The default value of `value1` is `0` and the default value of `value2` is `9` 
+	Example In: {randint;12;30}
+	Example Out: 20
+
+randstr:
+	Usage: {randstr;string;amount}
+	Description: Randomly chooses a character from `string` and returns it. Can specify how many characters to return, default is `1` 
+	Example In: {randstr;0123456789abcdef;32}
+	Example Out: 41c5294cebf0d87b2ff3aa663dfef34f
+
+randuser:
+	Usage: {randuser}
+	Description: Randomly chooses a member from all the members in a guild and returns his ID.
+	Example In: {randuser}
+	Example Out: 140912052657979392
+
+rb:
+	Usage: {rb}
+	Description: Returns a right brace (for escaping purposes).
+	Example In: {rb}
+	Example Out: }
+
+regexreplace:
+	Usage: {regexreplace;string;regexFrom;to}
+	Description: Use a regular expression (`regexFrom`) to replace something in `string` with `to` 
+	Example In: {regexreplace;hello world!;/[^a-z0-9]/gi;-}
+	Example Out: hello-world-
+
+repeat:
+	Usage: {repeat;string;amount}
+	Description: Repeats `string` for a `amount` number of times and returns it.
+	Example In: {repeat;color;3}
+	Example Out: colorcolorcolor
+
+replace:
+	Usage: {replace;string;from;to}
+	Description: Replace something in `string`, from `from` to `to` 
+	Example In: {replace;I love rain;love;hate}
+	Example Out: I hate rain
+
+reverse:
+	Usage: {reverse;string}
+	Description: Reverses a string.
+	Example In: {reverse;lemmons}
+	Example Out: snommel
+
+round:
+	Usage: {round;value}
+	Description: Rounds `value` to the nearest integer. Note that `49` will be rounded down and `5` will be rounded up.
+	Example In: {round;2.62}
+	Example Out: 3
+
+semi:
+	Usage: {semi}
+	Description: Returns a semicolon (for escaping purposes).
+	Example In: {semi}
+	Example Out: ;
+
+serverid:
+	Usage: {serverid}
+	Description: Returns the current server id.
+	Example In: {serverid}
+	Example Out: 234364573456374346
+
+servername:
+	Usage: {servername}
+	Description: Returns the current server name.
+	Example In: {servername}
+	Example Out: The Cafe Lounge
+
+serverusers:
+	Usage: {serverusers}
+	Description: Returns the current server member count.
+	Example In: {serverusers}
+	Example Out: 363
+
+set:
+	Usage: {set;name;value}
+	Description: Sets the value of tag variable `name` to `value` 
+	Example In: {set;count;23}
+	Example Out: 
+
+shuffle:
+	Usage: {shuffle;string}
+	Description: Shuffles the characters of a string and returns it.
+	Example In: {shuffle;apple}
+	Example Out: plaep
+
+substr:
+	Usage: {substr;string;start;length}
+	Description: Returns the characters of `string` between 0 indexed `start` and until length is `length`. Default value for `start` is `0` and for `length` it is the `string`s length.
+	Example In: {substr;Is this working?;8;4}
+	Example Out: work
+	
+switch:
+	Usage: {switch;value;case1;content1;[;case2;content2...][;default]}
+	Description: Finds the `case` that is equal to `value`, and returns the corresponding `content` If no equal `case` is found will return `default` 
+	Example In: {set;wins;4}
+	{switch;{get;wins};
+		1;You got at least 1 win;
+		2;You got 2 wins, not too bad;
+		3;3 wins the charm!;
+		4;So close, yet so far!
+		5;You won everything!;
+		You won more than 5!
+	}
+	Example Out: So close, yet so far!
+
+time:
+	Usage: {time[;format[;timestamp[;timezone]]]}
+	Description: Returns a UNIX `timestamp` in a certain time `format` and in a certain TZ `timezone` Default of `format` is `LTS`, for `timestamp` is the current time and for `timezone` is `Asia/Singapore` 
+	Example In: {time;YYYY MM DD;now;GMT}
+	Example Out: 2017 03 01
+
+upper:
+	Usage: {upper;string}
+	Description: Returns a copy of `string` all in uppercase letters.
+	Example In: {upper;suPeRmaN}
+	Example Out: SUPERMAN
+
+usercreatedat:
+	Usage: {usercreatedat[;user]}
+	Description: Returns a UNIX timestamp of the `user`s account creation date. The `user` value can be anything with an id in it (including @mentions). Default `user` is the person that called the command.
+	Example In: {usercreatedat;@Tatsumaki}
+	Example Out: 1453648451
+
+usercredits:
+	Usage: {usercredits[;user]}
+	Description: Returns the amount of Tatsumaki credits that `user` has. The `user` value can be anything with an id in it (including @mentions). Default `user` is the person that called the command.
+	Example In: {usercredits;140912052657979392}
+	Example Out: 3457
+
+userdiscrim:
+	Usage: {userdiscrim[;user]}
+	Description: Returns the `user`s discriminator. The `user` value can be anything with an id in it (including @mentions). Default `user` is the person that called the command.
+	Example In: {userdiscrim;@Tatsumaki}
+	Example Out: 8792
+
+userid:
+	Usage: {userid[;user]}
+	Description: Returns the `user`s ID. The `user` value can be anything with an id in it (including @mentions). Default `user` is the person that called the command.
+	Example In: {userid;@Tatsumaki}
+	Example Out: 172002275412279296
+
+username:
+	Usage: {username[;user]}
+	Description: Returns the `user`s discord username. The `user` value can be anything with an id in it (including @mentions). Default `user` is the person that called the command.
+	Example In: {username;@Tatsumaki}
+	Example Out: Tatsumaki
+
+usernick:
+	Usage: {usernick[;user]}
+	Description: Returns the `user`s nickname in the current server. The `user` value can be anything with an id in it (including @mentions). Default `user` is the person that called the command.
+	Example In: {usernick;@Tatsumaki}
+	Example Out: The Tornado
+
+userperms:
+	Usage: {userperms[;user]}
+	Description: Returns the `user`s allowed permissions number. The `user` value can be anything with an id in it (including @mentions). Default `user` is the person that called the command.
+	Example In: {userperms;@Tatsumaki}
+	Example Out: 2080374847
+
+userpoints:
+	Usage: {userpoints[;user]}
+	Description: Returns the `user`s server points from the current server. The `user` value can be anything with an id in it (including @mentions). Default `user` is the person that called the command.
+	Example In: {userpoints;@David}
+	Example Out: 2732
+
+userrep:
+	Usage: {userrep[;user]}
+	Description: Returns the `user`s global reputation points. The `user` value can be anything with an id in it (including @mentions). Default `user` is the person that called the command.
+	Example In: {userrep;@David}
+	Example Out: 62
+
+userrole:
+	Usage: {userrole[;user[;index]]}
+	Description: Returns the `user`s role id at the `index` The `user` value can be anything with an id in it (including @mentions). The `index` value is the index of the role you want to get, roles are zero-based indexed. If `index` is -1, it will get the role at the top of their roles list. Default `user` is the person that called the command. Default `index` is -1.
+	Example In: {userrole;@Vap0r1ze;-1}
+	Example Out: 175654938540638208
+
+userscore:
+	Usage: {userscore[;userid]}
+	Description: Displays `userid`s current score, defaults to the user calling the tag.
+	⚠ `userid` is currently broken!
+	Example In: {userscore;@Kao#0001}
+	Example Out: 81624
+
+userxp:
+	Usage: {userxp[;user]}
+	Description: Returns the `user`s amount of global experience. The `user` value can be anything with an id in it (including @mentions). Default `user` is the person that called the command.
+	Example In: {userxp;@David}
+	Example Out: 319675
+
+vars:
+	Usage: {vars[;index]}
+	Description: Returns number of tag variables when no arguments are passed. Returns the name of the tag variable at `index` if specified.
+	Example In: {vars}
+	Example Out: 4

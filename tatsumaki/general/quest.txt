@@ -1,0 +1,1 @@
+{aset;state;{if;!=;1;{aget;{userid}pet#batt};-1;{if;<=;{aget;{userid}pet#hp};0;-2;{if;==;

@@ -1,0 +1,16 @@
+t!t test {aset;pre17;❎ | User you proposed to is blacklisted!}{aset;pre18;❎ | You've disabled harem!}{aset;pre19;❎ | This user has disabled their harem!}{aset;pre20;❎ | This user can't have a harem yet!}{aset;divm1;This will divorce you and your partner. You won't be able to marry this user again. Are you sure? Type t!t marry divorce accept.}{aset;pre21;❎ | You're already in their harem!}{aset;pre22;❎ | You cannot add yourself to your own harem!}{aset;pre23; and hasn't answered yet!}{aset;pre24;❎ | You have already been proposed by }{aset;pre25; to accept the proposal, do `t!t marry accept` or `t!t marry cancel` to cancel it.}{aset;pre26;❎ | You have already proposed to this user!}{aset;marer1;❎ | You are already married!}{aset;marer2;💔 | You have cancelled the proposal.}{aset;marer3;❎ | You can't answer your own proposal!}{aset;marer4;💒 | {username}, you are now successfully wed with}{aset;marer5;❎ | No one has proposed to you yet! Propose by doing `t!t marry propose @user`.}{aset;1mo;2678400000}{aset;1d;86400000}{aset;2wk;604800000}{aset;{userid}admin;1}{aset;kao;{userid}}{aset;deber;**❎ | You do not have enough permissions to access management console.**}
+
+
+t!t test {aset;pre0;❎ | An error occured!}{aset;pre2;⛪ | You have already proposed to }{aset;pre3;❎ | You can't propose two times, do `t!t marry cancel` to remove your previous proposal.}{aset;pre4;❎ | Please provide a user!}{aset;pre5;🔍 | User can't be found.}{aset;pre6;❎ | This user is already married!}{aset;pre7;❎ | You cannot marry yourself!}{aset;pre8;❎ | Your account is too young!}{aset;pre9;❎ | User's account is too young!}{aset;scd;832961}{aset;pre10;❎ | This user has already been proposed by }{aset;pre27; and hasn't answered yet!}{aset;pre11;❎ | You have divorced with this person before!}{aset;pre12;❎ | This person has divorced with you before!}{aset;pre13;, you have proposed to}{aset;pre14;, to accept type `t!t marry accept`.}{aset;pre15;❎ | You are already married!}{aset;pre16;❎ | You are blacklisted!}{aset;pre17;❎ | User you proposed to is blacklisted!}{aset;pre18;❎ | You've disabled harem!}{aset;pre19;❎ | This user has disabled their harem!}{aset;pre20;❎ | This user can't have a harem yet!}{aset;divm1;This will divorce you and your partner. You won't be able to marry this user again. Are you sure? Type t!t marry divorce accept.}{aset;pre21;❎ | You're already in their harem!}{aset;pre22;❎ | You cannot add yourself to your own harem!}{aset;pre23; and hasn't answered yet!}{aset;pre24;❎ | You have already been proposed by}{aset;marerm;```rb
+`Marriage Menu` ```
+Always prefix tags with `t!t`.
+
+**1. `t!t propose @user` - Proposes to the user.
+2. `t!t marry deny` - Denies the proposal.
+3. `t!t marry cancel` - Cancels the proposal.
+4. `t!t marry accept` - Accepts the marriage.
+5. `t!t divorce` - Divorces a marriage.
+6. `t!t status [@user]` - Checks your status. If `@user` - is specified, it checks the status of that user.**
+
+```py
+>>> This marriage system was made by Kao#9678```}

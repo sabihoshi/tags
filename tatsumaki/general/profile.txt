@@ -1,0 +1,13 @@
+📝 | **User profile card for {username;{args;0}}**
+`​`​`Name: {username;{args;0}}#{userdiscrim;{args;0}}
+AKA: {usernick;{args;0}}
+ID: {userid;{args;0}}```
+📄 **Info Box**
+```{if;==;{aget;{userid;{args}}kaoinfobox};;
+I'm a very mysterious person.
+(This user doesn't have any info set!) Use t!t SetInfoBox (text) to write in your info box!;{aget;{userid;{args}}kaoinfobox}}```
+**__They have:__**
+```{set;0;{length;+{userrep;{args;0}}rep }}+{userrep;{args;0}}rep
+{repeat; ;{get;0}}Total XP {userxp;{args;0}}
+LEVEL{repeat; ;{math;-;{get;0};5}}Credits {repeat; ;1}¥ {usercredits;{args;0}}
+{floor;{math;*;0.12;{math;sqrt;{userxp;{args;0}}}}}{set;1;{length;{floor;{math;*;0.12;{math;sqrt;{userxp;{args;0}}}}}}}{repeat; ;{math;-;{get;0};{get;1}}}Points {repeat; ;2}{userpoints;{args;0}}`​`​`

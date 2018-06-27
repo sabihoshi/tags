@@ -1,0 +1,10 @@
+t!t edit foreach {exec;void;
+	{set;index;{args;0}}
+	{loop;1;{decr;{get;index}};
+		{set;current;{aget;{aget;array}_rank{get;index}}}
+		{if;>;{usercredits;{get;current}};{usercredits;{aget;{aget;array}_rank{decr;{get;index}}}};
+			{aset;{aget;array}_rank{get;index};{userid;{aget;{aget;array}_rank{decr;{get;index}}}}}
+			{aset;{aget;array}_rank{decr;{get;index}};{userid;{get;current}}}
+		{space}|{space}
+	}
+}}

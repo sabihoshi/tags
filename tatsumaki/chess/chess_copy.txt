@@ -1,0 +1,23 @@
+{if;==;`User not found`;{userid;246903976937783296};
+	❌ Run this in Tatsumakis Lounge!;
+{if;==;update;{lower;{args;0}};
+	{if;==;-1;{indexof;{get;update_list};{userid}};
+	{set;update_list;{if;==;;{get;update_list};<@{userid}>;{get;update_list}, <@{userid}>}}**Added you to updates!**;
+	{set;update_list;{regexreplace;{get;update_list};<@{userid}>,?;}}{if;==;-1;{indexof;{get;update_list};{userid}};**Removed you from updates!**;❌ **An error occured!** Please report to tag creator.}
+	};
+{if;==;{userid};246903976937783296;
+{get;update_list}{nl}**New Update!**
+```rb
+`Chess Tag {aget;version}` ```
+A new update has arrived, run `t!t raw chess` and update the tag in your server accordingly. If you want to stop updates, do `t!t chess_copy update`{nl}What is new in {aget;version}?{nl}{regexreplace;{regexreplace;{args};/([^,]+)/g;**• $1**{nl}};/,/g;};
+```rb
+`Chess Tag {aget;version}` ```
+**Introduction:**
+You have copied this tag from the creator, <@246903976937783296>.
+Because of that, thank you for appreciating my work enough that you wanted it on your own server.
+Make sure to thank the creator, me for the tag. It took me a very long time to create this tag, with around {aget;chess_length} characters and {aget;chess_lines} lines now.
+To apply for updates of the chess tag, do `t!t chess_copy update`. Do it again to remove yourself from the list.
+
+**How to copy the chess tag**:
+```js
+t!t test {lb}aset{semi}firstrun{semi}1{rb}```}}}

@@ -1,0 +1,27 @@
+{aset;cmd#timer;**Time Since or Countdown To Specified Time (`from seconds`)** - Allen Miquel#8168
+
+This snippet will convert any given time provided (in seconds) to display in Days, Hours, Minutes and Seconds in a more traditional way, rather than a long/big number in seconds. You can also use `{lb}time{semi}X{rb}` to parse real time.```py
+{lb}inject{semi}{semi}Your time in Seconds to show the Time "Since":{rb}
+{lb}set{semi}~time{semi}177955{rb}
+{lb}inject{semi}{semi}OR in a {lb}time{semi}X{rb} format to show a Countdown Time "To":{rb}
+{lb}set{semi}~time{semi}{lb}time{semi}X{semi}5:00am{semi}h:ma{semi}US/Eastern{rb}{rb}
+{lb}set{semi}~time{semi}{lb}floor{semi}{lb}math{semi}-{semi}{lb}get{semi}~time{rb}{semi}{lb}time{semi}X{rb}{rb}{rb}{rb}
+
+{lb}inject{semi}{semi}Optionally, if the {lb}time{semi}X{rb} method is chosen, and the specified time has already Passed, the code will add 24 hours to the countdown using the {lb}if{rb} Above, effectively pointing at the same hour every day. Very customizable.{rb}
+{lb}if{semi}{lb}get{semi}~time{rb}{semi}<{semi}{lb}time{semi}X{rb}{semi}{lb}void{semi}{lb}increment{semi}~time{semi}86400{rb}{rb}{rb}
+
+{lb}inject{semi}{semi}Parse Time to Days:{rb}
+{lb}set{semi}~d{semi}{lb}floor{semi}{lb}math{semi}/{semi}{lb}get{semi}~time{rb}{semi}86400{rb}{rb}{rb}
+{lb}inject{semi}{semi}Parse Remaining Hours in Days:{rb}
+{lb}set{semi}~dh{semi}{lb}floor{semi}{lb}math{semi}/{semi}{lb}math{semi}%{semi}{lb}get{semi}~time{rb}{semi}86400{rb}{semi}3600{rb}{rb}{rb}
+{lb}inject{semi}{semi}Parse Time to Hours:{rb}
+{lb}set{semi}~h{semi}{lb}floor{semi}{lb}math{semi}/{semi}{lb}get{semi}~time{rb}{semi}3600{rb}{rb}{rb}
+{lb}inject{semi}{semi}Parse Time to Minutes:{rb}
+{lb}set{semi}~m{semi}{lb}floor{semi}{lb}math{semi}/{semi}{lb}math{semi}%{semi}{lb}get{semi}~time{rb}{semi}3600{rb}{semi}60{rb}{rb}{rb}
+{lb}inject{semi}{semi}Parse Time to Seconds:{rb}
+{lb}set{semi}~s{semi}{lb}math{semi}%{semi}{lb}get{semi}~time{rb}{semi}60{rb}{rb}
+
+{lb}inject{semi}{semi}Result. Feel free to {lb}get{rb} any of these variables in whichever way/format you like:{rb}
+**Original Time**: `{lb}get{semi}~time{rb}s`
+**Time in Days**: `{lb}get{semi}~d{rb}d {lb}get{semi}~dh{rb}h {lb}get{semi}~m{rb}m {lb}get{semi}~s{rb}s`
+**Time in Hours**: `{lb}get{semi}~h{rb}h {lb}get{semi}~m{rb}m {lb}get{semi}~s{rb}s` ```}

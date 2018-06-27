@@ -1,0 +1,7 @@
+{aget;exp#{get;exp}}
+{aset;exp#rook_move_match_false;
+	:x: FATAL ERROR! Please report to the tag creator. `{lb}substr{semi}{lb}lower{semi}{lb}args{semi}1{rb}{rb}{semi}0{semi}1{rb} and {lb}substr{semi}{lb}lower{semi}{lb}args{semi}1{rb}{rb}{semi}0{semi}1{rb} do not match.`
+}
+{aset;exp#bishop_math_not_match;
+	:x: FATAL ERROR! Please report to the tag creator. `{lb}get{semi}ch_1{rb} and {lb}get{semi}ch_2{rb} do not match.`
+}

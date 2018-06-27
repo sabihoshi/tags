@@ -1,0 +1,13 @@
+{set;data;500(111542157977886720)500(282934482988957697)500(157177331440549888)500(230430637280985088)500(136727178325917696)500(108798167448846336)500(297171051840929793)500(289111722420076544)500(209502682644217859)}
+{set;data;{regexreplace;{get;data};/(\d+)(\(\d{lb}17,18{rb}\))/g;$1($2)
+
+{set;l;}
+{set;idx;{regexreplace;{args;1;n};/\s/g;,}}
+{loop;1;
+	{regexreplace;{args;0};/\D+/g};
+	{set;id;{expr;max({regexreplace;{get;idx};/\(\w+\)/g})}}
+	{set;t;{regexreplace;{get;idx};/.*{get;id}\((\w+)\).*/g;$1}}
+	{set;l;{get;l} {regexreplace;{get;idx};/.*{get;id}\((\w+)\).*/g;$1{if;==;{substr;{args};0;1};s;-{get;id}}}}
+	{set;idx;{regexreplace;{regexreplace;{get;idx};/{get;id}\({get;t}\),?/g};/,$/}}
+}
+{get;l}

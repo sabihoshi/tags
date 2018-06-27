@@ -1,0 +1,2063 @@
+{regexreplace;
+{if;!=;eval;{lower;{args;0}};
+{aset;exec;true}
+{aset;return}
+{aset;continue}
+{aset;promote}
+{aset;~move_success}
+{aset;nl;​{nl}}
+}
+{if;==;;{aget;{userid}chess_board};{aset;{userid}chess_board;plain}}
+{if;==;;{aget;{userid}chess_piece};{aset;{userid}chess_piece;alpha}}
+{if;==;;{aget;{userid}chess_color_dark};{aset;{userid}chess_color_dark;8f604f}}
+{if;==;;{aget;{userid}chess_color_light};{aset;{userid}chess_color_light;ffcc99}}
+{if;==;;{aget;{userid}ch_size};{aset;{userid}ch_size;xl}}
+{if;==;;{aget;{userid}ch_coord};{aset;{userid}ch_coord;o}}
+{switch;{lower;{args;0}};
+	eval;
+		{if;!=;1;{get;firstrun};
+			{if;==;`User not found`;{userid;246903976937783296};
+				{set;username;Kao}
+				{set;userdiscrim;0001};
+				{set;username;{username;246903976937783296}}
+				{set;userdiscrim;{userdiscrim;246903976937783296}}
+			}
+			```rb
+			`Chess Tag v1.2 Build 9` ```
+			**Introduction:**
+			You have copied this tag from the creator, **{get;username}#{get;userdiscrim}**.
+			Because of that, thank you for appreciating my work enough that you wanted it on your own server. But be sure to thank me, and make sure to tell me that you have copied it. Go to Tatsumaki Lounge, and run the tag `t!t chess_copy` in order to get instructions on how to make the tag work.
+			You can use `t!t chess help` to find the help menu of the tag.;
+		{if;==;true;{aget;return};;
+		{regexreplace;
+			{if;!=;{userid};{aget;admin};❌ You cannot run this!{aset;return;true};
+			{inject;{args;1;n}}
+		;/\t+|^[\r\n]+/gm;}}}};
+	reset;
+		{regexreplace;
+			{if;!=;1;{get;firstrun};
+				{if;==;`User not found`;{userid;246903976937783296};
+					{set;username;Kao}
+					{set;userdiscrim;0001};
+					{set;username;{username;246903976937783296}}
+					{set;userdiscrim;{userdiscrim;246903976937783296}}
+				}
+				```rb
+				`Chess Tag v1.2 Build 9` ```
+				**Introduction:**
+				You have copied this tag from the creator, **{get;username}#{get;userdiscrim}**.
+				Because of that, thank you for appreciating my work enough that you wanted it on your own server. But be sure to thank me, and make sure to tell me that you have copied it. Go to Tatsumaki Lounge, and run the tag `t!t chess_copy` in order to get instructions on how to make the tag work.
+				You can use `t!t chess help` to find the help menu of the tag.;
+			{if;!=;{userid};{aget;admin};❌ You cannot run this!{aset;return;true}}
+			{if;==;true;{aget;return};;
+				{aset;~p;{aget;{userid}chess_instance}}
+				{aset;{aget;~p}unmoved$k;1}
+				{aset;{aget;~p}unmoved$K;1}
+				{aset;{aget;~p}unmoved$r_a8;1}
+				{aset;{aget;~p}unmoved$r_h8;1}
+				{aset;{aget;~p}unmoved$R_a1;1}
+				{aset;{aget;~p}unmoved$R_h1;1}
+				{aset;{aget;~p}unmoved$p_a7;1}{aset;{aget;~p}passant$p_a5;0}
+				{aset;{aget;~p}unmoved$p_b7;1}{aset;{aget;~p}passant$p_b5;0}
+				{aset;{aget;~p}unmoved$p_c7;1}{aset;{aget;~p}passant$p_c5;0}
+				{aset;{aget;~p}unmoved$p_d7;1}{aset;{aget;~p}passant$p_d5;0}
+				{aset;{aget;~p}unmoved$p_e7;1}{aset;{aget;~p}passant$p_e5;0}
+				{aset;{aget;~p}unmoved$p_f7;1}{aset;{aget;~p}passant$p_f5;0}
+				{aset;{aget;~p}unmoved$p_g7;1}{aset;{aget;~p}passant$p_g5;0}
+				{aset;{aget;~p}unmoved$p_h7;1}{aset;{aget;~p}passant$p_h5;0}
+				{aset;{aget;~p}unmoved$P_a2;1}{aset;{aget;~p}passant$P_a4;0}
+				{aset;{aget;~p}unmoved$P_b2;1}{aset;{aget;~p}passant$P_b4;0}
+				{aset;{aget;~p}unmoved$P_c2;1}{aset;{aget;~p}passant$P_c4;0}
+				{aset;{aget;~p}unmoved$P_d2;1}{aset;{aget;~p}passant$P_d4;0}
+				{aset;{aget;~p}unmoved$P_e2;1}{aset;{aget;~p}passant$P_e4;0}
+				{aset;{aget;~p}unmoved$P_f2;1}{aset;{aget;~p}passant$P_f4;0}
+				{aset;{aget;~p}unmoved$P_g2;1}{aset;{aget;~p}passant$P_g4;0}
+				{aset;{aget;~p}unmoved$P_h2;1}{aset;{aget;~p}passant$P_h4;0}
+				{aset;{aget;~p}a8;r}{aset;{aget;~p}a7;p}{aset;{aget;~p}a6;-}{aset;{aget;~p}a5;-}
+				{aset;{aget;~p}b8;n}{aset;{aget;~p}b7;p}{aset;{aget;~p}b6;-}{aset;{aget;~p}b5;-}
+				{aset;{aget;~p}c8;b}{aset;{aget;~p}c7;p}{aset;{aget;~p}c6;-}{aset;{aget;~p}c5;-}
+				{aset;{aget;~p}d8;q}{aset;{aget;~p}d7;p}{aset;{aget;~p}d6;-}{aset;{aget;~p}d5;-}
+				{aset;{aget;~p}e8;k}{aset;{aget;~p}e7;p}{aset;{aget;~p}e6;-}{aset;{aget;~p}e5;-}
+				{aset;{aget;~p}f8;b}{aset;{aget;~p}f7;p}{aset;{aget;~p}f6;-}{aset;{aget;~p}f5;-}
+				{aset;{aget;~p}g8;n}{aset;{aget;~p}g7;p}{aset;{aget;~p}g6;-}{aset;{aget;~p}g5;-}
+				{aset;{aget;~p}h8;r}{aset;{aget;~p}h7;p}{aset;{aget;~p}h6;-}{aset;{aget;~p}h5;-}
+				{aset;{aget;~p}a4;-}{aset;{aget;~p}a3;-}{aset;{aget;~p}a2;P}{aset;{aget;~p}a1;R}
+				{aset;{aget;~p}b4;-}{aset;{aget;~p}b3;-}{aset;{aget;~p}b2;P}{aset;{aget;~p}b1;N}
+				{aset;{aget;~p}c4;-}{aset;{aget;~p}c3;-}{aset;{aget;~p}c2;P}{aset;{aget;~p}c1;B}
+				{aset;{aget;~p}d4;-}{aset;{aget;~p}d3;-}{aset;{aget;~p}d2;P}{aset;{aget;~p}d1;Q}
+				{aset;{aget;~p}e4;-}{aset;{aget;~p}e3;-}{aset;{aget;~p}e2;P}{aset;{aget;~p}e1;K}
+				{aset;{aget;~p}f4;-}{aset;{aget;~p}f3;-}{aset;{aget;~p}f2;P}{aset;{aget;~p}f1;B}
+				{aset;{aget;~p}g4;-}{aset;{aget;~p}g3;-}{aset;{aget;~p}g2;P}{aset;{aget;~p}g1;N}
+				{aset;{aget;~p}h4;-}{aset;{aget;~p}h3;-}{aset;{aget;~p}h2;P}{aset;{aget;~p}h1;R}
+				{set;chess_link;
+					http://www.jinchess.com/chessboard/?p=	
+				}
+				**Reset Board!**
+				{get;chess_link}{aget;{aget;~p}a8}{aget;{aget;~p}b8}{aget;{aget;~p}c8}{aget;{aget;~p}d8}{aget;{aget;~p}e8}{aget;{aget;~p}f8}{aget;{aget;~p}g8}{aget;{aget;~p}h8}{aget;{aget;~p}a7}{aget;{aget;~p}b7}{aget;{aget;~p}c7}{aget;{aget;~p}d7}{aget;{aget;~p}e7}{aget;{aget;~p}f7}{aget;{aget;~p}g7}{aget;{aget;~p}h7}{aget;{aget;~p}a6}{aget;{aget;~p}b6}{aget;{aget;~p}c6}{aget;{aget;~p}d6}{aget;{aget;~p}e6}{aget;{aget;~p}f6}{aget;{aget;~p}g6}{aget;{aget;~p}h6}{aget;{aget;~p}a5}{aget;{aget;~p}b5}{aget;{aget;~p}c5}{aget;{aget;~p}d5}{aget;{aget;~p}e5}{aget;{aget;~p}f5}{aget;{aget;~p}g5}{aget;{aget;~p}h5}{aget;{aget;~p}a4}{aget;{aget;~p}b4}{aget;{aget;~p}c4}{aget;{aget;~p}d4}{aget;{aget;~p}e4}{aget;{aget;~p}f4}{aget;{aget;~p}g4}{aget;{aget;~p}h4}{aget;{aget;~p}a3}{aget;{aget;~p}b3}{aget;{aget;~p}c3}{aget;{aget;~p}d3}{aget;{aget;~p}e3}{aget;{aget;~p}f3}{aget;{aget;~p}g3}{aget;{aget;~p}h3}{aget;{aget;~p}a2}{aget;{aget;~p}b2}{aget;{aget;~p}c2}{aget;{aget;~p}d2}{aget;{aget;~p}e2}{aget;{aget;~p}f2}{aget;{aget;~p}g2}{aget;{aget;~p}h2}{aget;{aget;~p}a1}{aget;{aget;~p}b1}{aget;{aget;~p}c1}{aget;{aget;~p}d1}{aget;{aget;~p}e1}{aget;{aget;~p}f1}{aget;{aget;~p}g1}{aget;{aget;~p}h1}&tm={aget;{aget;~p}tm}{if;==;m;{aget;{userid}ch_size};;&s={aget;{userid}ch_size}}&tt={username;{aget;{aget;~p}p2}}&ct={username;{aget;{aget;~p}p1}}{switch;{aget;{userid}chess_board};;;plain;;&bp={aget;{userid}chess_board}}{switch;{aget;{userid}chess_board};;;alpha;;&ps={aget;{userid}chess_piece}}{switch;{aget;{userid}ch_coord};;&cm=o;nc;;&cm={aget;{userid}ch_coord}}
+			}}
+		;/\t+|^[\r\n]+/gm;};
+	help;
+		{regexreplace;
+			{switch;{lower;{args;1}};;
+				```ruby
+				`Chess Help Menu v1.2 Build 9` ```
+
+				**Commands:**
+				1. `t!t chess theme` - Changes your chess style to the desired theme. Use without any arguments to get the help menu
+				2. `t!t chess start <@user> [w|b]` - Starts a match against user. If a color is chosen, that will be your color.
+				3. `t!t chess move <pos1> <pos2> [queen|knight|rook|bishop]` - Moves the piece in `pos1` to `pos2`, for example you want to move the rook at `a1` to `a8`, It will be `t!t chess move a1 a8`. The queen, knight, rook, and bishop are for when promoting a pawn.
+				4. `t!t chess <forfeit|quit|stop|end>` - Terminate your current match and forfeit.
+				5. `t!t chess stalemate` - Since the game cannot detect if a stalemate happens or not, the two players must announce it is a stalemate.
+			}
+		;/\t+|^[\r\n]+/gm;};
+	theme;
+		{regexreplace;
+			{if;!=;1;{get;firstrun};
+				{if;==;`User not found`;{userid;246903976937783296};
+					{set;username;Kao}
+					{set;userdiscrim;0001};
+					{set;username;{username;246903976937783296}}
+					{set;userdiscrim;{userdiscrim;246903976937783296}}
+				}
+				```rb
+				`Chess Tag v1.2 Build 9` ```
+				**Introduction:**
+				You have copied this tag from the creator, **{get;username}#{get;userdiscrim}**.
+				Because of that, thank you for appreciating my work enough that you wanted it on your own server. But be sure to thank me, and make sure to tell me that you have copied it. Go to Tatsumaki Lounge, and run the tag `t!t chess_copy` in order to get instructions on how to make the tag work.
+				You can use `t!t chess help` to find the help menu of the tag.;
+			{switch;{args;1};;There are currently two customizable themes, the chess board and the chess pieces. Please do `t!t chess theme <piece|board> <type>` in order to get that style. Putting no type gives the default theme.
+					{regexreplace;```prolog
+					​{pad;l;Piece;18;{space}}
+					{pad;l;adventure;14;{space}} | magnetic
+					{pad;l;adventure-flat;14;{space}} | magnetic-flat
+					{pad;l;alfonso-x;14;{space}} | mark
+					{pad;l;alfonso-x-flat;14;{space}} | mark-flat
+					{pad;l;alpha;14;{space}} | marroquin
+					{pad;l;alpha-flat;14;{space}} | marroquin-flat
+					{pad;l;berlin;14;{space}} | maya
+					{pad;l;berlin-flat;14;{space}} | maya-flat
+					{pad;l;condal;14;{space}} | medieval
+					{pad;l;condal-flat;14;{space}} | medieval-flat
+					{pad;l;harlequin;14;{space}} | merida
+					{pad;l;harlequin-flat;14;{space}} | merida-flat
+					{pad;l;kingdom;14;{space}} | motif
+					{pad;l;kingdom-flat;14;{space}} | motif-flat
+					{pad;l;leipzig;14;{space}} | smart
+					{pad;l;leipzig-flat;14;{space}} | smart-flat
+					{pad;l;line;14;{space}} | usual
+					{pad;l;line-flat;14;{space}} | usual-flat
+					{pad;l;lucena;14;{space}} | utrecht
+					{pad;l;lucena-flat;14;{space}} | utrecht-flat``````prolog
+					​{pad;l;Board;18;{space}}
+					{pad;l;cold-marble;14;{space}} | red-marble
+					{pad;l;gray-tiles;14;{space}} | slate
+					{pad;l;green-marble;14;{space}} | winter
+					{pad;l;pale-wood;14;{space}} | wooden-dark
+					{pad;l;plain;14;{space}} |```
+					
+					Do `t!t chess theme advanced` to get more info about advanced features.;/\t/g;};
+				board;
+					{aset;~p_stat;
+						{switch;{args;2};;2;
+							cold-marble;1;
+							gray-tiles;1;
+							green-marble;1;
+							pale-wood;1;
+							plain;1;
+							red-marble;1;
+							slate;1;
+							winter;1;
+							wooden-dark;1;
+							0
+						}
+					}{regexreplace;
+					{switch;{aget;~p_stat};
+						1;Succesfully set board style to `{args;2}`!
+							{aset;{userid}chess_board;{args;2}};
+						2;Reset board style to `plain`!
+							{aset;{userid}chess_board;plain}
+							{aset;{userid}chess_color_dark;8f604f}
+							{aset;{userid}chess_color_light;ffcc99};
+						0;:x: You gave an invalid name!
+					};/\t/g;};
+				piece;
+					{aset;~p_stat;
+						{switch;{args;2};;2;
+							adventure;1;
+							adventure-flat;1;
+							alfonso-x;1;
+							alfonso-x-flat;1;
+							alpha;1;
+							alpha-flat;1;
+							berlin;1;
+							berlin-flat;1;
+							condal;1;
+							condal-flat;1;
+							harlequin;1;
+							harlequin-flat;1;
+							kingdom;1;
+							kingdom-flat;1;
+							leipzig;1;
+							leipzig-flat;1;
+							line;1;
+							line-flat;1;
+							lucena;1;
+							lucena-flat;1;
+							magnetic;1;
+							magnetic-flat;1;
+							mark;1;
+							mark-flat;1;
+							marroquin;1;
+							marroquin-flat;1;
+							maya;1;
+							maya-flat;1;
+							medieval;1;
+							medieval-flat;1;
+							merida;1;
+							merida-flat;1;
+							motif;1;
+							motif-flat;1;
+							smart;1;
+							smart-flat;1;
+							usual;1;
+							usual-flat;1;
+							utrecht;1;
+							utrecht-flat;1;
+							0
+						}
+					}
+					{regexreplace;
+					{switch;{aget;~p_stat};
+						1;Succesfully set piece style to `{args;2}`!
+							{aset;{userid}chess_piece;{args;2}};
+						2;Reset piece style to `alpha`!
+							{aset;{userid}chess_piece;alpha};
+						0;:x: You gave an invalid name!
+					};/\t/g;};
+				advanced;
+					{switch;{args;2};;Please do `t!t chess theme advanced <type>` in order to get that style.
+						{regexreplace;```prolog
+						{pad;l;Sizes;12;{space}}
+						{pad;l;Name;8;{space}} | Description
+						{aget;nl}
+						{pad;l;s;8;{space}} | Small sized board.
+						{pad;l;m;8;{space}} | Medium sized board. (Default)
+						{pad;l;l;8;{space}} | Large sized board.
+						{pad;l;xl;8;{space}} | Extra large sized board.
+						{aget;nl}
+						{pad;l;r;8;{space}} | coordinates at the Rim of the board.
+						{pad;l;o;8;{space}} | coordinates at the Outside of the board. (Default)
+						{pad;l;nc;8;{space}} | No Coordinates shown.```
+						
+						Do `t!t chess theme advanced` to get more info about advanced features.;/\t/g;};
+						s;Set chess board size to small!{aset;{userid}ch_size;s};
+						m;Set chess board size to medium!{aset;{userid}ch_size;m};
+						l;Set chess board size to large!{aset;{userid}ch_size;l};
+						xl;Set chess board size to extra large!{aset;{userid}ch_size;xl};
+						r;Set chess coordinates to the rim of the board!{aset;{userid}ch_coord;r};
+						o;Set chess coordinates to the outside of the board!{aset;{userid}ch_coord;o};
+						nc;Hidden chess coordinates!{aset;{userid}ch_coord;nc};
+						:x: Unrecognized command!
+					};
+				:x: Unrecognized command!
+			}}
+		;/\t+|^[\r\n]+/gm;};
+	start;
+		{regexreplace;
+			{if;!=;1;{get;firstrun};
+				{if;==;`User not found`;{userid;246903976937783296};
+					{set;username;Kao}
+					{set;userdiscrim;0001};
+					{set;username;{username;246903976937783296}}
+					{set;userdiscrim;{userdiscrim;246903976937783296}}
+				}
+				```rb
+				`Chess Tag v1.2 Build 9` ```
+				**Introduction:**
+				You have copied this tag from the creator, **{get;username}#{get;userdiscrim}**.
+				Because of that, thank you for appreciating my work enough that you wanted it on your own server. But be sure to thank me, and make sure to tell me that you have copied it. Go to Tatsumaki Lounge, and run the tag `t!t chess_copy` in order to get instructions on how to make the tag work.
+				You can use `t!t chess help` to find the help menu of the tag.;
+			{if;==;true;{aget;return};;
+			{if;==;{userid};{userid;{args;1}};:x: You cannot play against yourself!;
+			{if;==;1;{aget;{userid;{args;1}}bl};:x: This user is blacklisted or is a bot!;
+			{if;==;1;{aget;{userid;{args;1}}chess_game};:x: User is still playing a game!;
+			{if;==;1;{aget;{userid}chess_game};:x: You are still playing a game! Do `b!t chess quit`;
+			{aset;{userid}chess_instance;{base;{time;x};10;16}}
+			{aset;~p;{aget;{userid}chess_instance}}
+			{aset;{userid}en;{userid;{args;1}}}
+			{aset;{aget;{userid}en}en;{userid}}
+			{aset;{aget;{userid}en}chess_instance;{aget;~p}}
+			{aset;{userid}chess_init;1}
+			{aset;{aget;{userid}en}chess_init;1}
+			{if;==;;{aget;{userid}chess_board};{aset;{userid}chess_board;plain}}
+			{if;==;;{aget;{userid}chess_piece};{aset;{userid}chess_piece;alpha}}
+			{if;==;;{aget;{userid}chess_size};{aset;{userid}chess_size;xl}}
+			{if;==;;{aget;{userid}chess_coord};{aset;{userid}chess_coord;o}}
+			{if;==;;{aget;{userid}chess_color_dark};{aset;{userid}chess_color_dark;8f604f}}
+			{if;==;;{aget;{userid}chess_color_light};{aset;{userid}chess_color_light;ffcc99}}
+			{if;==;;{aget;{aget;{userid}en}chess_board};{aset;{aget;{userid}en}chess_board;plain}}
+			{if;==;;{aget;{aget;{userid}en}chess_piece};{aset;{aget;{userid}en}chess_piece;alpha}}
+			{if;==;;{aget;{aget;{userid}en}chess_size};{aset;{aget;{userid}en}chess_size;xl}}
+			{if;==;;{aget;{aget;{userid}en}chess_coord};{aset;{aget;{userid}en}chess_coord;o}}
+			{if;==;;{aget;{aget;{userid}en}chess_color_dark};{aset;{aget;{userid}en}chess_color_dark;8f604f}}
+			{if;==;;{aget;{aget;{userid}en}chess_color_light};{aset;{aget;{userid}en}chess_color_light;ffcc99}}
+			{aset;{aget;~p}unmoved$k;1}
+			{aset;{aget;~p}unmoved$K;1}
+			{aset;{aget;~p}unmoved$r_a8;1}
+			{aset;{aget;~p}unmoved$r_h8;1}
+			{aset;{aget;~p}unmoved$R_a1;1}
+			{aset;{aget;~p}unmoved$R_h1;1}
+			{aset;{aget;~p}unmoved$p_a7;1}{aset;{aget;~p}passant$p_a5;0}
+			{aset;{aget;~p}unmoved$p_b7;1}{aset;{aget;~p}passant$p_b5;0}
+			{aset;{aget;~p}unmoved$p_c7;1}{aset;{aget;~p}passant$p_c5;0}
+			{aset;{aget;~p}unmoved$p_d7;1}{aset;{aget;~p}passant$p_d5;0}
+			{aset;{aget;~p}unmoved$p_e7;1}{aset;{aget;~p}passant$p_e5;0}
+			{aset;{aget;~p}unmoved$p_f7;1}{aset;{aget;~p}passant$p_f5;0}
+			{aset;{aget;~p}unmoved$p_g7;1}{aset;{aget;~p}passant$p_g5;0}
+			{aset;{aget;~p}unmoved$p_h7;1}{aset;{aget;~p}passant$p_h5;0}
+			{aset;{aget;~p}unmoved$P_a2;1}{aset;{aget;~p}passant$P_a4;0}
+			{aset;{aget;~p}unmoved$P_b2;1}{aset;{aget;~p}passant$P_b4;0}
+			{aset;{aget;~p}unmoved$P_c2;1}{aset;{aget;~p}passant$P_c4;0}
+			{aset;{aget;~p}unmoved$P_d2;1}{aset;{aget;~p}passant$P_d4;0}
+			{aset;{aget;~p}unmoved$P_e2;1}{aset;{aget;~p}passant$P_e4;0}
+			{aset;{aget;~p}unmoved$P_f2;1}{aset;{aget;~p}passant$P_f4;0}
+			{aset;{aget;~p}unmoved$P_g2;1}{aset;{aget;~p}passant$P_g4;0}
+			{aset;{aget;~p}unmoved$P_h2;1}{aset;{aget;~p}passant$P_h4;0}
+			**Chess game started with {username;{aget;{userid}en}}!** Instance: `{aget;~p}`.{aget;nl}
+			{aset;{userid}chess_color;
+				{switch;{args;2};
+					w;w;
+					white;w;
+					b;b;
+					black;b;
+					r;{randchoice;w;b};
+					random;{randchoice;w;b};
+					{randchoice;w;b}
+				}
+			}
+			{if;==;-1;{aget;{userid}chess_color};
+				:x: FATAL ERROR! Please report to tag creator. `chess_color is out of bounds.`;
+			{aset;~p;{aget;{userid}chess_instance}}
+			{aset;{aget;{userid}en}chess_color;{if;==;w;{aget;{userid}chess_color};b;w}}
+			{aset;{aget;~p}p1;{if;==;w;{aget;{userid}chess_color};{userid};{aget;{userid}en}}}
+			{aset;{aget;~p}p2;{if;==;b;{aget;{userid}chess_color};{userid};{aget;{userid}en}}}
+			{aset;{userid}game;1}
+			{aset;{aget;{userid}en}game;1}
+			{aset;{userid}chess_game;1}
+			{aset;{aget;{userid}en}chess_game;1}
+			{aset;{aget;{userid}en}p1;{aget;{userid}p1}}
+			{aset;{aget;{userid}en}p2;{aget;{userid}p2}}
+			{aset;{aget;~p}tm;w}
+			{aset;{aget;~p}move;1}
+			{aset;{aget;~p}a8;r}{aset;{aget;~p}a7;p}{aset;{aget;~p}a6;-}{aset;{aget;~p}a5;-}
+			{aset;{aget;~p}b8;n}{aset;{aget;~p}b7;p}{aset;{aget;~p}b6;-}{aset;{aget;~p}b5;-}
+			{aset;{aget;~p}c8;b}{aset;{aget;~p}c7;p}{aset;{aget;~p}c6;-}{aset;{aget;~p}c5;-}
+			{aset;{aget;~p}d8;q}{aset;{aget;~p}d7;p}{aset;{aget;~p}d6;-}{aset;{aget;~p}d5;-}
+			{aset;{aget;~p}e8;k}{aset;{aget;~p}e7;p}{aset;{aget;~p}e6;-}{aset;{aget;~p}e5;-}
+			{aset;{aget;~p}f8;b}{aset;{aget;~p}f7;p}{aset;{aget;~p}f6;-}{aset;{aget;~p}f5;-}
+			{aset;{aget;~p}g8;n}{aset;{aget;~p}g7;p}{aset;{aget;~p}g6;-}{aset;{aget;~p}g5;-}
+			{aset;{aget;~p}h8;r}{aset;{aget;~p}h7;p}{aset;{aget;~p}h6;-}{aset;{aget;~p}h5;-}
+			{aset;{aget;~p}a4;-}{aset;{aget;~p}a3;-}{aset;{aget;~p}a2;P}{aset;{aget;~p}a1;R}
+			{aset;{aget;~p}b4;-}{aset;{aget;~p}b3;-}{aset;{aget;~p}b2;P}{aset;{aget;~p}b1;N}
+			{aset;{aget;~p}c4;-}{aset;{aget;~p}c3;-}{aset;{aget;~p}c2;P}{aset;{aget;~p}c1;B}
+			{aset;{aget;~p}d4;-}{aset;{aget;~p}d3;-}{aset;{aget;~p}d2;P}{aset;{aget;~p}d1;Q}
+			{aset;{aget;~p}e4;-}{aset;{aget;~p}e3;-}{aset;{aget;~p}e2;P}{aset;{aget;~p}e1;K}
+			{aset;{aget;~p}f4;-}{aset;{aget;~p}f3;-}{aset;{aget;~p}f2;P}{aset;{aget;~p}f1;B}
+			{aset;{aget;~p}g4;-}{aset;{aget;~p}g3;-}{aset;{aget;~p}g2;P}{aset;{aget;~p}g1;N}
+			{aset;{aget;~p}h4;-}{aset;{aget;~p}h3;-}{aset;{aget;~p}h2;P}{aset;{aget;~p}h1;R}
+			**Game Started as {if;==;w;{aget;{userid}chess_color};White;Black}!**
+			{exec;chess_board}
+			}}}}}}}
+		;/\t+|^[\r\n]+/gm;};
+	start_debug;
+		{regexreplace;
+			{if;!=;1;{get;firstrun};
+				{if;==;`User not found`;{userid;246903976937783296};
+					{set;username;Kao}
+					{set;userdiscrim;0001};
+					{set;username;{username;246903976937783296}}
+					{set;userdiscrim;{userdiscrim;246903976937783296}}
+				}
+				```rb
+				`Chess Tag v1.2 Build 9` ```
+				**Introduction:**
+				You have copied this tag from the creator, **{get;username}#{get;userdiscrim}**.
+				Because of that, thank you for appreciating my work enough that you wanted it on your own server. But be sure to thank me, and make sure to tell me that you have copied it. Go to Tatsumaki Lounge, and run the tag `t!t chess_copy` in order to get instructions on how to make the tag work.
+				You can use `t!t chess help` to find the help menu of the tag.;
+			{if;!=;{userid};{aget;admin};
+				:x: You cannot run this!;
+			{aset;{userid}chess_instance;{base;{time;x};10;16}}Initated game! Instance: `{aget;{userid}chess_instance}`
+			{aset;~p;{aget;{userid}chess_instance}}
+			{aset;{aget;~p}en;{userid;{args;1}}}
+			{aset;{userid}en;{userid;{args;1}}}
+			{aset;{aget;{aget;~p}en}en;{userid}}
+			{aset;{userid}chess_color;
+				{switch;
+					{lower;{args;2}};
+						w;w;
+						b;b;
+						{randchoice;w;b}
+				}
+			}
+			{aset;{aget;{userid}en}chess_color;{if;==;w;{aget;{userid}chess_color};b;w}}
+			{aset;{aget;~p}p1;{if;==;w;{aget;{userid}chess_color};{userid};{aget;{userid}en}}}
+			{aset;{aget;~p}p2;{if;==;b;{aget;{userid}chess_color};{userid};{aget;{userid}en}}}
+			{aset;{userid}p1;{if;==;w;{aget;{userid}chess_color};{userid};{aget;{userid}en}}}
+			{aset;{userid}p2;{if;==;b;{aget;{userid}chess_color};{userid};{aget;{userid}en}}}
+			{aset;{aget;{userid}en}p1;{if;==;w;{aget;{userid}chess_color};{userid};{aget;{userid}en}}}
+			{aset;{aget;{userid}en}p2;{if;==;b;{aget;{userid}chess_color};{userid};{aget;{userid}en}}}
+			{if;==;w;{aget;{userid}chess_color};
+				{if;!=;{userid};{aget;{aget;~p}p1};{set;exp;color_p_not_match}}
+				{if;!=;{aget;{aget;~p}en};{aget;{aget;~p}p2};{set;exp;color_p_not_match}};
+				{if;!=;{userid};{aget;{aget;~p}p2};{set;exp;color_p_not_match}}
+				{if;!=;{aget;{aget;~p}en};{aget;{aget;~p}p1};{set;exp;color_p_not_match}}
+			}
+			{aset;{userid}game;1}
+			{aset;{aget;{userid}en}game;1}
+			{aset;{userid}chess_game;1}
+			{aset;{aget;{userid}en}chess_game;1}
+			{aset;{aget;{userid}en}chess_instance;{aget;~p}}
+			{aset;{aget;{userid}en}p1;{aget;{userid}p1}}
+			{aset;{aget;{userid}en}p2;{aget;{userid}p2}}
+			{aset;~a;1}{aset;~1;a}
+			{aset;~b;2}{aset;~2;b}
+			{aset;~c;3}{aset;~3;c}
+			{aset;~d;4}{aset;~4;d}
+			{aset;~e;5}{aset;~5;e}
+			{aset;~f;6}{aset;~6;f}
+			{aset;~e;7}{aset;~7;g}
+			{aset;~g;8}{aset;~8;h}
+			{aset;~h;0}{aset;~v;0}
+			{aset;~hor1;0}{aset;~hor2;0}
+			{aset;~ver1;0}{aset;~ver2;0}
+			{aset;{aget;~p}tm;w}
+			{aset;{aget;~p}unmoved$k;1}
+			{aset;{aget;~p}unmoved$K;1}
+			{aset;{aget;~p}unmoved$r_a8;1}
+			{aset;{aget;~p}unmoved$r_h8;1}
+			{aset;{aget;~p}unmoved$R_a1;1}
+			{aset;{aget;~p}unmoved$R_h1;1}
+			{aset;{aget;~p}unmoved$p_a7;1}{aset;{aget;~p}passant$p_a5;0}
+			{aset;{aget;~p}unmoved$p_b7;1}{aset;{aget;~p}passant$p_b5;0}
+			{aset;{aget;~p}unmoved$p_c7;1}{aset;{aget;~p}passant$p_c5;0}
+			{aset;{aget;~p}unmoved$p_d7;1}{aset;{aget;~p}passant$p_d5;0}
+			{aset;{aget;~p}unmoved$p_e7;1}{aset;{aget;~p}passant$p_e5;0}
+			{aset;{aget;~p}unmoved$p_f7;1}{aset;{aget;~p}passant$p_f5;0}
+			{aset;{aget;~p}unmoved$p_g7;1}{aset;{aget;~p}passant$p_g5;0}
+			{aset;{aget;~p}unmoved$p_h7;1}{aset;{aget;~p}passant$p_h5;0}
+			{aset;{aget;~p}unmoved$P_a2;1}{aset;{aget;~p}passant$P_a4;0}
+			{aset;{aget;~p}unmoved$P_b2;1}{aset;{aget;~p}passant$P_b4;0}
+			{aset;{aget;~p}unmoved$P_c2;1}{aset;{aget;~p}passant$P_c4;0}
+			{aset;{aget;~p}unmoved$P_d2;1}{aset;{aget;~p}passant$P_d4;0}
+			{aset;{aget;~p}unmoved$P_e2;1}{aset;{aget;~p}passant$P_e4;0}
+			{aset;{aget;~p}unmoved$P_f2;1}{aset;{aget;~p}passant$P_f4;0}
+			{aset;{aget;~p}unmoved$P_g2;1}{aset;{aget;~p}passant$P_g4;0}
+			{aset;{aget;~p}unmoved$P_h2;1}{aset;{aget;~p}passant$P_h4;0}
+			{aset;{aget;~p}a8;r}{aset;{aget;~p}a7;p}{aset;{aget;~p}a6;-}{aset;{aget;~p}a5;-}
+			{aset;{aget;~p}b8;n}{aset;{aget;~p}b7;p}{aset;{aget;~p}b6;-}{aset;{aget;~p}b5;-}
+			{aset;{aget;~p}c8;b}{aset;{aget;~p}c7;p}{aset;{aget;~p}c6;-}{aset;{aget;~p}c5;-}
+			{aset;{aget;~p}d8;q}{aset;{aget;~p}d7;p}{aset;{aget;~p}d6;-}{aset;{aget;~p}d5;-}
+			{aset;{aget;~p}e8;k}{aset;{aget;~p}e7;p}{aset;{aget;~p}e6;-}{aset;{aget;~p}e5;-}
+			{aset;{aget;~p}f8;b}{aset;{aget;~p}f7;p}{aset;{aget;~p}f6;-}{aset;{aget;~p}f5;-}
+			{aset;{aget;~p}g8;n}{aset;{aget;~p}g7;p}{aset;{aget;~p}g6;-}{aset;{aget;~p}g5;-}
+			{aset;{aget;~p}h8;r}{aset;{aget;~p}h7;p}{aset;{aget;~p}h6;-}{aset;{aget;~p}h5;-}
+			{aset;{aget;~p}a4;-}{aset;{aget;~p}a3;-}{aset;{aget;~p}a2;P}{aset;{aget;~p}a1;R}
+			{aset;{aget;~p}b4;-}{aset;{aget;~p}b3;-}{aset;{aget;~p}b2;P}{aset;{aget;~p}b1;N}
+			{aset;{aget;~p}c4;-}{aset;{aget;~p}c3;-}{aset;{aget;~p}c2;P}{aset;{aget;~p}c1;B}
+			{aset;{aget;~p}d4;-}{aset;{aget;~p}d3;-}{aset;{aget;~p}d2;P}{aset;{aget;~p}d1;Q}
+			{aset;{aget;~p}e4;-}{aset;{aget;~p}e3;-}{aset;{aget;~p}e2;P}{aset;{aget;~p}e1;K}
+			{aset;{aget;~p}f4;-}{aset;{aget;~p}f3;-}{aset;{aget;~p}f2;P}{aset;{aget;~p}f1;B}
+			{aset;{aget;~p}g4;-}{aset;{aget;~p}g3;-}{aset;{aget;~p}g2;P}{aset;{aget;~p}g1;N}
+			{aset;{aget;~p}h4;-}{aset;{aget;~p}h3;-}{aset;{aget;~p}h2;P}{aset;{aget;~p}h1;R}}}
+		;/\t+|^[\r\n]+/gm;};
+	stalemate;
+		{regexreplace;
+			{if;!=;1;{get;firstrun};
+				{if;==;`User not found`;{userid;246903976937783296};
+					{set;username;Kao}
+					{set;userdiscrim;0001};
+					{set;username;{username;246903976937783296}}
+					{set;userdiscrim;{userdiscrim;246903976937783296}}
+				}
+				```rb
+				`Chess Tag v1.2 Build 9` ```
+				**Introduction:**
+				You have copied this tag from the creator, **{get;username}#{get;userdiscrim}**.
+				Because of that, thank you for appreciating my work enough that you wanted it on your own server. But be sure to thank me, and make sure to tell me that you have copied it. Go to Tatsumaki Lounge, and run the tag `t!t chess_copy` in order to get instructions on how to make the tag work.
+				You can use `t!t chess help` to find the help menu of the tag.
+				{aset;return;true}
+			}
+			{if;==;true;{aget;return};;
+			{aset;~p;{aget;~{userid}chess_instance}}
+			{if;!=;1;{aget;~{userid}chess_game};:x: You don not have an active chess game!;
+			{if;!=;1;{aget;~{aget;~p}stalemate_in};Stalemate announced! <@{aget;~{userid}en}>, please do `t!t chess stalemate` to confirm it.{aset;~{aget;~p}stalemate_in;1}{aset;~{aget;~p}stalemate_an;{userid}};
+			{if;==;{userid};{aget;~{aget;~p}stalemate_en};:x: Your opponent must confirm the stalemate. <@{aget;~{userid}en}>, please do `t!t chess stalemate` to confirm it.;**Stalemate!** Nobody has won.
+			{aset;~{userid}game;0}{aset;~{aget;~{userid}en}game;0}
+			}}}}
+		;/\t+|^[\r\n]+/gm;};
+	move;
+		{regexreplace;
+			{if;!=;1;{get;firstrun};
+				{if;==;`User not found`;{userid;246903976937783296};
+					{set;username;Kao}
+					{set;userdiscrim;0001};
+					{set;username;{username;246903976937783296}}
+					{set;userdiscrim;{userdiscrim;246903976937783296}}
+				}
+				```rb
+				`Chess Tag v1.2 Build 9` ```
+				**Introduction:**
+				You have copied this tag from the creator, **{get;username}#{get;userdiscrim}**.
+				Because of that, thank you for appreciating my work enough that you wanted it on your own server. But be sure to thank me, and make sure to tell me that you have copied it. Go to Tatsumaki Lounge, and run the tag `t!t chess_copy` in order to get instructions on how to make the tag work.
+				You can use `t!t chess help` to find the help menu of the tag.;
+			{if;!=;1;{aget;{userid}chess_game};
+				:x: You do not have an active chess game!;
+			{aset;~p;{aget;{userid}chess_instance}}
+			{if;!=;{aget;{userid}chess_color};{aget;{aget;~p}tm};
+				:x: It is not your turn yet! Wait for your opponent to make a move!;
+			{if;<;{argslength};3;
+				:x: Did you even try to move the piece!;
+			{aset;~mv1;{substr;{args;1};0;2}}
+			{aset;~mv2;{substr;{args;2};0;2}}
+			{if;==;{aget;~mv1};{aget;~mv2};
+				:x: Did you even try to move the piece?;
+			{if;&&;
+				{regexreplace;{aget;~mv1};/[a-h][1-8]/i;1};
+				{regexreplace;{aget;~mv2};/[a-h][1-8]/i;1};;
+				:x: Invalid move! `{if;!=;{regexreplace;{aget;~mv1};/[a-h][1-8]/;true};true;{aget;~mv1}} {if;!=;{regexreplace;{aget;~mv2};/[a-h][1-8]/;true};true;{aget;~mv2}} out of bounds`
+				{aset;return;true}
+			}
+			{if;==;true;{aget;return};;
+			{aset;~piece;{aget;{aget;~p}{aget;~mv1}}}
+			{aset;~side;
+				{if;==;-;{aget;{aget;~p}{aget;~mv1}};0;
+				{if;==;true;{regexreplace;{aget;{aget;~p}{aget;~mv1}};/r|n|b|q|k|p/;true};1;2
+				}}
+			}
+			{if;==;{if;==;w;{aget;{userid}chess_color};1;2};{aget;~side};
+				This is not your piece you `heccin baka`;
+			{switch;{aget;~side};
+				0;
+					:x: There is no piece here, what are you trying to move?
+					{aset;return;true};
+				-1;
+					:x: FATAL ERROR! Please report to tag creator.
+					p_stat {aget;{userid}p_stat}
+					chess_instance {aget;{userid}chess_instance}
+					side {aget;~side}
+					{aset;return;true};
+				1;
+					{if;!=;b;{aget;{userid}chess_color};
+						:x: This is not your piece you `heccing baka`
+						{aset;return;true}
+					};
+				2;
+					{if;!=;w;{aget;{userid}chess_color};
+						:x: This is not your piece you `heccing baka`
+						{aset;return;true}
+					};
+				:x: FATAL ERROR! Please report to tag creator. `{aget;~side} is undefined.`
+			}
+			{if;==;true;{aget;return};;
+			{aset;~piece2;{aget;{aget;~p}{aget;~mv2}}}
+			{aset;~side_2;
+				{if;==;-;{aget;{aget;~p}{aget;~mv2}};0;
+				{if;==;true;{regexreplace;{aget;{aget;~p}{aget;~mv2}};/r|n|b|q|k|p/;true};1;2
+				}}
+			}
+			{if;==;{if;==;w;{aget;{userid}chess_color};2;1};{aget;~side_2};
+				:x: Why are you attacking your own pieces `heccing baka`;
+			{aset;~a;1}{aset;~1;a}
+			{aset;~b;2}{aset;~2;b}
+			{aset;~c;3}{aset;~3;c}
+			{aset;~d;4}{aset;~4;d}
+			{aset;~e;5}{aset;~5;e}
+			{aset;~f;6}{aset;~6;f}
+			{aset;~g;7}{aset;~7;g}
+			{aset;~h;8}{aset;~8;h}
+			{aset;~h1;{aget;~{substr;{aget;~mv1};0;1}}}
+			{aset;~h2;{aget;~{substr;{aget;~mv2};0;1}}}
+			{aset;~v1;{substr;{aget;~mv1};1;1}}
+			{aset;~v2;{substr;{aget;~mv2};1;1}}
+			{aset;~ver1;{if;>;{aget;~v1};{aget;~v2};{aget;~v1};{aget;~v2}}}
+			{aset;~ver2;{if;<;{aget;~v1};{aget;~v2};{aget;~v1};{aget;~v2}}}
+			{aset;~hor1;{if;>;{aget;~h1};{aget;~h2};{aget;~h1};{aget;~h2}}}
+			{aset;~hor2;{if;<;{aget;~h1};{aget;~h2};{aget;~h1};{aget;~h2}}}
+			{switch;{aget;{userid}chess_color};
+				b;
+					{switch;{aget;~piece};
+						-;0;
+						r;	
+							{aset;~hor;{if;!=;{aget;~hor1};{aget;~hor2};1{aset;~rook_move;h};0}}
+							{aset;~ver;{if;!=;{aget;~ver1};{aget;~ver2};1{aset;~rook_move;v};0}}
+							{if;&&;{aget;~hor};{aget;~ver};
+								:x: Invalid move! Rooks can only move horizontally or vertically, it cannot be both.;
+								{switch;{aget;~rook_move};
+									h;
+										{if;!=;{aget;~v1};{aget;~v2};
+											:x: FATAL ERROR! Please report to tag creator. `v1 and v2 does not match`;
+											{aset;~i_h1;{aget;~hor2}}
+											{if;==;{math;-;{aget;~hor1};{aget;~hor2}};1;
+												{aset;~continue;true};
+												{if;!=;0;{math;-;{aget;~hor1};{aget;~hor2};1};
+													{loop;1;{math;-;{aget;~hor1};{aget;~hor2};1};
+														{aset;~i_h1;{incr;{aget;~i_h1}}}
+														{if;!=;-;{aget;{aget;~p}{aget;~{aget;~i_h1}}{aget;~v1}};	
+															{aset;~continue;false}
+														}
+													}
+												}
+											}
+											{if;==;false;{aget;continue};:x: Invalid move!;
+												{switch;{aget;~side_2};
+													0;
+														{aset;{aget;~p}{aget;~mv2};{aget;~piece}}
+														{aset;{aget;~p}{aget;~mv1};-}
+														{aset;~move_success;true};
+													1;
+														{if;!=;w;{aget;{userid}chess_color};
+															:x: You can not move your piece here!
+															{aset;return;true}
+														}
+														{aset;{aget;~p}{aget;~mv2};{aget;~piece}}
+														{aset;{aget;~p}{aget;~mv1};-}
+														{aset;~move_success;true};
+													2;
+														{if;!=;b;{aget;{userid}chess_color};
+															:x: You can not move your piece here!
+															{aset;return;true}
+														}
+														{aset;{aget;~p}{aget;~mv2};{aget;~piece}}
+														{aset;{aget;~p}{aget;~mv1};-}
+														{aset;~move_success;true};
+													:x: FATAL ERROR! `side_2 is out of bounds.`
+													{aset;return;true}
+												}
+												{if;==;true;{aget;return};;
+													{exec;chess_move_2}
+												}
+											}
+										}
+								};
+									v;
+										{if;!=;{aget;~h1};{aget;~h2};
+											:x: FATAL ERROR! Please report to tag creator. `h1 and h2 does not match`;
+											{aset;~i_v1;{aget;~ver2}}
+											{if;==;{math;-;{aget;~ver1};{aget;~ver2}};1;
+												{aset;~continue;true};
+												{if;!=;0;{math;-;{aget;~ver1};{aget;~ver2};1};
+													{loop;1;{math;-;{aget;~ver1};{aget;~ver2};1};
+														{aset;~i_v1;{incr;{aget;~i_v1}}}
+														{if;!=;-;{aget;{aget;~p}{aget;~{aget;~h1}}{aget;~i_v1}};
+															{aset;~continue;false};
+														}
+													}
+												}
+											}
+											{if;==;false;{aget;continue};:x: Invalid move!;
+												{switch;{aget;~side_2};
+													0;
+														{aset;{aget;~p}{aget;~mv2};{aget;~piece}}
+														{aset;{aget;~p}{aget;~mv1};-}
+														{aset;~move_success;true};
+													1;
+														{if;!=;w;{aget;{userid}chess_color};
+															:x: You can not move your piece here!
+															{aset;return;true}
+														}
+														{aset;{aget;~p}{aget;~mv2};{aget;~piece}}
+														{aset;{aget;~p}{aget;~mv1};-}
+														{aset;~move_success;true};
+													2;
+														{if;!=;b;{aget;{userid}chess_color};
+															:x: You can not move your piece here!
+															{aset;return;true}
+														}
+														{aset;{aget;~p}{aget;~mv2};{aget;~piece}}
+														{aset;{aget;~p}{aget;~mv1};-}
+														{aset;~move_success;true};
+													:x: FATAL ERROR! `side_2 is out of bounds.`
+													{aset;return;true}
+												}
+												{if;==;true;{aget;return};;
+													{exec;chess_move_2}
+												}
+											}
+										}
+							}
+							{if;==;true;{aget;~move_success};
+								{switch;{aget;~mv1};
+									a1;{aset;{aget;~p}unmoved$r_a8;0};
+									h1;{aset;{aget;~p}unmoved$r_h8;0};
+								}
+							};
+						n;	
+							{aset;~hor;
+								{switch;{aget;~hor1};
+									{math;+;{aget;~hor2};1};1{aset;~h_m;v};
+									{math;+;{aget;~hor2};2};2{aset;~h_m;h};
+									0
+								}
+							}
+							{aset;~ver;
+								{switch;{aget;~ver1};
+									{math;+;{aget;~ver2};2};1{aset;~v_m;v};
+									{math;+;{aget;~ver2};1};2{aset;~v_m;h};
+									0
+								}
+							}
+							{if;==;{aget;~hor};{aget;~ver};
+								{if;==;0;{aget;~hor};
+									:x: Invalid move!
+									{aset;return;true}
+								};
+								:x: Invalid move!
+								{aset;return;true}
+							}
+							{if;==;true;{aget;return};;
+								{aset;~i_h;{aget;~h2}}
+								{aset;~i_v;{aget;~v2}}
+								{if;!=;{aget;~h_m};{aget;~v_m};
+									:x: FATAL ERROR! Please report to tag creator. `h_m and v_m does not match.`;
+									{if;==;false;{aget;continue};:x: Invalid move!;
+										{switch;{aget;~side_2};
+											0;
+												{aset;{aget;~p}{aget;~mv2};{aget;~piece}}
+												{aset;{aget;~p}{aget;~mv1};-}
+												{aset;~move_success;true};
+											1;
+												{if;!=;w;{aget;{userid}chess_color};
+													:x: You can not move your piece here!
+													{aset;return;true}
+												}
+												{aset;{aget;~p}{aget;~mv2};{aget;~piece}}
+												{aset;{aget;~p}{aget;~mv1};-}
+												{aset;~move_success;true};
+											2;
+												{if;!=;b;{aget;{userid}chess_color};
+													:x: You can not move your piece here!
+													{aset;return;true}
+												}
+												{aset;{aget;~p}{aget;~mv2};{aget;~piece}}
+												{aset;{aget;~p}{aget;~mv1};-}
+												{aset;~move_success;true};
+											:x: FATAL ERROR! `side_2 is out of bounds.`
+											{aset;return;true}
+										}
+										{if;==;true;{aget;return};;
+											{exec;chess_move_2}
+										}
+									}
+								}
+							};
+						b;	
+							{aset;~hor;{math;-;{aget;~hor1};{aget;~hor2}}}
+							{aset;~ver;{math;-;{aget;~ver1};{aget;~ver2}}}
+							{if;!=;{aget;~hor};{aget;~ver};
+								:x: Invalid move! You can only move diagonally.;
+								{aset;~i_h1;{aget;~h1}}
+								{aset;~i_v1;{aget;~v1}}
+								{if;!=;0;{math;-;{aget;~ver1};{aget;~ver2};1};
+									{loop;1;{math;-;{aget;~ver1};{aget;~ver2};1};
+										{aset;~i_h1;{if;>;{aget;~h1};{aget;~h2};{decr;{aget;~i_h1}};{incr;{aget;~i_h1}}}}
+										{aset;~i_v1;{if;>;{aget;~v1};{aget;~v2};{decr;{aget;~i_v1}};{incr;{aget;~i_v1}}}}
+										{if;!=;-;{aget;{aget;~p}{aget;~{aget;~i_h1}}{aget;~i_v1}};
+											{aset;~continue;0}
+										}
+
+									}
+								}
+								{if;==;0;{aget;continue};
+									:x: You cannot move your piece here!;
+									{switch;{aget;~side_2};
+										0;
+											{aset;{aget;~p}{aget;~mv2};{aget;~piece}}
+											{aset;{aget;~p}{aget;~mv1};-}
+											{aset;~move_success;true};
+										1;
+											{if;!=;w;{aget;{userid}chess_color};
+												:x: You can not move your piece here!
+												{aset;return;true}
+											}
+											{aset;{aget;~p}{aget;~mv2};{aget;~piece}}
+											{aset;{aget;~p}{aget;~mv1};-}
+											{aset;~move_success;true};
+										2;
+											{if;!=;b;{aget;{userid}chess_color};
+												:x: You can not move your piece here!
+												{aset;return;true}
+											}
+											{aset;{aget;~p}{aget;~mv2};{aget;~piece}}
+											{aset;{aget;~p}{aget;~mv1};-}
+											{aset;~move_success;true};
+										:x: FATAL ERROR! `side_2 is out of bounds.`
+										{aset;return;true}
+									}
+									{if;==;true;{aget;return};;
+										{exec;chess_move_2}
+									}
+								}
+							};
+						q;	
+							{aset;~hor;{if;!=;{aget;~hor1};{aget;~hor2};1{aset;~queen_move;h};0}}
+							{aset;~ver;{if;!=;{aget;~ver1};{aget;~ver2};1{aset;~queen_move;v};0}}
+							{if;&&;{aget;~hor};{aget;~ver};
+								{aset;~hor;{math;-;{aget;~hor1};{aget;~hor2}}}
+								{aset;~ver;{math;-;{aget;~ver1};{aget;~ver2}}}
+								{if;!=;{aget;~hor};{aget;~ver};
+									:x: Invalid move! You can only move diagonally.;
+									{aset;~i_h1;{aget;~h1}}
+									{aset;~i_v1;{aget;~v1}}
+										{if;!=;0;{math;-;{aget;~ver1};{aget;~ver2};1};
+										{loop;1;{math;-;{aget;~ver1};{aget;~ver2};1};
+											{aset;~i_h1;{if;>;{aget;~h1};{aget;~h2};{decr;{aget;~i_h1}};{incr;{aget;~i_h1}}}}
+											{aset;~i_v1;{if;>;{aget;~v1};{aget;~v2};{decr;{aget;~i_v1}};{incr;{aget;~i_v1}}}}
+											{if;!=;-;{aget;{aget;~p}{aget;~{aget;~i_h1}}{aget;~i_v1}};
+												{aset;~continue;0}
+											}
+
+										}
+									}
+									{if;==;0;{aget;continue};
+										:x: You cannot move your piece here!;
+										{switch;{aget;~side_2};
+											0;
+												{aset;{aget;~p}{aget;~mv2};{aget;~piece}}
+												{aset;{aget;~p}{aget;~mv1};-}
+												{aset;~move_success;true};
+											1;
+												{if;!=;w;{aget;{userid}chess_color};
+													:x: You can not move your piece here!
+													{aset;return;true}
+												}
+												{aset;{aget;~p}{aget;~mv2};{aget;~piece}}
+												{aset;{aget;~p}{aget;~mv1};-}
+												{aset;~move_success;true};
+											2;
+												{if;!=;b;{aget;{userid}chess_color};
+													:x: You can not move your piece here!
+													{aset;return;true}
+												}
+												{aset;{aget;~p}{aget;~mv2};{aget;~piece}}
+												{aset;{aget;~p}{aget;~mv1};-}
+												{aset;~move_success;true};
+											:x: FATAL ERROR! `side_2 is out of bounds.`
+											{aset;return;true}
+										}
+										{if;==;true;{aget;return};;
+											{exec;chess_move_2}
+										}
+									}
+								};
+								{switch;{get;~queen_move};
+									h;
+										{if;!=;{aget;~v1};{aget;~v2};
+											:x: FATAL ERROR! Please report to tag creator. `v1 and v2 does not match`;
+											{aset;~i_h1;{aget;~hor2}}
+											{if;==;{math;-;{aget;~hor1};{aget;~hor2}};1;
+												{aset;~continue;true};
+												{if;!=;0;{math;-;{aget;~hor1};{aget;~hor2};1};
+													{loop;1;{math;-;{aget;~hor1};{aget;~hor2};1};
+														{aset;~i_h1;{incr;{aget;~i_h1}}}
+														{if;!=;-;{aget;{aget;~p}{aget;~{aget;~i_h1}}{aget;~v1}};	
+															{aset;~continue;false}
+														}
+													}
+												}
+											}
+											{if;==;false;{aget;continue};:x: Invalid move!;
+												{switch;{aget;~side_2};
+													0;
+														{aset;{aget;~p}{aget;~mv2};{aget;~piece}}
+														{aset;{aget;~p}{aget;~mv1};-}
+														{aset;~move_success;true};
+													1;
+														{if;!=;w;{aget;{userid}chess_color};
+															:x: You can not move your piece here!
+															{aset;return;true}
+														}
+														{aset;{aget;~p}{aget;~mv2};{aget;~piece}}
+														{aset;{aget;~p}{aget;~mv1};-}
+														{aset;~move_success;true};
+													2;
+														{if;!=;b;{aget;{userid}chess_color};
+															:x: You can not move your piece here!
+															{aset;return;true}
+														}
+														{aset;{aget;~p}{aget;~mv2};{aget;~piece}}
+														{aset;{aget;~p}{aget;~mv1};-}
+														{aset;~move_success;true};
+													:x: FATAL ERROR! `side_2 is out of bounds.`
+													{aset;return;true}
+												}
+												{if;==;true;{aget;return};;
+													{exec;chess_move_2}
+												}
+											}
+										};
+									v;
+										{if;!=;{aget;~h1};{aget;~h2};
+											:x: FATAL ERROR! Please report to tag creator. `h1 and h2 does not match`;
+											{aset;~i_v1;{aget;~ver2}}
+											{if;==;{math;-;{aget;~ver1};{aget;~ver2}};1;
+												{aset;~continue;true};
+												{if;!=;0;{math;-;{aget;~ver1};{aget;~ver2};1};
+													{loop;1;{math;-;{aget;~ver1};{aget;~ver2};1};
+														{aset;~i_v1;{incr;{aget;~i_v1}}}
+														{if;!=;-;{aget;{aget;~p}{aget;~{aget;~h1}}{aget;~i_v1}};
+															{aset;~continue;false};
+														}
+													}
+												}
+											}
+											{if;==;false;{aget;continue};:x: Invalid move!;
+												{switch;{aget;~side_2};
+													0;
+														{aset;{aget;~p}{aget;~mv2};{aget;~piece}}
+														{aset;{aget;~p}{aget;~mv1};-}
+														{aset;~move_success;true};
+													1;
+														{if;!=;w;{aget;{userid}chess_color};
+															:x: You can not move your piece here!
+															{aset;return;true}
+														}
+														{aset;{aget;~p}{aget;~mv2};{aget;~piece}}
+														{aset;{aget;~p}{aget;~mv1};-}
+														{aset;~move_success;true};
+													2;
+														{if;!=;b;{aget;{userid}chess_color};
+															:x: You can not move your piece here!
+															{aset;return;true}
+														}
+														{aset;{aget;~p}{aget;~mv2};{aget;~piece}}
+														{aset;{aget;~p}{aget;~mv1};-}
+														{aset;~move_success;true};
+													:x: FATAL ERROR! `side_2 is out of bounds.`
+													{aset;return;true}
+												}
+												{if;==;true;{aget;return};;
+													{exec;chess_move_2}
+												}
+											}
+										}
+								}
+							};
+						k;	
+							{if;==;1;{aget;{aget;~p}unmoved$k};
+								{switch;{aget;~mv2};
+									g1;	
+										{if;&&;{if;==;1;{aget;{aget;~p}unmoved$k};1;0};{if;==;1;{aget;{aget;~p}unmoved$r_h8};1;0};;
+											:x: The King or Rook has already moved and you cannot castle anymore!
+											{aset;return;true}
+										}
+										{if;==;true;{aget;return};;
+											{if;!=;-;{aget;{aget;~p}f8};{aset;~continue;false}}
+											{if;!=;-;{aget;{aget;~p}g8};{aset;~continue;false}}
+											{if;==;false;{aget;continue};:x: Invalid move!;
+												{switch;{aget;~side_2};
+													0;
+														{if;!=;r;{aget;{aget;~p}h8};:x: FATAL ERROR! Please report to tag creator. `rook not found in h8`;
+														{aset;{aget;~p}{aget;~mv2};{aget;~piece}}
+														{aset;{aget;~p}{aget;~mv1};-}
+														{aset;{aget;~p}f8;r}
+														{aset;{aget;~p}h8;-}
+														{aset;{aget;~p}unmoved$r_h8;0}
+														{aset;{aget;~p}unmoved$k;0}
+														{aset;~move_success;true}
+														{exec;chess_move_2}};
+													:x: FATAL ERROR! Please report to tag creator. `{lb}userid{rb}side_2 out of bounds`
+														{aset;return;true}
+												}
+											}
+										};
+									c1;	
+										{if;&&;{if;==;1;{aget;{aget;~p}unmoved$k};1;0};{if;==;1;{aget;{aget;~p}unmoved$r_a8};1;0};;
+											:x: The King or Rook has already moved and you cannot castle anymore!
+											{aset;return;true}
+										}
+										{if;==;true;{aget;return};;
+											{if;!=;-;{aget;{aget;~p}b8};{aset;~continue;false}}
+											{if;!=;-;{aget;{aget;~p}c8};{aset;~continue;false}}
+											{if;!=;-;{aget;{aget;~p}d8};{aset;~continue;false}}
+											{if;==;false;{aget;continue};:x: Invalid move!;
+												{switch;{aget;~side_2};
+													0;
+														{if;!=;R;{aget;{aget;~p}h1};:x: FATAL ERROR! Please report to tag creator. `rook not found in a8`;
+														{aset;{aget;~p}{aget;~mv2};{aget;~piece}}
+														{aset;{aget;~p}{aget;~mv1};-}
+														{aset;{aget;~p}d8;r}
+														{aset;{aget;~p}a8;-}
+														{aset;{aget;~p}unmoved$r_a8;0}
+														{aset;{aget;~p}unmoved$k;0}
+														{aset;~move_success;true}
+														{exec;chess_move_2}};
+													:x: FATAL ERROR! Please report to tag creator. `{lb}userid{rb}side_2 out of bounds`
+														{aset;return;true}
+												}
+											}
+										};
+										{aset;~hor;
+											{switch;{aget;~hor1};
+												{math;+;{aget;~hor2};0};0;
+												{math;+;{aget;~hor2};1};1;
+												-1
+											}
+										}
+										{aset;~ver;
+											{switch;{aget;~ver1};
+												{math;+;{aget;~ver2};0};0;
+												{math;+;{aget;~ver2};1};1;
+												-1
+											}
+										}
+										{switch;-1;
+											{aget;~ver};:x: Invalid move! {aset;return;true};
+											{aget;~hor};:x: Invalid move! {aset;return;true}
+										}
+										{if;==;true;{aget;return};;
+											{aset;~move_success;true}
+											{aset;{aget;~p}unmoved$k;0}
+											{switch;{aget;~side_2};
+												0;
+													{aset;{aget;~p}{aget;~mv2};{aget;~piece}}
+													{aset;{aget;~p}{aget;~mv1};-}
+													{aset;~move_success;true}
+													{exec;chess_move_2};
+												1;
+													{if;!=;w;{aget;{userid}chess_color};
+														:x: You can not move your piece here!;
+													{aset;{aget;~p}{aget;~mv2};{aget;~piece}}
+													{aset;{aget;~p}{aget;~mv1};-}
+													{aset;~move_success;true}
+													{exec;chess_move_2}};
+												2;
+													{if;!=;b;{aget;{userid}chess_color};
+														:x: You can not move your piece here!;
+													{aset;{aget;~p}{aget;~mv2};{aget;~piece}}
+													{aset;{aget;~p}{aget;~mv1};-}
+													{aset;~move_success;true}
+													{exec;chess_move_2}};
+												:x: FATAL ERROR! Please report to tag creator. `side_2 is out of bounds.`
+												{aset;return;true}
+											}
+										}
+								};
+								{aset;~hor;
+									{switch;{aget;~hor1};
+										{math;+;{aget;~hor2};0};0;
+										{math;+;{aget;~hor2};1};1;
+										-1
+									}
+								}
+								{aset;~ver;
+									{switch;{aget;~ver1};
+										{math;+;{aget;~ver2};0};0;
+										{math;+;{aget;~ver2};1};1;
+										-1
+									}
+								}
+								{switch;-1;
+									{aget;~ver};:x: Invalid move! {aset;return;true};
+									{aget;~hor};:x: Invalid move! {aset;return;true}
+								}
+								{if;==;true;{aget;return};;
+									{aset;~move_success;true}
+									{aset;{aget;~p}unmoved$k;0}
+									{switch;{aget;~side_2};
+										0;
+											{aset;{aget;~p}{aget;~mv2};{aget;~piece}}
+											{aset;{aget;~p}{aget;~mv1};-}
+											{aset;~move_success;true}
+											{exec;chess_move_2};
+										1;
+											{if;!=;w;{aget;{userid}chess_color};
+												:x: You can not move your piece here!;
+											{aset;{aget;~p}{aget;~mv2};{aget;~piece}}
+											{aset;{aget;~p}{aget;~mv1};-}
+											{aset;~move_success;true}
+											{exec;chess_move_2}};
+										2;
+											{if;!=;b;{aget;{userid}chess_color};
+												:x: You can not move your piece here!;
+											{aset;{aget;~p}{aget;~mv2};{aget;~piece}}
+											{aset;{aget;~p}{aget;~mv1};-}
+											{aset;~move_success;true}
+											{exec;chess_move_2}};
+										:x: FATAL ERROR! Please report to tag creator. `side_2 is out of bounds.`
+										{aset;return;true}
+									}
+								}
+							};
+						p;
+							{if;<;{aget;~v1};{aget;~v2};:x: Invalid move! The pawn can not move backwards!;
+								{aset;~hor;
+									{switch;{aget;~hor1};
+										{math;+;{aget;~hor2};1};1;
+										{aget;~hor2};0;
+										-1
+									}
+								}
+								{aset;~ver;
+									{switch;{aget;~ver1};
+										{math;+;{aget;~ver2};1};1;
+										{math;+;{aget;~ver2};2};2;
+										-1
+									}
+								}
+								{switch;-1;
+									{aget;~ver};:x: Invalid move! {aset;return;true};
+									{aget;~hor};:x: Invalid move! {aset;return;true}
+								}
+								{if;==;1;{aget;~v2};
+									{aset;promote;true}
+									{aset;promote_piece;
+										{switch;{lower;{args;3}};
+											q;q;
+											queen;q;
+											k;n;
+											n;n;
+											knight;n;
+											r;r;
+											rook;r;
+											b;b;
+											bishop;b;
+											0
+										}
+									};
+									{aset;promote;false}
+								}
+								{if;==;true;{aget;return};;
+									{switch;{aget;~hor};
+										0;
+											{switch;{aget;~ver};
+												1;
+													{switch;{aget;~side_2};
+														0;
+															{if;==;true;{aget;promote};
+																{if;==;0;{aget;promote_piece};
+																	:x: You need to promote the pawn. Choose between `t!t chess move {aget;~mv1} {aget;~mv2} [queen|knight|rook|bishop]`.
+																	{aset;return;true};
+																	{aset;~piece;{aget;promote_piece}}
+																};
+																{aset;{aget;~p}{aget;~mv2};{aget;~piece}}
+																{aset;{aget;~p}{aget;~mv1};-}
+																{aset;~move_success;true}
+															};
+														1;
+															:x: You can not move your piece here!
+															{aset;return;true};
+														2;
+															:x: You can not move your piece here!
+															{aset;return;true};
+													};
+												2;
+													{if;!=;-;{aget;{aget;~p}{aget;~{aget;~h2}}{math;-;{aget;~v2};1}};
+														:x: You can not move your piece here! 
+														{aset;return;true}
+													}
+													{if;==;1;{aget;{aget;~p}unmoved$p_{aget;~mv1}};
+														{switch;{aget;~side_2};
+															0;
+																{aset;{aget;~p}{aget;~mv2};{aget;~piece}}
+																{aset;{aget;~p}{aget;~mv1};-}
+																{aset;~move_success;true};
+															1;
+																:x: You can not move your piece here!
+																{aset;return;true};
+															2;
+																:x: You can not move your piece here!
+																{aset;return;true};
+														};
+														:x: You can not move pawns 2 spaces if it has been moved already!
+														{aset;return;true}
+													}
+											};
+										1;
+											{switch;{aget;~ver};
+												0;:x: You can not move your piece here! {aset;return;true};
+												1;
+													{switch;{aget;~side_2};
+														0;
+															{if;!=;true;{regexreplace;{aget;~mv2};/[a-h]3/i;true};
+																:x: You cannot move your piece here!
+																{aset;return;true};
+															{if;!=;1;{aget;{aget;~p}passant$P_{aget;~{aget;~h2}}{incr;{aget;~v2}}};
+																:x: You cannot move your piece here!
+																{aset;return;true};
+															{if;!=;p;{aget;{aget;~p}{aget;~{aget;~h2}}{incr;{aget;~v2}}};
+																:x: FATAL ERROR! Please report to tag creator. `p does not exist in {aget;~{aget;~h2}}{incr;{aget;~v2}}`
+																{aset;return;true};
+															{if;!=;{aget;{aget;~p}passant};{aget;{aget;~p}move};
+																:x: You cannot make an En Passant move anymore! It must be immedietly after the enemy pawn moves.
+																{aset;return;true};
+																{aset;{aget;~p}{aget;~mv2};{aget;~piece}}
+																{aset;{aget;~p}{aget;~mv1};-}
+																{aset;{aget;~p}{aget;~{aget;~h2}}{incr;{aget;~v2}};-}
+																{aset;~move_success;true}
+																{exec;chess_board}
+															}}}}
+														1;
+															:x: You can not move your piece here!
+															{aset;return;true};
+														2;
+															{if;==;true;{aget;promote};
+																{if;==;0;{aget;promote_piece};
+																	:x: You need to promote the pawn. Choose between `t!t chess move {aget;~mv1} {aget;~mv2} [queen|knight|rook|bishop]`.
+																	{aset;return;true};
+																	{aset;~piece;{aget;promote_piece}}
+																};
+																{aset;{aget;~p}{aget;~mv2};{aget;~piece}}
+																{aset;{aget;~p}{aget;~mv1};-}
+																{aset;~move_success;true}
+															};
+														:x: FATAL ERROR! Please report to tag creator. `~side_2 is out of bounds.`
+														{aset;return;true}
+													};
+												2;:x: You can not move your piece here! {aset;return;true};
+												:x: FATAL ERROR! Please report to tag creator. `~ver is out of bounds` 
+												{aset;return;true}
+											}
+									}
+									{if;==;true;{aget;return};;
+										{if;==;1;
+											{aget;{aget;~p}unmoved$p_{aget;~mv1}};
+											{if;==;2;{aget;~ver};
+												{aset;{aget;~p}passant$p_{aget;~mv2};1}
+												{aset;{aget;~p}passant;{incr;{aget;{aget;~p}move}}}
+											}
+											{aset;{aget;~p}unmoved$p_{aget;~mv1};0}
+										}
+										{exec;chess_move_2}
+									}
+								}
+							};
+						:x: FATAL ERROR! Please report to tag creator. `chess_color and piece does not match.`
+						{aset;return;true}
+					};
+				w;
+					{switch;{aget;~piece};
+						-;0;
+						P;
+							{if;>;{aget;~v1};{aget;~v2};:x: Invalid move! The pawn can not move backwards!;
+								{aset;~hor;
+									{switch;{aget;~hor1};
+										{math;+;{aget;~hor2};1};1;
+										{aget;~hor2};0;
+										-1
+									}
+								}
+								{aset;~ver;
+									{switch;{aget;~ver1};
+										{math;+;{aget;~ver2};1};1;
+										{math;+;{aget;~ver2};2};2;
+										-1
+									}
+								}
+								{switch;-1;
+									{aget;~ver};:x: Invalid move! {aset;return;true};
+									{aget;~hor};:x: Invalid move! {aset;return;true}
+								}
+								{if;==;8;{aget;~v2};
+									{aset;promote;true}
+									{aset;promote_piece;
+										{switch;{lower;{args;3}};
+											q;Q;
+											queen;Q;
+											k;N;
+											n;N;
+											knight;N;
+											r;R;
+											rook;R;
+											b;B;
+											bishop;B;
+											0
+										}
+									};
+									{aset;promote;false}
+								}
+								{if;==;true;{aget;return};;
+									{switch;{aget;~hor};
+										0;
+											{switch;{aget;~ver};
+												1;
+													{switch;{aget;~side_2};
+														0;
+															{if;==;true;{aget;promote};
+																{if;==;0;{aget;promote_piece};
+																	:x: You need to promote the pawn. Choose between `t!t chess move {aget;~mv1} {aget;~mv2} [queen|knight|rook|bishop]`.
+																	{aset;return;true};
+																	{aset;~piece;{aget;promote_piece}}
+																};
+																{aset;{aget;~p}{aget;~mv2};{aget;~piece}}
+																{aset;{aget;~p}{aget;~mv1};-}
+																{aset;~move_success;true}
+															};
+														1;
+															:x: You can not move your piece here!
+															{aset;return;true};
+														2;
+															:x: You can not move your piece here!
+															{aset;return;true};
+													};
+												2;
+													{if;!=;-;{aget;{aget;~p}{aget;~{aget;~h2}}{math;-;{aget;~v2};1}};
+														:x: You can not move your piece here!
+														{aset;return;true};
+													{if;==;1;{aget;{aget;~p}unmoved$P_{aget;~mv1}};
+														{switch;{aget;~side_2};
+															0;
+																{aset;{aget;~p}{aget;~mv2};{aget;~piece}}
+																{aset;{aget;~p}{aget;~mv1};-}
+																{aset;~move_success;true};
+															1;
+																:x: You can not move your piece here!
+																{aset;return;true};
+															2;
+																:x: You can not move your piece here!
+																{aset;return;true};
+														};
+														:x: You can not move pawns 2 spaces if it has been moved already!
+														{aset;return;true}
+													}}
+											};
+										1;
+											{switch;{aget;~ver};
+												0;:x: You can not move your piece here! {aset;return;true};
+												1;
+													{switch;{aget;~side_2};
+														0;
+															{if;!=;true;{regextest;{aget;~mv2};/[a-h]6/i;true};
+																:x: You cannot move your piece here!
+																{aset;return;true};
+															{if;!=;1;{aget;{aget;~p}passant$p_{aget;~{aget;~h2}}{decr;{aget;~v2}}};
+																:x: You cannot move your piece here!
+																{aset;return;true};
+															{if;!=;p;{aget;{aget;~p}{aget;~{aget;~h2}}{decr;{aget;~v2}}};
+																:x: FATAL ERROR! Please report to tag creator. `p does not exist in {aget;~{aget;~h2}}{decr;{aget;~v2}}`
+																{aset;return;true};
+															{if;!=;{aget;{aget;~p}passant};{aget;{aget;~p}move};
+																:x: You cannot make an En Passant move anymore! It must be immedietly after the enemy pawn moves.
+																{aset;return;true};
+																{aset;{aget;~p}{aget;~mv2};{aget;~piece}}
+																{aset;{aget;~p}{aget;~mv1};-}
+																{aset;{aget;~p}{aget;~{aget;~h2}}{decr;{aget;~v2}};-}
+																{aset;~move_success;true}
+																{exec;chess_board}
+															}}}};
+														1;
+															{if;==;true;{aget;promote};
+																{if;==;0;{aget;promote_piece};
+																	:x: You need to promote the pawn. Choose between `t!t chess move {aget;~mv1} {aget;~mv2} [queen|knight|rook|bishop]`.
+																	{aset;return;true};
+																	{aset;~piece;{aget;promote_piece}}
+																};
+																{aset;{aget;~p}{aget;~mv2};{aget;~piece}}
+																{aset;{aget;~p}{aget;~mv1};-}
+																{aset;~move_success;true}
+															};
+														2;
+															:x: You can not move your piece here!
+															{aset;return;true};
+														:x: FATAL ERROR! Please report to tag creator. `~side_2 is out of bounds.`
+														{aset;return;true}
+													};
+												2;:x: You can not move your piece here! {aset;return;true};
+												:x: FATAL ERROR! Please report to tag creator. `~ver is out of bounds` 
+												{aset;return;true}
+											}
+									}
+									{if;==;true;{aget;return};;
+										{if;==;1;
+											{aget;{aget;~p}unmoved$P_{aget;~mv1}};
+											{if;==;2;{aget;~ver};
+												{aset;{aget;~p}passant$P_{aget;~mv2};1}
+												{aset;{aget;~p}passant;{incr;{aget;{aget;~p}move}}}
+											}
+											{aset;{aget;~p}unmoved$P_{aget;~mv1};0}
+										}
+										{exec;chess_move_2}
+									}
+								}
+							};
+						Q;	
+							{aset;~hor;{if;!=;{aget;~hor1};{aget;~hor2};1{aset;~queen_move;h};0}}
+							{aset;~ver;{if;!=;{aget;~ver1};{aget;~ver2};1{aset;~queen_move;v};0}}
+							{if;&&;{aget;~hor};{aget;~ver};
+								{aset;~hor;{math;-;{aget;~hor1};{aget;~hor2}}}
+								{aset;~ver;{math;-;{aget;~ver1};{aget;~ver2}}}
+								{if;!=;{aget;~hor};{aget;~ver};
+									:x: Invalid move! You can only move diagonally.;
+									{aset;~i_h1;{aget;~h1}}
+									{aset;~i_v1;{aget;~v1}}
+									{if;!=;0;{math;-;{aget;~ver1};{aget;~ver2};1};
+										{loop;1;{math;-;{aget;~ver1};{aget;~ver2};1};
+											{aset;~i_h1;{if;>;{aget;~h1};{aget;~h2};{decr;{aget;~i_h1}};{incr;{aget;~i_h1}}}}
+											{aset;~i_v1;{if;>;{aget;~v1};{aget;~v2};{decr;{aget;~i_v1}};{incr;{aget;~i_v1}}}}
+											{if;!=;-;{aget;{aget;~p}{aget;~{aget;~i_h1}}{aget;~i_v1}};
+												{aset;~continue;0}
+											}
+
+										}
+									}
+									{if;==;0;{aget;continue};
+										:x: You cannot move your piece here!;
+										{switch;{aget;~side_2};
+											0;
+												{aset;{aget;~p}{aget;~mv2};{aget;~piece}}
+												{aset;{aget;~p}{aget;~mv1};-}
+												{aset;~move_success;true};
+											1;
+												{if;!=;w;{aget;{userid}chess_color};
+													:x: You can not move your piece here!
+													{aset;return;true}
+												}
+												{aset;{aget;~p}{aget;~mv2};{aget;~piece}}
+												{aset;{aget;~p}{aget;~mv1};-}
+												{aset;~move_success;true};
+											2;
+												{if;!=;b;{aget;{userid}chess_color};
+													:x: You can not move your piece here!
+													{aset;return;true}
+												}
+												{aset;{aget;~p}{aget;~mv2};{aget;~piece}}
+												{aset;{aget;~p}{aget;~mv1};-}
+												{aset;~move_success;true};
+											:x: FATAL ERROR! `side_2 is out of bounds.`
+											{aset;return;true}
+										}
+										{if;==;true;{aget;return};;
+											{exec;chess_move_2}
+										}
+									}
+								};
+								{switch;{get;~queen_move};
+									h;
+										{if;!=;{aget;~v1};{aget;~v2};
+											:x: FATAL ERROR! Please report to tag creator. `v1 and v2 does not match.`;
+											{aset;~i_h1;{aget;~hor2}}
+											{if;==;{math;-;{aget;~hor1};{aget;~hor2}};1;
+												{aset;~continue;true};
+												{loop;1;{math;-;{aget;~hor1};{aget;~hor2};1};
+													{aset;~i_h1;{incr;{aget;~i_h1}}}
+													{if;!=;-;{aget;{aget;~p}{aget;~{aget;~i_h1}}{aget;~v1}};
+														{aset;~continue;false}
+													}
+												}
+											}
+											{if;==;false;{aget;continue};:x: Invalid move!;
+												{switch;{aget;~side_2};
+													0;
+														{aset;{aget;~p}{aget;~mv2};{aget;~piece}}
+														{aset;{aget;~p}{aget;~mv1};-}
+														{aset;~move_success;true};
+													1;
+														{if;!=;w;{aget;{userid}chess_color};
+															:x: You can not move your piece here!
+															{aset;return;true}
+														}
+														{aset;{aget;~p}{aget;~mv2};{aget;~piece}}
+														{aset;{aget;~p}{aget;~mv1};-}
+														{aset;~move_success;true};
+													2;
+														{if;!=;b;{aget;{userid}chess_color};
+															:x: You can not move your piece here!
+															{aset;return;true}
+														}
+														{aset;{aget;~p}{aget;~mv2};{aget;~piece}}
+														{aset;{aget;~p}{aget;~mv1};-}
+														{aset;~move_success;true};
+													:x: FATAL ERROR! `side_2 is out of bounds.`
+													{aset;return;true}
+												}
+												{if;==;true;{aget;return};;
+													{exec;chess_move_2}
+												}
+											}
+										}
+									v;
+										{if;!=;{aget;~h1};{aget;~h2};
+											:x: FATAL ERROR! Please report to tag creator. `h1 and h2 does not match`;
+											{aset;~i_v1;{aget;~ver2}}
+											{if;==;{math;-;{aget;~ver1};{aget;~ver2}};1;
+												{aset;~continue;true};
+												{loop;1;{math;-;{aget;~ver1};{aget;~ver2};1};
+													{aset;~i_v1;{incr;{aget;~i_v1}}}
+													{if;!=;-;{aget;{aget;~p}{aget;~{aget;~h1}}{aget;~i_v1}};
+														{aset;~continue;false};
+													}
+												}
+											}
+											{if;==;false;{aget;continue};:x: Invalid move!;
+												{switch;{aget;~side_2};
+													0;
+														{aset;{aget;~p}{aget;~mv2};{aget;~piece}}
+														{aset;{aget;~p}{aget;~mv1};-}
+														{aset;~move_success;true};
+													1;
+														{if;!=;w;{aget;{userid}chess_color};
+															:x: You can not move your piece here!
+															{aset;return;true}
+														}
+														{aset;{aget;~p}{aget;~mv2};{aget;~piece}}
+														{aset;{aget;~p}{aget;~mv1};-}
+														{aset;~move_success;true};
+													2;
+														{if;!=;b;{aget;{userid}chess_color};
+															:x: You can not move your piece here!
+															{aset;return;true}
+														}
+														{aset;{aget;~p}{aget;~mv2};{aget;~piece}}
+														{aset;{aget;~p}{aget;~mv1};-}
+														{aset;~move_success;true};
+													:x: FATAL ERROR! `side_2 is out of bounds.`
+													{aset;return;true}
+												}
+												{if;==;true;{aget;return};;
+													{exec;chess_move_2}
+												}
+											}
+										}
+								}
+							};
+						K;
+							{if;==;1;{aget;{aget;~p}unmoved$K};
+								{switch;{aget;~mv2};
+									g1;	
+										{if;&&;{if;==;1;{aget;{aget;~p}unmoved$K};1;0};{if;==;1;{aget;{aget;~p}unmoved$R_h1};1;0};;
+											:x: The King or Rook has already moved and you cannot castle anymore!
+											{aset;return;true}
+										}
+										{if;==;true;{aget;return};;
+										{if;!=;-;{aget;{aget;~p}f1};{aset;~continue;false}}
+										{if;!=;-;{aget;{aget;~p}g1};{aset;~continue;false}}
+										{if;==;false;{aget;continue};:x: Invalid move!;
+										{switch;{aget;~side_2};
+											0;
+												{if;!=;R;{aget;{aget;~p}h1};:x: FATAL ERROR! Please report to tag creator. `rook not found in h1`;
+												{aset;{aget;~p}{aget;~mv2};{aget;~piece}}
+												{aset;{aget;~p}{aget;~mv1};-}
+												{aset;{aget;~p}f1;R}
+												{aset;{aget;~p}h1;-}
+												{aset;{aget;~p}unmoved$R_h1;0}
+												{aset;{aget;~p}unmoved$K;0}
+												{aset;~move_success;true}
+												{exec;chess_move_2}};
+											:x: FATAL ERROR! Please report to tag creator. `{lb}userid{rb}side_2 out of bounds`
+												{aset;return;true}
+										}}};
+									c1;	
+										{if;&&;{if;==;1;{aget;{aget;~p}unmoved$K};1;0};{if;==;1;{aget;{aget;~p}unmoved$R_a1};1;0};;
+											:x: The King or Rook has already moved and you cannot castle anymore!
+											{aset;return;true}
+										}
+										{if;==;true;{aget;return};;
+											{if;!=;-;{aget;{aget;~p}b1};{aset;~continue;false}}
+											{if;!=;-;{aget;{aget;~p}c1};{aset;~continue;false}}
+											{if;!=;-;{aget;{aget;~p}d1};{aset;~continue;false}}
+											{if;==;false;{aget;continue};:x: Invalid move!;
+												{switch;{aget;~side_2};
+													0;
+														{if;!=;R;{aget;{aget;~p}h1};:x: FATAL ERROR! Please report to tag creator. `rook not found in a1`;
+														{aset;{aget;~p}{aget;~mv2};{aget;~piece}}
+														{aset;{aget;~p}{aget;~mv1};-}
+														{aset;{aget;~p}d1;R}
+														{aset;{aget;~p}a1;-}
+														{aset;{aget;~p}unmoved$R_a1;0}
+														{aset;{aget;~p}unmoved$K;0}
+														{aset;~move_success;true}
+														{exec;chess_move_2}};
+													:x: FATAL ERROR! Please report to tag creator. `{lb}userid{rb}side_2 out of bounds`
+														{aset;return;true}
+												}
+											}
+										};
+										{aset;~hor;
+											{switch;{aget;~hor1};
+												{math;+;{aget;~hor2};0};0;
+												{math;+;{aget;~hor2};1};1;
+												-1
+											}
+										}
+										{aset;~ver;
+											{switch;{aget;~ver1};
+												{math;+;{aget;~ver2};0};0;
+												{math;+;{aget;~ver2};1};1;
+												-1
+											}
+										}
+										{switch;-1;
+											{aget;~ver};:x: Invalid move! {aset;return;true};
+											{aget;~hor};:x: Invalid move! {aset;return;true}
+										}
+										{if;==;true;{aget;return};;
+											{aset;~move_success;true}
+											{aset;{aget;~p}unmoved$K;0}
+											{switch;{aget;~side_2};
+												0;
+													{aset;{aget;~p}{aget;~mv2};{aget;~piece}}
+													{aset;{aget;~p}{aget;~mv1};-}
+													{aset;~move_success;true}
+													{exec;chess_move_2};
+												1;
+													{if;!=;w;{aget;{userid}chess_color};
+														:x: You can not move your piece here!;
+													{aset;{aget;~p}{aget;~mv2};{aget;~piece}}
+													{aset;{aget;~p}{aget;~mv1};-}
+													{aset;~move_success;true}
+													{exec;chess_move_2}};
+												2;
+													{if;!=;b;{aget;{userid}chess_color};
+														:x: You can not move your piece here!;
+													{aset;{aget;~p}{aget;~mv2};{aget;~piece}}
+													{aset;{aget;~p}{aget;~mv1};-}
+													{aset;~move_success;true}
+													{exec;chess_move_2}};
+												:x: FATAL ERROR! Please report to tag creator. `side_2 is out of bounds.`
+												{aset;return;true}
+											}
+										}
+								};
+								{aset;~hor;
+									{switch;{aget;~hor1};
+										{math;+;{aget;~hor2};0};0;
+										{math;+;{aget;~hor2};1};1;
+										-1
+									}
+								}
+								{aset;~ver;
+									{switch;{aget;~ver1};
+										{math;+;{aget;~ver2};0};0;
+										{math;+;{aget;~ver2};1};1;
+										-1
+									}
+								}
+								{switch;-1;
+									{aget;~ver};:x: Invalid move! {aset;return;true};
+									{aget;~hor};:x: Invalid move! {aset;return;true}
+								}
+								{if;==;true;{aget;return};;
+									{aset;~move_success;true}
+									{aset;{aget;~p}unmoved$K;0}
+									{switch;{aget;~side_2};
+										0;
+											{aset;{aget;~p}{aget;~mv2};{aget;~piece}}
+											{aset;{aget;~p}{aget;~mv1};-}
+											{aset;~move_success;true}
+											{exec;chess_move_2};
+										1;
+											{if;!=;w;{aget;{userid}chess_color};
+												:x: You can not move your piece here!;
+											{aset;{aget;~p}{aget;~mv2};{aget;~piece}}
+											{aset;{aget;~p}{aget;~mv1};-}
+											{aset;~move_success;true}
+											{exec;chess_move_2}};
+										2;
+											{if;!=;b;{aget;{userid}chess_color};
+												:x: You can not move your piece here!;
+											{aset;{aget;~p}{aget;~mv2};{aget;~piece}}
+											{aset;{aget;~p}{aget;~mv1};-}
+											{aset;~move_success;true}
+											{exec;chess_move_2}};
+										:x: FATAL ERROR! Please report to tag creator. `side_2 is out of bounds.`
+										{aset;return;true}
+									}
+								}
+							};
+						B;
+							{aset;~hor;{math;-;{aget;~hor1};{aget;~hor2}}}
+							{aset;~ver;{math;-;{aget;~ver1};{aget;~ver2}}}
+							{if;!=;{aget;~hor};{aget;~ver};
+								:x: Invalid move! You can only move diagonally.;
+								{aset;~i_h1;{aget;~h1}}
+								{aset;~i_v1;{aget;~v1}}
+								{if;!=;0;{math;-;{aget;~ver1};{aget;~ver2};1};
+									{loop;1;{math;-;{aget;~ver1};{aget;~ver2};1};
+										{aset;~i_h1;{if;>;{aget;~h1};{aget;~h2};{decr;{aget;~i_h1}};{incr;{aget;~i_h1}}}}
+										{aset;~i_v1;{if;>;{aget;~v1};{aget;~v2};{decr;{aget;~i_v1}};{incr;{aget;~i_v1}}}}
+										{if;!=;-;{aget;{aget;~p}{aget;~{aget;~i_h1}}{aget;~i_v1}};
+											{aset;~continue;0}
+										}
+
+									}
+								}
+								{if;==;0;{aget;continue};
+									:x: You cannot move your piece here!;
+									{switch;{aget;~side_2};
+										0;
+											{aset;{aget;~p}{aget;~mv2};{aget;~piece}}
+											{aset;{aget;~p}{aget;~mv1};-}
+											{aset;~move_success;true};
+										1;
+											{if;!=;w;{aget;{userid}chess_color};
+												:x: You can not move your piece here!
+												{aset;return;true}
+											}
+											{aset;{aget;~p}{aget;~mv2};{aget;~piece}}
+											{aset;{aget;~p}{aget;~mv1};-}
+											{aset;~move_success;true};
+										2;
+											{if;!=;b;{aget;{userid}chess_color};
+												:x: You can not move your piece here!
+												{aset;return;true}
+											}
+											{aset;{aget;~p}{aget;~mv2};{aget;~piece}}
+											{aset;{aget;~p}{aget;~mv1};-}
+											{aset;~move_success;true};
+										:x: FATAL ERROR! `side_2 is out of bounds.`
+										{aset;return;true}
+									}
+									{if;==;true;{aget;return};;
+										{exec;chess_move_2}
+									}
+								}
+							};
+						N;
+							{aset;~hor;
+								{switch;{aget;~hor1};
+									{math;+;{aget;~hor2};1};1{aset;~h_m;v};
+									{math;+;{aget;~hor2};2};2{aset;~h_m;h};
+									0
+								}
+							}
+							{aset;~ver;
+								{switch;{aget;~ver1};
+									{math;+;{aget;~ver2};2};1{aset;~v_m;v};
+									{math;+;{aget;~ver2};1};2{aset;~v_m;h};
+									0
+								}
+							}
+							{if;==;{aget;~hor};{aget;~ver};
+								{if;==;0;{aget;~hor};
+									:x: Invalid move!
+									{aset;return;true}
+								};
+								:x: Invalid move!
+								{aset;return;true}
+							}
+							{if;==;true;{aget;return};;
+								{aset;~i_h;{aget;~h2}}
+								{aset;~i_v;{aget;~v2}}
+								{if;!=;{aget;~h_m};{aget;~v_m};
+									:x: FATAL ERROR! Please report to tag creator. `h_m and v_m does not match.`;
+									{switch;{aget;~side_2};
+										0;
+											{aset;{aget;~p}{aget;~mv2};{aget;~piece}}
+											{aset;{aget;~p}{aget;~mv1};-}
+											{aset;~move_success;true};
+										1;
+											{if;!=;w;{aget;{userid}chess_color};
+												:x: You can not move your piece here!
+												{aset;return;true}
+											}
+											{aset;{aget;~p}{aget;~mv2};{aget;~piece}}
+											{aset;{aget;~p}{aget;~mv1};-}
+											{aset;~move_success;true};
+										2;
+											{if;!=;b;{aget;{userid}chess_color};
+												:x: You can not move your piece here!
+												{aset;return;true}
+											}
+											{aset;{aget;~p}{aget;~mv2};{aget;~piece}}
+											{aset;{aget;~p}{aget;~mv1};-}
+											{aset;~move_success;true};
+										:x: FATAL ERROR! `side_2 is out of bounds.`
+										{aset;return;true}
+									}
+									{if;==;true;{aget;return};;
+										{exec;chess_move_2}
+									}
+								}
+							};
+						R;
+							{aset;~hor;{if;!=;{aget;~hor1};{aget;~hor2};1{aset;~rook_move;h};0}}
+							{aset;~ver;{if;!=;{aget;~ver1};{aget;~ver2};1{aset;~rook_move;v};0}}
+							{if;&&;{aget;~hor};{aget;~ver};
+								:x: Invalid move! Rooks can only move horizontally or vertically, it cannot be both.;
+							{switch;{aget;~rook_move};
+								h;
+									{if;!=;{aget;~v1};{aget;~v2};
+										:x: FATAL ERROR! Please report to tag creator. `v1 and v2 does not match`;
+										{aset;~i_h1;{aget;~hor2}}
+										{if;==;{math;-;{aget;~hor1};{aget;~hor2}};1;
+											{aset;~continue;true};
+											{if;!=;0;{math;-;{aget;~hor1};{aget;~hor2};1};
+												{loop;1;{math;-;{aget;~hor1};{aget;~hor2};1};
+													{aset;~i_h1;{incr;{aget;~i_h1}}}
+													{if;!=;-;{aget;{aget;~p}{aget;~{aget;~i_h1}}{aget;~v1}};	
+														{aset;~continue;false}
+													}
+												}
+											}
+										}
+										{if;==;false;{aget;continue};:x: Invalid move!;
+											{switch;{aget;~side_2};
+												0;
+													{aset;{aget;~p}{aget;~mv2};{aget;~piece}}
+													{aset;{aget;~p}{aget;~mv1};-}
+													{aset;~move_success;true};
+												1;
+													{if;!=;w;{aget;{userid}chess_color};
+														:x: You can not move your piece here!
+														{aset;return;true}
+													}
+													{aset;{aget;~p}{aget;~mv2};{aget;~piece}}
+													{aset;{aget;~p}{aget;~mv1};-}
+													{aset;~move_success;true};
+												2;
+													{if;!=;b;{aget;{userid}chess_color};
+														:x: You can not move your piece here!
+														{aset;return;true}
+													}
+													{aset;{aget;~p}{aget;~mv2};{aget;~piece}}
+													{aset;{aget;~p}{aget;~mv1};-}
+													{aset;~move_success;true};
+												:x: FATAL ERROR! `side_2 is out of bounds.`
+												{aset;return;true}
+											}
+											{if;==;true;{aget;return};;
+												{exec;chess_move_2}
+											}
+										}
+									};
+								v;
+									{if;!=;{aget;~h1};{aget;~h2};
+										:x: FATAL ERROR! Please report to tag creator. `h1 and h2 does not match`;
+										{aset;~i_v1;{aget;~ver2}}
+										{if;==;{math;-;{aget;~ver1};{aget;~ver2}};1;
+											{aset;~continue;true};
+											{if;!=;0;{math;-;{aget;~ver1};{aget;~ver2};1};
+												{loop;1;{math;-;{aget;~ver1};{aget;~ver2};1};
+													{aset;~i_v1;{incr;{aget;~i_v1}}}
+													{if;!=;-;{aget;{aget;~p}{aget;~{aget;~h1}}{aget;~i_v1}};
+														{aset;~continue;false};
+													}
+												}
+											}
+										}
+										{if;==;false;{aget;continue};:x: Invalid move!;
+											{switch;{aget;~side_2};
+												0;
+													{aset;{aget;~p}{aget;~mv2};{aget;~piece}}
+													{aset;{aget;~p}{aget;~mv1};-}
+													{aset;~move_success;true};
+												1;
+													{if;!=;w;{aget;{userid}chess_color};
+														:x: You can not move your piece here!
+														{aset;return;true}
+													}
+													{aset;{aget;~p}{aget;~mv2};{aget;~piece}}
+													{aset;{aget;~p}{aget;~mv1};-}
+													{aset;~move_success;true};
+												2;
+													{if;!=;b;{aget;{userid}chess_color};
+														:x: You can not move your piece here!
+														{aset;return;true}
+													}
+													{aset;{aget;~p}{aget;~mv2};{aget;~piece}}
+													{aset;{aget;~p}{aget;~mv1};-}
+													{aset;~move_success;true};
+												:x: FATAL ERROR! `side_2 is out of bounds.`
+												{aset;return;true}
+											}
+											{if;==;true;{aget;return};;
+												{exec;chess_move_2}
+											}
+										}
+									}
+							}
+							{if;==;true;{aget;~move_success};
+								{switch;{aget;~mv1};
+									a1;{aset;{aget;~p}unmoved$R_a1;0};
+									h1;{aset;{aget;~p}unmoved$R_h1;0};
+								}
+							}};
+						:x: FATAL ERROR! Please report to tag creator. `chess_color and piece does not match.`
+						{aset;return;true}
+					};
+				:x: FATAL ERROR! Please report to tag creator. `chess_color is out of bounds.`
+				{aset;return;true}
+			}}}}}}}}}}
+		;/\t+|^[\r\n]+/gm;};
+	board;
+		{regexreplace;
+			{if;!=;1;{get;firstrun};
+				{if;==;`User not found`;{userid;246903976937783296};
+					{set;username;Kao}
+					{set;userdiscrim;0001};
+					{set;username;{username;246903976937783296}}
+					{set;userdiscrim;{userdiscrim;246903976937783296}}
+				}
+				```rb
+				`Chess Tag v1.2 Build 9` ```
+				**Introduction:**
+				You have copied this tag from the creator, **{get;username}#{get;userdiscrim}**.
+				Because of that, thank you for appreciating my work enough that you wanted it on your own server. But be sure to thank me, and make sure to tell me that you have copied it. Go to Tatsumaki Lounge, and run the tag `t!t chess_copy` in order to get instructions on how to make the tag work.
+				You can use `t!t chess help` to find the help menu of the tag.;
+			{aset;chess_link;
+				http://www.jinchess.com/chessboard/?p=	
+			}
+			{aset;~p;{aget;{userid}chess_instance}}
+			**Move Number**: **__{aget;{aget;~p}move}__**
+			{aget;chess_link}{aget;{aget;~p}a8}{aget;{aget;~p}b8}{aget;{aget;~p}c8}{aget;{aget;~p}d8}{aget;{aget;~p}e8}{aget;{aget;~p}f8}{aget;{aget;~p}g8}{aget;{aget;~p}h8}{aget;{aget;~p}a7}{aget;{aget;~p}b7}{aget;{aget;~p}c7}{aget;{aget;~p}d7}{aget;{aget;~p}e7}{aget;{aget;~p}f7}{aget;{aget;~p}g7}{aget;{aget;~p}h7}{aget;{aget;~p}a6}{aget;{aget;~p}b6}{aget;{aget;~p}c6}{aget;{aget;~p}d6}{aget;{aget;~p}e6}{aget;{aget;~p}f6}{aget;{aget;~p}g6}{aget;{aget;~p}h6}{aget;{aget;~p}a5}{aget;{aget;~p}b5}{aget;{aget;~p}c5}{aget;{aget;~p}d5}{aget;{aget;~p}e5}{aget;{aget;~p}f5}{aget;{aget;~p}g5}{aget;{aget;~p}h5}{aget;{aget;~p}a4}{aget;{aget;~p}b4}{aget;{aget;~p}c4}{aget;{aget;~p}d4}{aget;{aget;~p}e4}{aget;{aget;~p}f4}{aget;{aget;~p}g4}{aget;{aget;~p}h4}{aget;{aget;~p}a3}{aget;{aget;~p}b3}{aget;{aget;~p}c3}{aget;{aget;~p}d3}{aget;{aget;~p}e3}{aget;{aget;~p}f3}{aget;{aget;~p}g3}{aget;{aget;~p}h3}{aget;{aget;~p}a2}{aget;{aget;~p}b2}{aget;{aget;~p}c2}{aget;{aget;~p}d2}{aget;{aget;~p}e2}{aget;{aget;~p}f2}{aget;{aget;~p}g2}{aget;{aget;~p}h2}{aget;{aget;~p}a1}{aget;{aget;~p}b1}{aget;{aget;~p}c1}{aget;{aget;~p}d1}{aget;{aget;~p}e1}{aget;{aget;~p}f1}{aget;{aget;~p}g1}{aget;{aget;~p}h1}&tm={aget;{aget;~p}tm}{if;==;m;{aget;{userid}chess_size};;&s={aget;{userid}chess_size}}&tt={regexreplace;{username;{aget;{aget;~p}p2}};/[^a-zA-Z0-9]/g;}&ct={regexreplace;{username;{aget;{aget;~p}p1}};/[^a-zA-Z0-9]/g;}{switch;{aget;{userid}chess_board};;;~plain;;&bp={aget;{userid}chess_board}}{switch;{aget;{userid}chess_board};;;alpha;;&ps={aget;{userid}chess_piece}}{switch;{aget;{userid}chess_coord};;&cm=o;nc;;&cm={aget;{userid}chess_coord}}}
+		;/\t+|^[\r\n]+/gm;};
+	unlock;
+		
+	debug;
+		{regexreplace;
+			{if;!=;1;{get;firstrun};
+				{if;==;`User not found`;{userid;246903976937783296};
+					{set;username;Kao}
+					{set;userdiscrim;0001};
+					{set;username;{username;246903976937783296}}
+					{set;userdiscrim;{userdiscrim;246903976937783296}}
+				}
+				```rb
+				`Chess Tag v1.2 Build 9` ```
+				**Introduction:**
+				You have copied this tag from the creator, **{get;username}#{get;userdiscrim}**.
+				Because of that, thank you for appreciating my work enough that you wanted it on your own server. But be sure to thank me, and make sure to tell me that you have copied it. Go to Tatsumaki Lounge, and run the tag `t!t chess_copy` in order to get instructions on how to make the tag work.
+				You can use `t!t chess help` to find the help menu of the tag.;
+			{regexreplace;```prolog
+				{if;!=;move;{lower;{args;1}};
+					{pad;l;p;23;{space}} | {aget;~p}
+					{pad;l;uid @chess_instance;23;{space}} | {aget;{userid}chess_instance}
+					{pad;l;uid @en @chess_instance;23;{space}} | {aget;{aget;{userid}en}chess_instance}
+					{pad;l;p @tm;23;{space}} | {aget;{aget;~p}tm}
+					{pad;l;p @en;23;{space}} | {if;==;;{aget;{aget;~p}en};{space;18};{aget;{aget;~p}en}} ({if;==;;{aget;{aget;~p}en};null;{username;{aget;{aget;~p}en}}})
+					{pad;l;p @en @en;23;{space}} | {if;==;;{aget;{aget;{aget;~p}en}en};{space;18};{aget;{aget;{aget;~p}en}en}} ({if;==;;{aget;{aget;{aget;~p}en}en};null;{username;{aget;{aget;{aget;~p}en}en}}})
+					{pad;l;p @p1;23;{space}} | {if;==;;{aget;{aget;~p}p1};{space;18};{aget;{aget;~p}p1}} ({if;==;;{aget;{aget;~p}p1};null;{username;{aget;{aget;~p}p1}}})
+					{pad;l;p @p2;23;{space}} | {if;==;;{aget;{aget;~p}p2};{space;18};{aget;{aget;~p}p2}} ({if;==;;{aget;{aget;~p}p2};null;{username;{aget;{aget;~p}p2}}})
+					{pad;l;uid @en p1;23;{space}} | {if;==;;{aget;{aget;{userid}en}p1};{space;18};{aget;{aget;{userid}en}p1}} ({if;==;;{aget;{aget;{userid}en}p1};null;{username;{aget;{aget;{userid}en}p1}}})
+					{pad;l;uid @en p2;23;{space}} | {if;==;;{aget;{aget;{userid}en}p2};{space;18};{aget;{aget;{userid}en}p2}} ({if;==;;{aget;{aget;{userid}en}p2};null;{username;{aget;{aget;{userid}en}p2}}})
+					{pad;l;uid @chess_color;23;{space}} | {aget;{userid}chess_color}
+					{pad;l;uid @en @chess_color;23;{space}} | {aget;{aget;{userid}en}chess_color}
+					{pad;l;uid @game;23;{space}} | {aget;{userid}game;1}
+					{pad;l;uid @en @game;23;{space}} | {aget;{aget;{userid}en}game}
+					{pad;l;1;23;{space}} | {aget;~1} | {pad;l;a;4;{space}} | {aget;~a}
+					{pad;l;2;23;{space}} | {aget;~2} | {pad;l;b;4;{space}} | {aget;~b}
+					{pad;l;3;23;{space}} | {aget;~3} | {pad;l;c;4;{space}} | {aget;~c}
+					{pad;l;4;23;{space}} | {aget;~4} | {pad;l;d;4;{space}} | {aget;~d}
+					{pad;l;5;23;{space}} | {aget;~5} | {pad;l;e;4;{space}} | {aget;~e}
+					{pad;l;6;23;{space}} | {aget;~6} | {pad;l;f;4;{space}} | {aget;~f}
+					{pad;l;7;23;{space}} | {aget;~7} | {pad;l;g;4;{space}} | {aget;~g}
+					{pad;l;8;23;{space}} | {aget;~8} | {pad;l;h;4;{space}} | {aget;~h}
+				}
+				{if;==;move;{lower;{args;1}};
+					{pad;l;h;23;{space}} | {aget;~h} | {pad;l;v;4;{space}} | {aget;~v}
+					{pad;l;v1;23;{space}} | {aget;~v1} | {pad;l;v2;4;{space}} | {aget;~v2}
+					{pad;l;h1;23;{space}} | {aget;~h1} | {pad;l;h2;4;{space}} | {aget;~h2}
+					{pad;l;h_m;23;{space}} | {aget;~h_m} | {pad;l;v_m;4;{space}} | {aget;~v_m}
+					{pad;l;hor1;23;{space}} | {aget;~hor1} | {pad;l;hor2;4;{space}} | {aget;~hor2}
+					{pad;l;ver1;23;{space}} | {aget;~ver1} | {pad;l;ver2;4;{space}} | {aget;~ver2}
+					{pad;l;i_h1;23;{space}} | {aget;~i_h1} | {pad;l;i_h2;4;{space}} | {aget;~i_h2}
+					{pad;l;i_v1;23;{space}} | {aget;~i_v1} | {pad;l;i_v2;4;{space}} | {aget;~i_v2}
+					{pad;l;rank;23;{space}} | {aget;~rank}
+					{pad;l;get i_h1;23;{space}} | {aget;~{aget;~i_h1}}
+					{pad;l;rook_move;23;{space}} | {aget;~rook_move}
+					{pad;l;move_success;23;{space}} | {aget;~move_success}
+					{pad;l;move_type;23;{space}} | {aget;~move_type}
+					{pad;l;uid @piece;23;{space}} | {aget;{userid}piece}
+				}
+					{pad;l;p @unmoved$k;23;{space}} | {aget;{aget;~p}unmoved$k}
+					{pad;l;p @unmoved$K;23;{space}} | {aget;{aget;~p}unmoved$K}
+					{pad;l;p @unmoved$R_a1;23;{space}} | {aget;{aget;~p}unmoved$R_a1}
+					{pad;l;p @unmoved$R_h1;23;{space}} | {aget;{aget;~p}unmoved$R_h1}
+					{pad;l;p @unmoved$r_a8;23;{space}} | {aget;{aget;~p}unmoved$r_a8}
+					{pad;l;p @unmoved$r_h8;23;{space}} | {aget;{aget;~p}unmoved$r_a8}
+					{pad;l;p @unmoved$p_a7;23;{space}} | {aget;{aget;~p}unmoved$p_a7}
+					{pad;l;p @unmoved$p_b7;23;{space}} | {aget;{aget;~p}unmoved$p_b7}
+					{pad;l;p @unmoved$p_c7;23;{space}} | {aget;{aget;~p}unmoved$p_c7}
+					{pad;l;p @unmoved$p_d7;23;{space}} | {aget;{aget;~p}unmoved$p_d7}
+					{pad;l;p @unmoved$p_e7;23;{space}} | {aget;{aget;~p}unmoved$p_e7}
+					{pad;l;p @unmoved$p_f7;23;{space}} | {aget;{aget;~p}unmoved$p_f7}
+					{pad;l;p @unmoved$p_g7;23;{space}} | {aget;{aget;~p}unmoved$p_g7}
+					{pad;l;p @unmoved$p_h7;23;{space}} | {aget;{aget;~p}unmoved$p_h7}
+					{pad;l;p @unmoved$P_a2;23;{space}} | {aget;{aget;~p}unmoved$P_a2}
+					{pad;l;p @unmoved$P_b2;23;{space}} | {aget;{aget;~p}unmoved$P_b2}
+					{pad;l;p @unmoved$P_c2;23;{space}} | {aget;{aget;~p}unmoved$P_c2}
+					{pad;l;p @unmoved$P_d2;23;{space}} | {aget;{aget;~p}unmoved$P_d2}
+					{pad;l;p @unmoved$P_e2;23;{space}} | {aget;{aget;~p}unmoved$P_e2}
+					{pad;l;p @unmoved$P_f2;23;{space}} | {aget;{aget;~p}unmoved$P_f2}
+					{pad;l;p @unmoved$P_g2;23;{space}} | {aget;{aget;~p}unmoved$P_g2}
+					{pad;l;p @unmoved$P_h2;23;{space}} | {aget;{aget;~p}unmoved$P_h2}```
+					{aset;~chess_link;
+						http://www.jinchess.com/chessboard/?p=
+					}<{aget;~chess_link}{aget;{aget;~p}a8}{aget;{aget;~p}b8}{aget;{aget;~p}c8}{aget;{aget;~p}d8}{aget;{aget;~p}e8}{aget;{aget;~p}f8}{aget;{aget;~p}g8}{aget;{aget;~p}h8}{aget;{aget;~p}a7}{aget;{aget;~p}b7}{aget;{aget;~p}c7}{aget;{aget;~p}d7}{aget;{aget;~p}e7}{aget;{aget;~p}f7}{aget;{aget;~p}g7}{aget;{aget;~p}h7}{aget;{aget;~p}a6}{aget;{aget;~p}b6}{aget;{aget;~p}c6}{aget;{aget;~p}d6}{aget;{aget;~p}e6}{aget;{aget;~p}f6}{aget;{aget;~p}g6}{aget;{aget;~p}h6}{aget;{aget;~p}a5}{aget;{aget;~p}b5}{aget;{aget;~p}c5}{aget;{aget;~p}d5}{aget;{aget;~p}e5}{aget;{aget;~p}f5}{aget;{aget;~p}g5}{aget;{aget;~p}h5}{aget;{aget;~p}a4}{aget;{aget;~p}b4}{aget;{aget;~p}c4}{aget;{aget;~p}d4}{aget;{aget;~p}e4}{aget;{aget;~p}f4}{aget;{aget;~p}g4}{aget;{aget;~p}h4}{aget;{aget;~p}a3}{aget;{aget;~p}b3}{aget;{aget;~p}c3}{aget;{aget;~p}d3}{aget;{aget;~p}e3}{aget;{aget;~p}f3}{aget;{aget;~p}g3}{aget;{aget;~p}h3}{aget;{aget;~p}a2}{aget;{aget;~p}b2}{aget;{aget;~p}c2}{aget;{aget;~p}d2}{aget;{aget;~p}e2}{aget;{aget;~p}f2}{aget;{aget;~p}g2}{aget;{aget;~p}h2}{aget;{aget;~p}a1}{aget;{aget;~p}b1}{aget;{aget;~p}c1}{aget;{aget;~p}d1}{aget;{aget;~p}e1}{aget;{aget;~p}f1}{aget;{aget;~p}g1}{aget;{aget;~p}h1}&tm={aget;{aget;~p}tm}{if;==;m;{aget;{userid}ch_size};;&s={aget;{userid}ch_size}}&tt={username;{aget;{aget;~p}p2}}&ct={username;{aget;{aget;~p}p1}}{switch;{aget;{userid}chess_board};;;plain;;&bp={aget;{userid}chess_board}}{switch;{aget;{userid}chess_board};;;alpha;;&ps={aget;{userid}chess_piece}}{switch;{aget;{userid}ch_coord};;&cm=o;nc;;&cm={aget;{userid}ch_coord}}>;/\t/g;
+			}}
+		;/\t+|^[\r\n]+/gm;};
+	{regexreplace;
+		{switch;{lower;{args;0}};
+			forfeit;{inject};
+			quit;{inject};
+			stop;{inject};
+			end;{inject};
+			{regexreplace;
+				{if;!=;1;{get;firstrun};
+				{if;==;`User not found`;{userid;246903976937783296};
+					{set;username;Kao}
+					{set;userdiscrim;0001};
+					{set;username;{username;246903976937783296}}
+					{set;userdiscrim;{userdiscrim;246903976937783296}}
+				}
+				```rb
+				`Chess Tag v1.2 Build 9` ```
+				**Introduction:**
+				You have copied this tag from the creator, **{get;username}#{get;userdiscrim}**.
+				Because of that, thank you for appreciating my work enough that you wanted it on your own server. But be sure to thank me, and make sure to tell me that you have copied it. Go to Tatsumaki Lounge, and run the tag `t!t chess_copy` in order to get instructions on how to make the tag work.
+				You can use `t!t chess help` to find the help menu of the tag.;
+				{switch;{lower;{args;1}};;
+					```ruby
+					`Chess Help Menu v1.2 Build 9` ```
+
+					**Commands:**
+					1. `t!t chess theme` - Changes your chess style to the desired theme. Use without any arguments to get the help menu
+					2. `t!t chess start <@user> [w|b]` - Starts a match against user. If a color is chosen, that will be your color.
+					3. `t!t chess move <pos1> <pos2> [queen|knight|rook|bishop]` - Moves the piece in `pos1` to `pos2`, for example you want to move the rook at `a1` to `a8`, It will be `t!t chess move a1 a8`. The queen, knight, rook, and bishop are for when promoting a pawn.
+					4. `t!t chess <forfeit|quit|stop|end>` - Terminate your current match and forfeit.
+					5. `t!t chess stalemate` - Since the game cannot detect if a stalemate happens or not, the two players must announce it is a stalemate.
+				}}
+			;/\t+|^[\r\n]+/gm;}
+			{aset;return;true}
+		}
+		{if;==;true;{aget;return};;
+		{if;!=;1;{get;firstrun};
+			{if;==;`User not found`;{userid;246903976937783296};
+				{set;username;Kao}
+				{set;userdiscrim;0001};
+				{set;username;{username;246903976937783296}}
+				{set;userdiscrim;{userdiscrim;246903976937783296}}
+			}
+			```rb
+			`Chess Tag v1.2 Build 9` ```
+			**Introduction:**
+			You have copied this tag from the creator, **{get;username}#{get;userdiscrim}**.
+			Because of that, thank you for appreciating my work enough that you wanted it on your own server. But be sure to thank me, and make sure to tell me that you have copied it. Go to Tatsumaki Lounge, and run the tag `t!t chess_copy` in order to get instructions on how to make the tag work.
+			You can use `t!t chess help` to find the help menu of the tag.;
+			{switch;{aget;{userid}chess_game};
+				0;
+					{switch;{aget;{userid}chess_init};
+						0;
+							:x: You do not have an active chess game!
+							{aset;return;true}
+						1;
+							**Denied the chess battle!**;
+						:x: FATAL ERROR! Please report to tag creator. `chess_init is out of bounds.`
+						{aset;return;true}
+					};
+				1;
+					**Quit your chess game!**{aget;nl}You have lost the game.
+					{exec;chess_won;1};
+					:x: FATAL ERROR! Please report to tag creator. `chess_game is out of bounds.`
+					{aset;return;true}
+			}
+			{aset;~en;{aget;{userid}en}}
+			{aset;{userid}chess_game;0}
+			{aset;{userid}chess_instance}
+			{aset;{aget;~en}chess_game;0}
+			{aset;{aget;~en}chess_instance}
+		}};/\t+|^[\r\n]+/gm;}
+}
+{aset;exec}
+{if;==;true;{aget;perm_move};
+	{aset;{aget;~p}tm;{aget;{userid}chess_color}}
+};/\t+|^[\r\n]+/gm;}

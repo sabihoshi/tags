@@ -1,0 +1,21 @@
+{switch;{aget;~move_success};
+	1;{inject};
+	true;{inject};
+	:x: Invalid move!
+	{aset;return;true}
+}
+{if;==;true;{aget;return};;
+	{if;!=;-;{aget;~piece2};**Ate enemy {switch;{lower;{aget;~piece2}};r;Rook;n;Knight;b;Bishop;q;Queen;k;King;p;Pawn} and moved;**Moved} {if;==;true;{aget;promote};Pawn;{switch;{lower;{aget;~piece}};r;Rook;n;Knight;b;Bishop;q;Queen;k;King;p;Pawn}} from position `{aget;~mv1}` to `{aget;~mv2}`{if;==;true;{aget;promote};, and promoted Pawn to {switch;{lower;{aget;promote_piece}};r;Rook;n;Knight;b;Bishop;q;Queen;k;King;p;Pawn}}!** {if;==;k;{lower;{aget;~piece2}};{newline}:tada: **Congratulations!** {username}#{userdiscrim} has won the game!
+	}
+	{aset;{userid}{aget;~p}moves_{aget;{aget;~p}{aget;~mv1}};
+		{math;+;0{aget;{userid}{aget;~p}moves_{aget;{aget;~p}{aget;~mv1}};1}}
+	}
+	{aset;{aget;~p}move;{math;+;0{aget;{aget;~p}move};1}}
+	{aset;{aget;~p}tm;{if;==;w;{aget;{aget;~p}tm};b;w}}
+	{regexreplace;{aset;chess_link;
+		http://www.jinchess.com/chessboard/?p=    
+	}
+	{aset;~p;{aget;{userid}chess_instance}}
+	**Move Number**: **__{aget;{aget;~p}move}__**
+	{aget;chess_link}{set;index0;1}{set;index1;8}{loop;1;64;{aget;{aget;~p}{aget;~{get;index0}}{get;index1}}{if;==;8;{get;index0};{set;index0;1}{set;index1;{decr;{get;index1}}};{set;index0;{incr;{get;index0}}}}}&tm={aget;{aget;~p}tm}{if;==;m;{aget;{userid}chess_size};;&s={aget;{userid}chess_size}}&tt={regexreplace;{username;{aget;{aget;~p}p2}};/[^a-zA-Z0-9]/g;}&ct={regexreplace;{username;{aget;{aget;~p}p1}};/[^a-zA-Z0-9]/g;}{switch;{aget;{userid}chess_board};;;~plain;;&bp={aget;{userid}chess_board}}{switch;{aget;{userid}chess_board};;;alpha;;&ps={aget;{userid}chess_piece}}{switch;{aget;{userid}chess_coord};;&cm=o;nc;;&cm={aget;{userid}chess_coord}};/\t+|^[\r\n]+/gm;}
+}
