@@ -69,7 +69,7 @@
 	{bool;{args;0};startswith;set};
 		{set;~names;[]}
 		{set;~values;[]}
-		{void;{inject;{regexreplace;{args};/(\w+)\s?:\s?(.+)/g;{lb}push{semi}~names{semi}$1{rb}{lb}push{semi}~values{semi}$2{rb}}}}
+		{void;{inject;{regexreplace;{args};/(\w+)\s*:\s*(.+)/g;{lb}push{semi}~names{semi}$1{rb}{lb}push{semi}~values{semi}$2{rb}}}}
 		{for;~i;0;<;{length;{get;~names}};
 			{switch;true;
 				{bool;{lower;{get;~names;{get;~i}}};includes;age};{set;~age;{get;~values;{get;~i}}};
@@ -119,11 +119,11 @@
 				fields.inline:true;
 				fields.name:Likes;
 				fields.value:
-					{if;{get;~likes};!=;;{set;~c;0}{foreach;~i;{split;{get;~likes};,};{repeat;{zws}{space}{zws};4}{increment;~c}. **{clean;{get;~i}}**{newline}};Unspecified};
+					{if;{get;~likes};!=;;{set;~c;0}{foreach;~i;{split;{get;~likes};,};{repeat;{zws}{space}{zws};4}{increment;~c}. **{trim;{clean;{get;~i}}}**{newline}};Unspecified};
 				fields.inline:true;
 				fields.name:Dislikes:;
 				fields.value:
-					{if;{get;~dislikes};!=;;{set;~c;0}{foreach;~i;{split;{get;~dislikes};,};{repeat;{zws}{space}{zws};4}{increment;~c}. **{clean;{get;~i}}**{newline}};Unspecified};
+					{if;{get;~dislikes};!=;;{set;~c;0}{foreach;~i;{split;{get;~dislikes};,};{repeat;{zws}{space}{zws};4}{increment;~c}. **{trim;{clean;{get;~i}}}**{newline}};Unspecified};
 				fields.inline:true;
 				footer.icon_url:{useravatar};
 				footer.text:{username}#{userdiscrim};
