@@ -115,11 +115,11 @@
 				fields.inline:true;
 				fields.name:Likes;
 				fields.value:
-					{if;{get;~likes};!=;;{set;~c;0}{foreach;~i;{split;{get;~likes};,};{repeat;{zws}{space}{zws};4}{increment;~c}. **{clean;{get;~i}}**{newline}}};
+					{if;{get;~likes};!=;;{set;~c;0}{foreach;~i;{split;{get;~likes};,};{repeat;{zws}{space}{zws};4}{increment;~c}. **{clean;{get;~i}}**{newline}};Unspecified};
 				fields.inline:true;
 				fields.name:Dislikes:;
 				fields.value:
-					{if;{get;~dislikes};!=;;{set;~c;0}{foreach;~i;{split;{get;~dislikes};,};{repeat;{zws}{space}{zws};4}{increment;~c}. **{clean;{get;~i}}**{newline}}};
+					{if;{get;~dislikes};!=;;{set;~c;0}{foreach;~i;{split;{get;~dislikes};,};{repeat;{zws}{space}{zws};4}{increment;~c}. **{clean;{get;~i}}**{newline}};Unspecified};
 				fields.inline:true;
 				footer.icon_url:{useravatar};
 				footer.text:{username}#{userdiscrim};
