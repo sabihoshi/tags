@@ -1,0 +1,19 @@
+{set;~pr;{commandname}}
+{set;@{userid}#{get;~pr}pass;
+	{if;>=;
+		{time;x};
+		{get;@{userid}#{get;~pr}cool};
+			{set;@{userid}#{get;~pr}cool;
+				{math;+;
+					{time;x};
+					{get;@1d}
+				}
+			}1;
+			{set;@{userid}#{get;~pr}refmath;
+				{math;-;
+					{get;@{userid}#{get;~pr}cool};
+					{time;x}
+				}
+			}0
+	}
+}

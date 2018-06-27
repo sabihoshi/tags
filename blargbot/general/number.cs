@@ -1,0 +1,1 @@
+{inject;{regexreplace;{args};/(\d+|\d+\.\d+)e\+?(\d+)/ig;{lb}realpad{semi}{lb}replace{semi}$1{semi}.{semi}{rb}{semi}{lb}math{semi}+{semi}0$2{semi}1{rb}{semi}0{semi}right{rb}}}
