@@ -83,7 +83,7 @@
 					{bool;{lower;{get;~names;{get;~i}}};includes;country};
 					{bool;{lower;{get;~names;{get;~i}}};includes;location}
 				};
-					{set;~L;{get;~values;{get;~i}}}{execcc;location};
+					{set;~L;{get;~values;{get;~i}}}{set;_{userid}location;{get;~L}}{execcc;location};
 				{bool;{lower;{get;~names;{get;~i}}};includes;description};{set;~description;{get;~values;{get;~i}}};
 				{bool;image {lower;{get;~names;{get;~i}}};includes;link};{set;~image;{get;~values;{get;~i}}};
 				{bool;{lower;{get;~names;{get;~i}}};includes;color};{set;~color;{color;{get;~values;{get;~i}}}};
