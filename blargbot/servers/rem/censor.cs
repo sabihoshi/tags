@@ -1,0 +1,2 @@
+b!censor add /(discord((.|.?dot.?)gg|app(.|.?dot.?)com/invite)/(?!rem|uwu|u7a768y).*)/igm -R -d {usermention} Invites aren't allowed outside of #promote.{set;_{userid}inv;{if;==;NaN;{parseint;{get;_{userid}inv}};1;{math;+;{get;_{userid}inv};1}}} ({if;==;{get;_{userid}inv};2;Muted.{void;{addrole;280969535513690112}}{timer;{void;{removerole;280969535513690112}}{usermention} is Unmuted.;5m};{if;>=;{get;_{userid}inv};3;Banned.{ban;{userid};1;Too much invites;noperms};Warning {get;_{userid}inv}/3}}) -r Said an invite outside of #promote
+

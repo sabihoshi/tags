@@ -1,0 +1,1 @@
+b!t edit cmd {set;0;{lower;{args;0}}}{get;@cmd{switch;{get;0};;mes;help;mes;list;list;{if;==;;{aget;cmd#{get;0}};err;#{get;0}}}}

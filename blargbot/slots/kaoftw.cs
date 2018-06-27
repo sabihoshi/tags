@@ -1,0 +1,3 @@
+b!t edit Kaoftw {set;0;{randint;1;5}}{switch;{get;0};
+	1;{randchoose;{set;@fr1;{get;@fr2}};{set;@fr2;{get;@fr3}};{set;@fr3;{get;@fr1}}};
+	5;{set;@fr{randint;1;3};{randchoose;💎;🔔;7⃣;🇱🇻}}}{set;@frs1;{randchoose;🍌;🍒;🍐;🍈;🍇;🍊;🍉;🔔;🇱🇻;7⃣;💎}{space;2}:{space;2}{randchoose;🍌;🍒;🍐;🍈;🍇;🍊;🍉;🔔;🇱🇻;7⃣;💎}{space;2}:{space;2}{randchoose;🍌;🍒;🍐;🍈;🍇;🍊;🍉;🔔;🇱🇻;7⃣;💎}}{set;@frs2;{randchoose;🍌;🍒;🍐;🍈;🍇;🍊;🍉;🔔;🇱🇻;7⃣;💎}{space;2}:{space;2}{randchoose;🍌;🍒;🍐;🍈;🍇;🍊;🍉;🔔;🇱🇻;7⃣;💎}{space;2}:{space;2}{randchoose;🍌;🍒;🍐;🍈;🍇;🍊;🍉;🔔;🇱🇻;7⃣;💎}}

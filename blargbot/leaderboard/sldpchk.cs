@@ -1,0 +1,108 @@
+b!t edit sldpchk {substring;{regexreplace;{trim;{
+if;==;0;{argslength};
+	Error!{return}
+}
+{if;==;all;{lower;{args;0}};
+	{if;!=;1;{get;@{userid}admin};
+		:x: Error!
+		{return}
+	}
+	{sort;{get;@sldboard};descending}
+	{set;@0;
+		{regexreplace;
+			{get;@sldboard};
+			/(\d+#)(\d{1,18})/g;
+			$2
+		}
+	}
+	{set;cnt;0}
+	{repeat;
+		{set;@pr;
+			{userid;{slice;
+				{get;@0};{get;cnt};{math;+;1;{get;cnt}}}
+				}
+			}
+			{if;==;-1;{indexof;{get;@0};{get;@pr}};
+				{push;@sldboard;
+					{get;@{get;@pr}ustot}#{get;@pr}}
+					> Pushed `{get;@pr}`.{newline}
+			}
+			{if;>;{length;{get;@{get;@pr}ustot}};{get;@crlength};
+				{set;@crlength;
+					{length;{get;@{get;@pr}ustot}}
+				}
+			}
+			{set;nw;
+				{pad;
+					left;
+					{repeat;0;{get;@crlength}};
+					0{get;@{get;@pr}ustot}
+				}
+			}
+			{inject;
+				{lb}set{semi}@sldboard{semi}
+					{lb}regexreplace{semi}
+						{lb}get{semi}@sldboard{rb}
+						{semi}/(\d+)(?=#{get;@pr})/g{semi}
+						{get;nw}
+					{rb}
+				{rb}
+			}
+			{sort;{get;@sldboard};descending}
+			> Checked `{get;@pr}`.{newline}
+			{void;{increment;cnt}};
+		{length;{get;@0}}
+	}
+	{return}
+}
+{set;cnt;0}
+{sort;{get;@sldboard};descending}
+{set;@0;
+	{regexreplace;
+		{get;@sldboard};
+		/(\d+#)(\d{1,18})/g;
+		$2
+	}
+}
+{repeat;
+	{set;@pr;
+		{userid;{args;{get;cnt}}}
+	}
+	{if;==;-1;{indexof;
+			{get;@0};
+			{get;@pr}
+		};
+			{push;@sldboard;
+				{get;@{get;@pr}ustot}#{get;@pr}
+			}
+			{if;==;1;{get;@{userid}admin};
+			> Pushed `{get;@pr}`.{newline}
+			}
+	}
+	{if;>;{length;{get;@{get;@pr}ustot}};{get;@crlength};
+		{set;@crlength;
+			{length;{get;@{get;@pr}ustot}}}
+	}
+	{set;nw;
+		{pad;
+			left;
+			{repeat;0;{get;@crlength}};
+			0{get;@{get;@pr}ustot}
+		}
+	}
+	{inject;
+		{lb}set{semi}@sldboard{semi}
+			{lb}regexreplace{semi}
+				{lb}get{semi}@sldboard{rb}{semi}
+				/(\d+)(?=#{get;@pr})/g{semi}
+				{get;nw}
+			{rb}
+		{rb}
+	}
+	{sort;{get;@sldboard};descending}
+	{if;==;1;{get;@{userid}admin};
+		> Checked `{get;@pr}`.{newline}
+	}{void;{increment;cnt}};
+	{argslength}
+}};/\n+/igm;
+};0;1997}...

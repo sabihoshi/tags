@@ -1,0 +1,1 @@
+b!t edit cancel {if;!=;@@@@@;{get;@{userid}confirm}**:information_source: | {username}, credits transfer cancelled.**;:negative_squared_cross_mark: | You don't have an active transfer!}{set;@{userid}rec;0}{set;@{userid}confirm;@@@@@}{set;@{userid}newcred;{get;@{userid}credits}}{set;@{userid}transact;0}{set;@{userid}transfer;0}

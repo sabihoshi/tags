@@ -1,0 +1,10 @@
+b!t edit credits {set;@{userid}credits;{if;==;NaN;{parseint;{get;@{userid}credits}};0;{if;==;;{get;@{userid}credits};0;{if;>=;{get;@{userid}credits};0;{get;@{userid}credits};0}}}}{switch;{argslength};0;💳 | **{username}**, **you have a balance of 💴 {parseint;{get;@{userid}credits}} credits!**;{set;@{userid}rec;{userid;{args;0}}}{if;==;check;{lower;{args;1}};{set;@{userid;{args;0}}credits;{if;==;NaN;{parseint;{get;@{userid;{args;0}}credits}};0;{if;==;;{get;@{userid;{args;0}}credits};0;{if;>=;{get;@{userid;{args;0}}credits};0;{get;@{userid;{args;0}}credits};0}}}}💳 | **{username}**, **{username;{get;@{userid}rec}}{set;@repr;1}{exec;ldpchk;{get;@{userid}rec}} has a balance of 💴 {get;@{userid;{get;@{userid}rec}}credits} credits!**;{if;>;{args;1};0;{if;>=;{get;@{userid}credits};{args;1};{set;@{userid}transact;{if;>;{args;1};0;{if;>=;{get;@{userid}credits};{args;1};1;0}}}🏧 | **Credit Transfer**
+
+```Transferring ¥ {set;@{userid}crtrans;{args;1}}{get;@{userid}crtrans} to user {username;{get;@{userid}rec}}
+
+Amount due after tax:{space;8}¥ {set;@{userid}transfer;{round;{math;*;{args;1};0.8}}}{get;@{userid}transfer}
+Current credits balance:{space;5}¥ {get;@{userid}credits}
+Balance after transfer:{space;6}¥ {set;@{userid}newcred;{if;>=;{get;@{userid}credits};{args;1};{math;-;{get;@{userid}credits};{args;1}};{get;@{userid}credits}}}{get;@{userid}newcred}
+
+# Confirmation Pin: {set;@{userid}confr;{randint;0;9999}}{set;@{userid}confirm;{switch;{length;{get;@{userid}confr}};1;000;2;00;3;0}{get;@{userid}confr}}{get;@{userid}confirm}```
+➡ | To confirm, type `{prefix}t confirmation {get;@{userid}confirm}` or type `{prefix}t cancel` to close the transaction;💳 | **{username}, you have insufficient credits to make a transaction.**;❎ | **{username}, please enter a valid amount of credits to transfer.**}}}}{exec;ldchk}

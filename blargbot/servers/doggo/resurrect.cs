@@ -1,0 +1,1 @@
+b!cc create resurrect {execcc;isadmin}{set;~user;{userid;{args;0}}}{foreach;~role;{get;_{userid;{get;~user}}roles};{void;{addrole;{get;~role};{get;~user}}}}Resurrected {username;{get;~user}}!
