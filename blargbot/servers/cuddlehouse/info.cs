@@ -59,6 +59,7 @@
 		{if;{length;{get;~extra.names}};!=;0;fields.name:Extra Info};
 		{if;{length;{get;~extra.names}};!=;0;fields.value:
 			{for;~i;0;<;{length;{get;~extra.names}};{get;~extra.names;{get;~i}}: **{get;~extra.values;{get;~i}}**{newline}}
+		};
 		{if;{length;{get;~extra.names}};!=;0;fields.inline:true};
 		footer.icon_url:{useravatar};
 		footer.text:{username}#{userdiscrim};
