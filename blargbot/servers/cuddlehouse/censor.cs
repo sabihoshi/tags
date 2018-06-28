@@ -1,0 +1,1 @@
+b!censor add /^(Gender|Height|Weight|Birthday|Cuddles|Spoon|Location|Description|Likes|Dislikes)\s*:\s*(.+)$/igm -R -w 0 -d {execcc;info;{messagetext}}
