@@ -1,6 +1,8 @@
 {if;{logic;!;{iscc}};{return}}
 {set;~names;[]}
 {set;~values;[]}
+{set;~extra.names;[]}
+{set;~extra.values;[]}
 {void;{inject;{regexreplace;{args};/(\w+)\s*:\s*(.+)/g;{lb}push{semi}~names{semi}$1{rb}{lb}push{semi}~values{semi}$2{rb}}}}
 {for;~i;0;<;{length;{get;~names}};
 	{switch;{lower;{get;~names;{get;~i}}};
@@ -16,7 +18,8 @@
 		image;{if;{regextest;{get;~values;{get;~i}};/^https?:\/\/.+\.(?:jpe?g|png|gif)$/i};{set;~image;{get;~values;{get;~i}}}};
 		color;{set;~color;{color;{get;~values;{get;~i}}}};
 		likes;{set;~likes;{get;~values;{get;~i}}};
-		dislikes;{set;~dislikes;{get;~values;{get;~i}}}
+		dislikes;{set;~dislikes;{get;~values;{get;~i}}};
+		{push;~extra.names;{get;~names;{get;~i}}}{push;~extra.values;{get;~values;{get;~i}}}
 	}
 }
 {if;{get;_{userid}info};!=;;
@@ -53,6 +56,10 @@
 		fields.value:
 			{if;{get;~dislikes};!=;;{set;~c;0}{foreach;~i;{split;{get;~dislikes};,};{repeat;{zws}{space}{zws};4}{increment;~c}. **{trim;{clean;{get;~i}}}**{newline}};Unspecified};
 		fields.inline:true;
+		{if;{length;{get;~extra.names}};!=;0;fields.name:Extra Info:};
+		{if;{length;{get;~extra.names}};!=;0;fields.value:
+			{for;~i;0;<;{length;{get;~extra.names}};{get;~extra.names;{get;~i}}: **{get;~extra.values;{get;~i}}**{newline}}
+		{if;{length;{get;~extra.names}};!=;0;fields.inline:true};
 		footer.icon_url:{useravatar};
 		footer.text:{username}#{userdiscrim};
 		timestamp:{time};
