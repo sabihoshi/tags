@@ -56,7 +56,7 @@
 		fields.value:
 			{if;{get;~dislikes};!=;;{set;~c;0}{foreach;~i;{split;{get;~dislikes};,};{repeat;{zws}{space}{zws};4}{increment;~c}. **{trim;{clean;{get;~i}}}**{newline}};Unspecified};
 		fields.inline:true;
-		{if;{length;{get;~extra.names}};!=;0;fields.name:Extra Info:};
+		{if;{length;{get;~extra.names}};!=;0;fields.name:Extra Info};
 		{if;{length;{get;~extra.names}};!=;0;fields.value:
 			{for;~i;0;<;{length;{get;~extra.names}};{get;~extra.names;{get;~i}}: **{get;~extra.values;{get;~i}}**{newline}}
 		{if;{length;{get;~extra.names}};!=;0;fields.inline:true};
