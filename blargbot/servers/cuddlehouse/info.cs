@@ -79,7 +79,7 @@
 				birthday;{set;~birthday;{get;~values;{get;~i}}};
 				cuddles;{set;~cuddles;{get;~values;{get;~i}}};
 				spoon;{set;~s;{get;~values;{get;~i}}}{execcc;spoon};
-				location;set;~L;{get;~values;{get;~i}}}{set;_{userid}location;{get;~L}}{execcc;location};
+				location;{set;~L;{get;~values;{get;~i}}}{set;_{userid}location;{get;~L}}{execcc;location};
 				description;{set;~description;{get;~values;{get;~i}}};
 				image;{set;~image;{get;~values;{get;~i}}};
 				color;{set;~color;{color;{get;~values;{get;~i}}}};
