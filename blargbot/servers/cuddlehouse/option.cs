@@ -1,7 +1,7 @@
 {if;{logic;!;{iscc}};{return;false}}
 {set;~options;{get;~l}}
 {switch;{length;{get;~options}};
-	0;{return;false};
+	0;{void};
 	1;{set;~item;{get;~options;0}};
 		{set;~prompt;{send;{channelid};{clean;
 		**{repeat;`;3}cs

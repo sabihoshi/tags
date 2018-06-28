@@ -1,5 +1,5 @@
 {if;{logic;!;{iscc}};{return;false}}
-{if;{length;{get;~L}};<=;1;{return;false}}
+{if;{length;{get;~L}};>;1;
 {set;~states;
 	Alabama;Alaska;Arizona;Arkansas;Armed Forces America;Armed Forces Europe;Armed Forces Pacific;California;Colorado;Connecticut;Delaware;District of Columbia;Florida;Georgia;Hawaii;Idaho;Illinois;Indiana;Iowa;Kansas;Kentucky;Louisiana;Maine;Maryland;Massachusetts;Michigan;Minnesota;Mississippi;Missouri;Montana;Nebraska;Nevada;New Hampshire;New Jersey;New Mexico;New York;North Carolina;North Dakota;Ohio;Oklahoma;Oregon;Pennsylvania;Rhode Island;South Carolina;South Dakota;Tennessee;Texas;Utah;Vermont;Virginia;Washington;West Virginia;Wisconsin;Wyoming
 }
@@ -35,31 +35,33 @@
 		{get;~se-us};{void;{roleadd;455791164931702795}};
 		{get;~ne-us};{void;{roleadd;453957028243701764}}
 	}
-	{return;false}
+	{//;{return;false}}
 }
 {if;{indexof;{get;~province_code};{upper;{get;~L}}};!=;-1;
 	{set;_{userid}location;{get;~province;{indexof;{get;~province_code};{upper;{get;~L}}}}}
 	{void;{roleadd;455788879958507521}}
-	{return;false}
 }
 {set;~europe;Russian Federation;Germany;United Kingdom;France;Italy;Spain;Ukraine;Poland;Romania;Netherlands;Belgium;Greece;Czechia;Portugal;Sweden;Hungary;Belarus;Serbia;Austria;Switzerland;Bulgaria;Denmark;Finland;Slovakia;Norway;Ireland;Croatia;Republic of Moldova;Bosnia and Herzegovina;Albania;Lithuania;The former Yugoslav Republic of Macedonia;Slovenia;Latvia;Estonia;Montenegro;Luxembourg;Malta;Iceland;Andorra;Monaco;San Marino}
 {set;~oceania;Australia;Papua New Guinea;New Zealand;Fiji;Solomon Islands;Vanuatu;Samoa;Kiribati;Tonga;Micronesia (Federated States of);Marshall Islands;Palau;Nauru;Tuvalu}
+{if;{get;_{userid}location};!=;;
 {if;{indexof;{get;~iso2};{upper;{get;~L}}};!=;-1;
 	{set;_{userid}location;{get;~countries;{indexof;{get;~iso2};{upper;{get;~L}}}}}
 	{switch;{get;_{userid}location};
 		{get;~europe};{void;{roleadd;455357588507328533}};
 		{get;~oceania};{void;{roleadd;455788076468535322}}
 	}
-	{return;false}
-}
+	{//;{return;false}}
+}}
+{if;{get;_{userid}location};!=;;
 {if;{indexof;{get;~iso3};{upper;{get;~L}}};!=;-1;
 	{set;_{userid}location;{get;~countries;{indexof;{get;~iso3};{upper;{get;~L}}}}}
 	{switch;{get;_{userid}location};
 		{get;~europe};{void;{roleadd;455357588507328533}};
 		{get;~oceania};{void;{roleadd;455788076468535322}}
 	}
-	{return;false}
-}
+	{//;{return;false}}
+}}
+{if;{get;_{userid}location};!=;;
 {set;~l;[]}
 {foreach;~state;~states;
 	{if;{lower;{get;~state}};includes;{lower;{get;~L}};
@@ -93,4 +95,4 @@
 			{get;~se-us};{void;{roleadd;455791164931702795}};
 			{get;~ne-us};{void;{roleadd;453957028243701764}}
 		}
-}
+}}}
