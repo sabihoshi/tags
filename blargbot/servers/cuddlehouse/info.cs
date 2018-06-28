@@ -81,7 +81,7 @@
 				spoon;{set;~s;{get;~values;{get;~i}}}{execcc;spoon};
 				location;{set;~L;{get;~values;{get;~i}}}{set;_{userid}location;{get;~L}}{execcc;location};
 				description;{set;~description;{get;~values;{get;~i}}};
-				image;{set;~image;{get;~values;{get;~i}}};
+				image;{if;{regextest;{get;~values;{get;~i}};/^https?:\/\/.+\.(?:jpe?g|png|gif)$/i};{set;~image;{get;~values;{get;~i}}}};
 				color;{set;~color;{color;{get;~values;{get;~i}}}};
 				likes;{set;~likes;{get;~values;{get;~i}}};
 				dislikes;{set;~dislikes;{get;~values;{get;~i}}}
