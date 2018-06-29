@@ -1,5 +1,10 @@
 {lang;cs}
-{trim;{set;@time;{time;x}}
+{trim;{clean;
+{if;{argslength};==;0;
+	{exec;chess_help}
+	{return}
+}
+{set;~end;forfeit;quit;stop;end}
 {switch;{lower;{args;0}};
 	eval;
 		{if;!=;{userid};246903976937783296;❌ You cannot run this!{return}}
@@ -28,13 +33,8 @@
 		{exec;chess_board;{lower;{args}}};
 	debug;
 		{exec;chess_debug;{lower;{args}}};
-	{switch;{lower;{args;0}};
-		forfeit;{void};
-		quit;{void};
-		stop;{void};
-		end;{void};
-		❌ Invalid command!
+	{get;~end};
+		{exec;chess_quit;{lower;{args}}};
+		<:chess_cross:436745175294017546> {embed;{exec;err;Invalid command!}}
 		{return}
-	}
-	{exec;chess_quit;{lower;{args}}}
-}}
+}}}
