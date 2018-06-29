@@ -1,5 +1,4 @@
 {lang;cs}
-{trim;{clean;
 {if;{argslength};==;0;
 	{exec;chess_help}
 	{return}
@@ -7,10 +6,10 @@
 {set;~end;forfeit;quit;stop;end}
 {switch;{lower;{args;0}};
 	eval;
-		{if;!=;{userid};246903976937783296;❌ You cannot run this!{return}}
+		{if;{userid};!=;246903976937783296;❌ You cannot run this!{return}}
 		{inject;{args}};
 	reset;
-		{if;!=;{userid};246903976937783296;❌ You cannot run this!{return}}
+		{if;{userid};!=;246903976937783296;❌ You cannot run this!{return}}
 		{exec;chess_reset_board;{lower;{args}}};
 	help;
 		{fallback;}
@@ -35,6 +34,6 @@
 		{exec;chess_debug;{lower;{args}}};
 	{get;~end};
 		{exec;chess_quit;{lower;{args}}};
-		<:chess_cross:436745175294017546> {embed;{exec;err;Invalid command!}}
+		{embed;{exec;err;<:chess_cross:436745175294017546> Invalid command!}}
 		{return}
-}}}
+}

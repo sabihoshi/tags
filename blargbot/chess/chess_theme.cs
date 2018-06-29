@@ -1,5 +1,6 @@
 {lang;cs}
 {fallback;}
+{set;~sizes;21;27;37;49;65;87;115}
 {switch;{lower;{args;1}};;
 	Please do `{prefix}t chess theme <type>` in order to get that style.
 	```prolog
@@ -21,33 +22,26 @@
 	{realpad;nc;8;{space};left} | No Coordinates shown.```;
 	alpha;Succesfully set piece style to alpha!{set;@{userid}chess_piecen;1};
 	linares;Succesfully set piece style to linares!{set;@{userid}chess_piecen;2};
-	merida;Succesfully set piece style to merida!{set;@{userid}chess_piecen;0};
-	21;Set chess board size to 21px{set;@{userid}chess_sizen;21};
-	27;Set chess board size to 27px{set;@{userid}chess_sizen;27};
-	37;Set chess board size to 37px{set;@{userid}chess_sizen;37};
-	49;Set chess board size to 49px{set;@{userid}chess_sizen;49};
-	65;Set chess board size to 65px{set;@{userid}chess_sizen;65};
-	87;Set chess board size to 87px{set;@{userid}chess_sizen;87};
-	115;Set chess board size to 115px{set;@{userid}chess_sizen;115};
+	merida;Succesfully set piecestyle to merida!{set;@{userid}chess_piecen;0};
+	{get;~sizes};Set chess board size to {parseint;{args;1}}px!{set;@{userid}chess_sizen;{parseint;{args;1}}};
 	o;Set chess coordinates to the outside of the board!{set;@{userid}chess_coordn;o};
 	nc;Hidden chess coordinates!{set;@{userid}chess_coordn;nc};
-	{switch;{lower;{args;1}};
-		light;
-			{if;==;;{args;2};
-				{set;@{userid}chess_color_light;ffcc99}Reset light color to `{get;@{userid}chess_color_lightn}`!;
-			{if;==;true;{regexreplace;{args;2};/([A-Fa-f0-9]{lb}6{rb})$/;true};
-				{set;@{userid}chess_color_lightn;{upper;{args;2}}}Set light color to `{get;@{userid}chess_color_lightn}`!;
-				:x: Provide a valid hexcode!
-				{return}
-			}};
-		dark;
-			{if;==;;{args;2};
-				{set;@{userid}chess_color_darkn;8F604F}Reset dark color to `{get;@{userid}chess_color_darkn}`!;
-			{if;==;true;{regexreplace;{args;2};/([A-Fa-f0-9]{lb}6{rb})$/;true};
-				{set;@{userid}chess_color_darkn;{upper;{args;2}}}Set dark color to `{get;@{userid}chess_color_darkn}`!;
-				:x: Provide a valid hexcode!
-				{return}
-			}};
-		:x: Unrecognized command!
-	}
+	light;
+		{if;==;;{args;2};
+			{set;@{userid}chess_color_light;ffcc99}Reset light color to `{get;@{userid}chess_color_lightn}`!;
+		{if;==;true;{regexreplace;{args;2};/([A-Fa-f0-9]{lb}6{rb})$/;true};
+			{set;@{userid}chess_color_lightn;{upper;{args;2}}}Set light color to `{get;@{userid}chess_color_lightn}`!;
+			:x: Provide a valid hexcode!
+			{return}
+		}};
+	dark;
+		{if;==;;{args;2};
+			{set;@{userid}chess_color_darkn;8F604F}Reset dark color to `{get;@{userid}chess_color_darkn}`!;
+		{if;==;true;{regexreplace;{args;2};/([A-Fa-f0-9]{lb}6{rb})$/;true};
+			{set;@{userid}chess_color_darkn;{upper;{args;2}}}Set dark color to `{get;@{userid}chess_color_darkn}`!;
+			:x: Provide a valid hexcode!
+			{return}
+		}};
+		{embed;{exec;err;<:chess_cross:436745175294017546> Invalid command!}}
+		{return}
 }

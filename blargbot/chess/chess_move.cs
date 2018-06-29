@@ -5,7 +5,7 @@
 }
 {set;~p;{get;@{userid}chess_instance}}
 {if;!=;{get;@{userid}chess_color};{get;@{get;~p}tm};
-	:x: It is not your turn yet! Wait for your opponent to make a move!
+	{exec;error;:x: It is not your turn yet! Wait for your opponent to make a move!}
 	{return}
 }
 {if;<;{argslength};3;
