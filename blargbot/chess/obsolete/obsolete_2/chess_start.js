@@ -1,0 +1,85 @@
+{lang;js}
+{if;==;{userid};{userid;{args;1}};:x: You cannot play against yourself!
+	{return}
+}
+{if;==;1;{get;@{userid;{args;1}}bl};:x: This user is blacklisted or is a bot!
+	{return}
+}
+{if;==;1;{get;@{userid;{args;1}}chess_game};:x: User is still playing a game!
+	{return}
+}
+{if;==;1;{get;@{userid}chess_game};:x: You are still playing a game! Do `b!t chess quit`
+	{return}
+}
+{set;@{userid}chess_instance;{base;{time;x};10;16}}Initated game! Instance: `{get;@{userid}chess_instance}`
+{set;~p;{get;@{userid}chess_instance}}
+{set;@{get;~p}en;{userid;{args;1}}}
+{set;@{userid}en;{userid;{args;1}}}
+{set;@{get;@{get;~p}en}en;{userid}}
+{set;@{userid}chess_color;
+	{switch;
+		{lower;{args;2}};
+			w;w;
+			b;b;
+			{randchoose;w;b}
+	}
+}
+{set;@{get;@{userid}en}chess_color;{if;==;w;{get;@{userid}chess_color};b;w}}
+{set;@{get;~p}p1;{if;==;w;{get;@{userid}chess_color};{userid};{get;@{userid}en}}}
+{set;@{get;~p}p2;{if;==;b;{get;@{userid}chess_color};{userid};{get;@{userid}en}}}
+{set;@{userid}p1;{if;==;w;{get;@{userid}chess_color};{userid};{get;@{userid}en}}}
+{set;@{userid}p2;{if;==;b;{get;@{userid}chess_color};{userid};{get;@{userid}en}}}
+{set;@{get;@{userid}en}p1;{if;==;w;{get;@{userid}chess_color};{userid};{get;@{userid}en}}}
+{set;@{get;@{userid}en}p2;{if;==;b;{get;@{userid}chess_color};{userid};{get;@{userid}en}}}
+{if;==;w;{get;@{userid}chess_color};
+	{if;!=;{userid};{get;@{get;~p}p1};{set;~exp;color_p_not_match}}
+	{if;!=;{get;@{get;~p}en};{get;@{get;~p}p2};{set;~exp;color_p_not_match}};
+	{if;!=;{userid};{get;@{get;~p}p2};{set;~exp;color_p_not_match}}
+	{if;!=;{get;@{get;~p}en};{get;@{get;~p}p1};{set;~exp;color_p_not_match}}
+}
+{set;@{userid}game;1}
+{set;@{get;@{userid}en}game;1}
+{set;@{userid}chess_game;1}
+{set;@{get;@{userid}en}chess_game;1}
+{set;@{get;@{userid}en}chess_instance;{get;~p}}
+{set;@{get;@{userid}en}p1;{get;@{userid}p1}}
+{set;@{get;@{userid}en}p2;{get;@{userid}p2}}
+{set;@{get;~p}tm;w}
+{set;@{get;~p}unmoved$k;1}
+{set;@{get;~p}unmoved$K;1}
+{set;@{get;~p}unmoved$r_a8;1}
+{set;@{get;~p}unmoved$r_h8;1}
+{set;@{get;~p}unmoved$R_a1;1}
+{set;@{get;~p}unmoved$R_h1;1}
+{set;@{get;~p}unmoved$p_a7;1}
+{set;@{get;~p}unmoved$p_b7;1}
+{set;@{get;~p}unmoved$p_c7;1}
+{set;@{get;~p}unmoved$p_d7;1}
+{set;@{get;~p}unmoved$p_e7;1}
+{set;@{get;~p}unmoved$p_f7;1}
+{set;@{get;~p}unmoved$p_g7;1}
+{set;@{get;~p}unmoved$p_h7;1}
+{set;@{get;~p}unmoved$P_a2;1}
+{set;@{get;~p}unmoved$P_b2;1}
+{set;@{get;~p}unmoved$P_c2;1}
+{set;@{get;~p}unmoved$P_d2;1}
+{set;@{get;~p}unmoved$P_e2;1}
+{set;@{get;~p}unmoved$P_f2;1}
+{set;@{get;~p}unmoved$P_g2;1}
+{set;@{get;~p}unmoved$P_h2;1}
+{set;@{get;~p}a8;r}{set;@{get;~p}a7;p}{set;@{get;~p}a6;-}{set;@{get;~p}a5;-}
+{set;@{get;~p}b8;n}{set;@{get;~p}b7;p}{set;@{get;~p}b6;-}{set;@{get;~p}b5;-}
+{set;@{get;~p}c8;b}{set;@{get;~p}c7;p}{set;@{get;~p}c6;-}{set;@{get;~p}c5;-}
+{set;@{get;~p}d8;q}{set;@{get;~p}d7;p}{set;@{get;~p}d6;-}{set;@{get;~p}d5;-}
+{set;@{get;~p}e8;k}{set;@{get;~p}e7;p}{set;@{get;~p}e6;-}{set;@{get;~p}e5;-}
+{set;@{get;~p}f8;b}{set;@{get;~p}f7;p}{set;@{get;~p}f6;-}{set;@{get;~p}f5;-}
+{set;@{get;~p}g8;n}{set;@{get;~p}g7;p}{set;@{get;~p}g6;-}{set;@{get;~p}g5;-}
+{set;@{get;~p}h8;r}{set;@{get;~p}h7;p}{set;@{get;~p}h6;-}{set;@{get;~p}h5;-}
+{set;@{get;~p}a4;-}{set;@{get;~p}a3;-}{set;@{get;~p}a2;P}{set;@{get;~p}a1;R}
+{set;@{get;~p}b4;-}{set;@{get;~p}b3;-}{set;@{get;~p}b2;P}{set;@{get;~p}b1;N}
+{set;@{get;~p}c4;-}{set;@{get;~p}c3;-}{set;@{get;~p}c2;P}{set;@{get;~p}c1;B}
+{set;@{get;~p}d4;-}{set;@{get;~p}d3;-}{set;@{get;~p}d2;P}{set;@{get;~p}d1;Q}
+{set;@{get;~p}e4;-}{set;@{get;~p}e3;-}{set;@{get;~p}e2;P}{set;@{get;~p}e1;K}
+{set;@{get;~p}f4;-}{set;@{get;~p}f3;-}{set;@{get;~p}f2;P}{set;@{get;~p}f1;B}
+{set;@{get;~p}g4;-}{set;@{get;~p}g3;-}{set;@{get;~p}g2;P}{set;@{get;~p}g1;N}
+{set;@{get;~p}h4;-}{set;@{get;~p}h3;-}{set;@{get;~p}h2;P}{set;@{get;~p}h1;R}

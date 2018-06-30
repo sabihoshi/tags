@@ -1,0 +1,411 @@
+{set;@chess_link;
+	http://www.jinchess.com/chessboard/?p=b
+}
+{set;p;{get;@{userid}chess_instance}}
+{if;==;0;{get;@{userid}chess_game};:x: You do not have an active chess game!
+	{return}
+}
+{if;==;0;{get;@{get;p}tm};:x: It is not your turn yet! Wait for your opponent to make a move!
+	{return}
+}
+{if;==;{lower;{args;1}};{lower;{args;2}};:x: Did you even try to move the piece?
+	{return}
+}
+{set;@{userid}move;
+	{switch;{lower;{args;1}};;0;
+		a8;1;
+		b8;1;
+		c8;1;
+		d8;1;
+		e8;1;
+		f8;1;
+		g8;1;
+		h8;1;
+		a7;1;
+		b7;1;
+		c7;1;
+		d7;1;
+		e7;1;
+		f7;1;
+		g7;1;
+		h7;1;
+		a6;1;
+		b6;1;
+		c6;1;
+		d6;1;
+		e6;1;
+		f6;1;
+		g6;1;
+		h6;1;
+		a5;1;
+		b5;1;
+		c5;1;
+		d5;1;
+		e5;1;
+		f5;1;
+		g5;1;
+		h5;1;
+		a4;1;
+		b4;1;
+		c4;1;
+		d4;1;
+		e4;1;
+		f4;1;
+		g4;1;
+		h4;1;
+		a3;1;
+		b3;1;
+		c3;1;
+		d3;1;
+		e3;1;
+		f3;1;
+		g3;1;
+		h3;1;
+		a2;1;
+		b2;1;
+		c2;1;
+		d2;1;
+		e2;1;
+		f2;1;
+		g2;1;
+		h2;1;
+		a1;1;
+		b1;1;
+		c1;1;
+		d1;1;
+		e1;1;
+		f1;1;
+		g1;1;
+		h1;1;
+		0
+	}
+}
+{switch;{get;@{userid}move};
+	0;:x: You did an invalid move! `{args;1} b`{set;continue;0}
+	{return}
+}
+{set;@{userid}move_2;
+	{switch;{lower;{args;2}};;0;
+		a8;1;
+		b8;1;
+		c8;1;
+		d8;1;
+		e8;1;
+		f8;1;
+		g8;1;
+		h8;1;
+		a7;1;
+		b7;1;
+		c7;1;
+		d7;1;
+		e7;1;
+		f7;1;
+		g7;1;
+		h7;1;
+		a6;1;
+		b6;1;
+		c6;1;
+		d6;1;
+		e6;1;
+		f6;1;
+		g6;1;
+		h6;1;
+		a5;1;
+		b5;1;
+		c5;1;
+		d5;1;
+		e5;1;
+		f5;1;
+		g5;1;
+		h5;1;
+		a4;1;
+		b4;1;
+		c4;1;
+		d4;1;
+		e4;1;
+		f4;1;
+		g4;1;
+		h4;1;
+		a3;1;
+		b3;1;
+		c3;1;
+		d3;1;
+		e3;1;
+		f3;1;
+		g3;1;
+		h3;1;
+		a2;1;
+		b2;1;
+		c2;1;
+		d2;1;
+		e2;1;
+		f2;1;
+		g2;1;
+		h2;1;
+		a1;1;
+		b1;1;
+		c1;1;
+		d1;1;
+		e1;1;
+		f1;1;
+		g1;1;
+		h1;1;
+		0
+	}
+}
+{switch;{get;@{userid}move_2};
+	0;:x: You did an invalid move! `{args;2} Out of bounds`{set;continue;0}
+		{return}
+}
+{set;@{userid}side;
+	{switch;{get;@{get;p}{lower;{args;1}}};
+		-;0;
+		r;1;
+		n;1;
+		b;1;
+		q;1;
+		k;1;
+		p;1;
+		P;2;
+		Q;2;
+		K;2;
+		B;2;
+		N;2;
+		R;2;
+		-1
+	}
+}
+{set;@{userid}side_2;
+	{switch;{get;@{get;p}{lower;{args;2}}};
+		-;0;
+		r;1;
+		n;1;
+		b;1;
+		q;1;
+		k;1
+			{switch;{get;@{userid}chess_color};
+				w;{set;king;1}
+				b;{set;king;0}
+			};
+		p;1;
+		P;2;
+		Q;2;
+		K;2
+			{switch;{get;@{userid}chess_color};
+				w;{set;king;0}
+				b;{set;king;1}
+			};
+		B;2;
+		N;2;
+		R;2;
+		-1
+	}
+}
+{switch;{get;@{userid}side};
+	0;:x: There is no piece here, what are you trying to move?
+		{return};
+	-1;:x: FATAL ERROR! Please report to tag creator.{nl}p_stat {get;@{userid}p_stat}{nl}chess_instance {get;@{userid}chess_instance}{nl}move {get;@{userid}move}{nl}side {get;@{userid}side}
+		{return};
+	1;{if;==;b;{get;@{userid}chess_color};{set;cont_pc;1};{set;cont_pc;0}};
+	2;{if;==;w;{get;@{userid}chess_color};{set;cont_pc;1};{set;cont_pc;0}};
+	:x: FATAL ERROR! Please report to tag creator. `undefined {lb}userid{rb}side`
+		{return}
+}
+{if;==;0;{get;cont_pc};:x: This is not your piece you `heccing baka`
+	{return}
+}{void;
+{set;a;1}{set;1;a}
+{set;b;2}{set;2;b}
+{set;c;3}{set;3;c}
+{set;d;4}{set;4;d}
+{set;e;5}{set;5;e}
+{set;f;6}{set;6;f}
+{set;g;7}{set;7;g}
+{set;h;8}{set;8;h}
+{set;hor;0}{set;ver;0}
+{set;@{userid}piece;{get;@{get;p}{lower;{args;1}}}}
+{set;h1;{get;{substring;{lower;{args;1}};0;1}}}
+{set;h2;{get;{substring;{lower;{args;2}};0;1}}}
+{set;v1;{substring;{lower;{args;1}};1;2}}
+{set;v2;{substring;{lower;{args;2}};1;2}}
+{set;ver1;{if;>;{get;v1};{get;v2};{get;v1};{get;v2}}}
+{set;ver2;{if;<;{get;v1};{get;v2};{get;v1};{get;v2}}}
+{set;hor1;{if;>;{get;h1};{get;h2};{get;h1};{get;h2}}}
+{set;hor2;{if;<;{get;h1};{get;h2};{get;h1};{get;h2}}}
+}{set;@{userid}valid_move;
+	{switch;{get;@{userid}chess_color};
+		b;
+			{switch;{get;@{get;p}{lower;{args;1}}};
+				-;0;
+				r;	
+					{set;hor;{if;!=;{get;hor1};{get;hor2};1{set;rook_move;h};0}}
+					{set;ver;{if;!=;{get;ver1};{get;ver2};1{set;rook_move;v};0}}
+					{if;!=;{get;hor};{get;ver};1;0}
+					;
+				n;	
+					{set;hor;
+						{switch;{get;hor1};
+							{math;+;{get;hor2};1};1;
+							{math;+;{get;hor2};2};2;
+							0
+						}
+					}
+					{set;ver;
+						{switch;{get;ver1};
+							{math;+;{get;ver2};2};1;
+							{math;+;{get;ver2};1};2;
+							0
+						}
+					}
+					{if;==;{get;hor};{get;ver};{if;==;0;{get;hor};0;1};0};
+				b;	
+					{set;hor;{math;-;{get;hor1};{get;ver1}}}
+					{set;ver;{math;-;{get;hor2};{get;ver2}}}
+					{if;==;{get;hor};{get;ver};1;0};
+				q;	
+					{set;hor;{if;!=;{get;hor1};{get;hor2};1;0}}
+					{set;ver;{if;!=;{get;ver1};{get;ver2};1;0}}
+					{if;{logic;&&;{if;==;1;{get;hor};true;false};{if;==;1;{get;ver};true;false}};
+						{set;hor;{math;-;{get;hor1};{get;ver1}}}
+						{set;ver;{math;-;{get;hor2};{get;ver2}}}
+						{if;==;{get;hor};{get;ver};1;0};
+						1
+					};
+				k;	
+					{switch;{lower;{args;2}};
+						c8;
+							{if;{logic;&&;{get;@{get;p}unmoved$k};{get;@{get;p}unmoved$r_a8}};
+								1{set;castling;true};
+								0{set;continue;false}
+							};
+						g8;
+							{if;{logic;&&;{get;@{get;p}unmoved$k};{get;@{get;p}unmoved$r_h8}};
+								1{set;castling;true};
+								0{set;continue;false}
+							};
+							{set;hor;
+								{switch;
+									{math;-;{get;hor1};{get;hor2}};
+									1;1;
+									0;1;
+									0
+								}
+							}
+							{set;ver;
+								{switch;
+									{math;-;{get;ver1};{get;ver2}};
+									1;1;
+									0;1;
+									0
+								}
+							}
+							{if;{logic;&&;{if;==;1;{get;hor};true;false};{if;==;1;{get;ver};true;false}};1;0}
+					};
+				p;	
+					{set;hor;
+						{switch;{get;hor2};
+							{math;+;{get;hor1};1};1;
+							0
+						}
+					}
+					{set;ver;
+						{switch;{get;ver2};
+							{math;+;{get;ver1};1};1;
+							{math;+;{get;ver1};2};2;
+							0
+						}
+					}
+					{switch;{get;hor};
+						0;
+							{switch;{get;ver};
+								1;1;
+								2;
+									{if;==;1;{get;@{get;p}unmoved$p{lower;{args;1}}};1;0{set;explain;pawn_2mv}}
+							};
+						1;
+							{switch;{get;ver};
+								0;0;
+								1;
+									{switch;{get;@{userid}chess_color};
+										w;{if;==;1;{get;@{userid}side_2};1;0}
+										b;{if;==;2;{get;@{userid}side_2};1;0}
+									};
+								2;0;
+								0
+							}
+					};
+				-1
+			};
+		w;
+			{switch;{get;@{get;p}{lower;{args;1}}};
+				-;0;
+				P;
+					{exec;chess_move_wp;{lower;{args}}};
+				Q;	
+					{set;hor;{if;!=;{get;hor1};{get;hor2};1;0}}
+					{set;ver;{if;!=;{get;ver1};{get;ver2};1;0}}
+					{if;{logic;&&;{if;==;1;{get;hor};true;false};{if;==;1;{get;ver};true;false}};
+						{set;hor;{math;-;{get;hor1};{get;ver1}}}
+						{set;ver;{math;-;{get;hor2};{get;ver2}}}
+						{if;==;{get;hor};{get;ver};1;0};
+						1
+					};
+				K;	
+					{switch;{lower;{args;2}};
+						c1;
+							{if;&&;{get;@{get;p}unmoved$K};{get;@{get;p}unmoved$R_a1};
+								1{set;castling;true};
+								0{set;continue;false}
+							};
+						g1;
+							{if;&&;{get;@{get;p}unmoved$K};{get;@{get;p}unmoved$R_h1};
+								1{set;castling;true};
+								0{set;continue;false}
+							};
+							{set;hor;
+								{switch;
+									{math;-;{get;hor1};{get;hor2}};
+									1;1;
+									0;1;
+									0
+								}
+							}
+							{set;ver;
+								{switch;
+									{math;-;{get;ver1};{get;ver2}};
+									1;1;
+									0;1;
+									0
+								}
+							}
+							{if;{logic;&&;{if;==;1;{get;hor};true;false};{if;==;1;{get;ver};true;false}};1;0}
+					};
+				B;	
+					{set;hor;{math;-;{get;hor1};{get;ver1}}}
+					{set;ver;{math;-;{get;hor2};{get;ver2}}}
+					{if;==;{get;hor};{get;ver};1;0};
+				N;
+					{set;hor;
+						{switch;{get;hor1};
+							{math;+;{get;hor2};1};1;
+							{math;+;{get;hor2};2};2;
+							0
+						}
+					}
+					{set;ver;
+						{switch;{get;ver1};
+							{math;+;{get;ver2};2};1;
+							{math;+;{get;ver2};1};2;
+							0
+						}
+					}
+					{if;==;{get;hor};{get;ver};{if;==;0;{get;hor};0;1};0};
+				R;
+					{set;hor;{if;!=;{get;hor1};{get;hor2};1{set;rook_move;h};0}}
+					{set;ver;{if;!=;{get;ver1};{get;ver2};1{set;rook_move;v};0}}
+					{if;!=;{get;hor};{get;ver};1;0};
+				-1
+			};
+		-1
+	}
+}

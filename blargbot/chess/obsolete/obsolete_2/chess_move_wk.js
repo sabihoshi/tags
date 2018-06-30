@@ -1,0 +1,92 @@
+{lang;js}
+{switch;{get;~mv2};
+	c1;
+		{if;&&;{get;@{get;~p}unmoved$K};{get;@{get;~p}unmoved$R_a1};
+			1{set;~castling;true};
+			0{set;~continue;false}
+		};
+	g1;
+		{if;&&;{get;@{get;~p}unmoved$K};{get;@{get;~p}unmoved$R_h1};
+			1{set;~castling;true};
+			0{set;~continue;false}
+		};
+		{set;~hor;
+			{switch;
+				{math;-;{get;~hor1};{get;~hor2}};
+				1;1;
+				0;1;
+				0
+			}
+		}
+		{set;~ver;
+			{switch;
+				{math;-;{get;~ver1};{get;~ver2}};
+				1;1;
+				0;1;
+				0
+			}
+		}
+		{if;{logic;&&;{if;==;1;{get;~hor};true;false};{if;==;1;{get;~ver};true;false}};1;0}
+}
+{switch;{get;~mv2};
+	g1;	
+		{set;~index;6}
+		{repeat;
+			{if;!=;-;{get;@{get;~p}{get;~{get;~index}}1};
+				{set;~continue;false}
+				{set;~exp;piece_obstruct}
+				{void;{increment;index}}
+			};2
+		}
+		{if;==;false;{get;~continue};:x: Invalid move!{nl}{get;@{get;~exp}}
+			{return}
+		}
+		{switch;{get;~side_2};
+			0;
+				{if;!=;R;{get;@{get;~p}h1};:x: FATAL ERROR! Please report to tag creator. `rook not found in h1`
+					{return}
+				}
+				{if;!=;true;{get;~castling};:x: FATAL ERROR! Please report to tag creator. `castling is not true`
+					{return}
+				}
+				{set;@{get;~p}{get;~mv2};{get;~piece}}
+				{set;@{get;~p}{get;~mv1};-}
+				{set;~move_success;true}
+				{set;@{get;~p}f1;R}
+				{set;@{get;~p}h1;-}
+				{set;@{get;~p}unmoved$R_h1;0};
+			:x: FATAL ERROR! `{lb}userid{rb}side_2 out of bounds`
+				{return}
+		};
+	c1;	
+		{set;~index;2}
+		{repeat;
+			{if;!=;-;{get;@{get;~p}{get;~{get;~index}}1};
+				{set;~continue;false}
+				{set;~exp;piece_obstruct}
+				{void;{increment;index}}
+			};2
+		}
+		{if;==;false;{get;~continue};:x: Invalid move!{nl}{get;@{get;~exp}}
+			{return}
+		}
+		{switch;{get;~side_2};
+			0;
+				{if;!=;R;{get;@{get;~p}h1};:x: FATAL ERROR! Please report to tag creator. `rook not found in h1`
+					{return}
+				}
+				{if;!=;true;{get;~castling};:x: FATAL ERROR! Please report to tag creator. `castling is not true`
+					{return}
+				}
+				{set;@{get;~p}{get;~mv2};{get;~piece}}
+				{set;@{get;~p}{get;~mv1};-}
+				{set;~move_success;true}
+				{set;@{get;~p}f1;R}
+				{set;@{get;~p}h1;-}
+				{set;@{get;~p}unmoved$R_h1;0};
+			:x: FATAL ERROR! `{lb}userid{rb}side_2 out of bounds`
+				{return}
+		};
+	{exec;chess_move_eat;{args}}}
+	{if;==;true;{get;~move_success};{set;@{get;~p}unmoved$K;0}
+}
