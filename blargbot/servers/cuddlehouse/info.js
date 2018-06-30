@@ -3,7 +3,7 @@
 {set;~values;[]}
 {set;~extra.names;[]}
 {set;~extra.values;[]}
-{void;{inject;{regexreplace;{args};/(\w+)\s*:\s*(.+)/g;{lb}push{semi}~names{semi}$1{rb}{lb}push{semi}~values{semi}$2{rb}}}}
+{void;{inject;{regexreplace;{args};/([^:]+)\s*:\s*(.+)/g;{lb}push{semi}~names{semi}$1{rb}{lb}push{semi}~values{semi}$2{rb}}}}
 {for;~i;0;<;{length;{get;~names}};
 	{switch;{lower;{get;~names;{get;~i}}};
 		age;{set;~age;{get;~values;{get;~i}}};
