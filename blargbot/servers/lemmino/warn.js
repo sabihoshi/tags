@@ -22,8 +22,8 @@
 :ok_hand: **{username;{get;~user}}#{userdiscrim;{get;~user}}** has been given {if;0{flag;c};>;1;{flag;c} warnings.;a warning.} They now have {warnings;{get;~user}} warnings.
 {void;
 	{roleadd;327953998663385088;{get;~user}}
-	{if;{hasrole;326384422435684362};
-	{if;{hasrole;326422286842200064}
+	{roleremove;326384422435684362;{get;~user}}
+	{roleremove;326422286842200064;{get;~user}}
 }
 {//;DM the user of their warning}
 {dm;{get;~user};{buildembed;author.name:{username}#{userdiscrim} ({userid});author.icon_url:{useravatar};title:You have gotten a warning!;description:You have {warnings;{get;~user}} now{newline}Reason: {get;~r};timestamp:{time};color:peach}}
