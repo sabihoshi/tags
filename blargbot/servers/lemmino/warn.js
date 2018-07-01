@@ -22,7 +22,7 @@
 :ok_hand: **{username;{get;~user}}#{userdiscrim;{get;~user}}** has been given {if;0{flag;c};>;1;{flag;c} warnings.;a warning.} They now have {warnings;{get;~user}} warnings.
 {void;
 	{roleadd;327953998663385088;{get;~user}}
-	{roleremove;326384422435684362;{get;~user}}
+	{roleremove;462822300383707137;{get;~user}}
 	{roleremove;326422286842200064;{get;~user}}
 }
 {//;DM the user of their warning}
