@@ -21,15 +21,22 @@
 {void;{warn;{get;~user};{flag;c};{flag;r}}}
 :ok_hand: **{username;{get;~user}}#{userdiscrim;{get;~user}}** has been given {if;0{flag;c};>;1;{flag;c} warnings.;a warning.} They now have {warnings;{get;~user}} warnings.
 {void;
-	{roleadd;{roleid;Warned};{get;~user}}
+	{roleadd;327953998663385088;{get;~user}}
 	{if;{hasrole;326384422435684362};
 	{if;{hasrole;326422286842200064}
 }
 {//;DM the user of their warning}
 {dm;{get;~user};{buildembed;author.name:{username}#{userdiscrim} ({userid});author.icon_url:{useravatar};title:You have gotten a warning!;description:You have {warnings;{get;~user}} now{newline}Reason: {get;~r};timestamp:{time};color:peach}}
-{//;Automatically pardon the user after 24 hours if no time flag is set.}
-{timer;
-	{void;{pardon;{get;~user};{flag;c};Auto-pardon after set time.}{roleremove;{roleid;Warned};{get;~user}}};
-	{if;{flagset;t};{flag;t};24h}
+{//;Automatically pardon the user after 24 hours if no time flag is set. Ignore if more than two warnings.}
+{switch;{warnings;{get;~user}};
+	0;{void};
+	1;
+		{timer;
+			{void;{pardon;{get;~user};{flag;c};Auto-pardon after set time.}{roleremove;327953998663385088;{get;~user}}};
+			{if;{flagset;t};{flag;t};24h}
+		};
+	2;
+		{set;_{userid}kicked;true};
+		{set;_{userid}banned;true}
 }
 {timer;{send;326759213261127680;Issued by {usermention}};15s}

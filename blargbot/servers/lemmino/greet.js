@@ -1,4 +1,8 @@
-b!greet {void;{set;~time;{usercreatedat;X}}
+b!greet {void;
+    {if;{get;_{userid}kicked};==;true;{roleadd;338657229236600835}}
+    {if;{get;_{userid}banned};==;true;{roleadd;358692008438661141}}
+}
+{void;{set;~time;{usercreatedat;X}}
 {set;~time;{floor;{math;-;{time;X};{get;~time}}}}
 {set;~d;{floor;{math;/;{get;~time};86400}}}
 {set;~dh;{floor;{math;/;{math;%;{get;~time};86400};3600}}}
