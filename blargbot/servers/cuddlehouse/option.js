@@ -17,10 +17,9 @@
 		}
 		{switch;true;
 			{bool;[0...{math;-;{length;{get;~options}};1}];includes;{parseint;{messagetext;{get;~msg;1}}}};
-				{set;~item;{get;~options;{parseint;{messagetext;{get;~msg;1}}}}}{delete;{get;~prompt}};
+				{set;~item;{get;~options;{parseint;{messagetext;{get;~msg;1}}}}}{void;{delete;{get;~prompt}}};
 			{bool;{lower;{messagetext;{get;~msg;1}}};==;c};
-				Query cancelled in custom command `{commandname}`.{delete;{get;~prompt}}{return;false};
-				Not a valid option!
-				{return;false}
+				{void;{delete;{get;~prompt}}}{return};
+				{void;{delete;{get;~prompt}}}{set;~item;{get;~options;0}}
 		}
 }

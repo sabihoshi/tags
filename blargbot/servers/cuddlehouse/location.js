@@ -37,13 +37,14 @@
 	}
 	{//;{return;false}}
 }
+{get;_{userid}location}
 {if;{indexof;{get;~province_code};{upper;{get;~L}}};!=;-1;
 	{set;_{userid}location;{get;~province;{indexof;{get;~province_code};{upper;{get;~L}}}}}
 	{void;{roleadd;455788879958507521}}
 }
 {set;~europe;Russian Federation;Germany;United Kingdom;France;Italy;Spain;Ukraine;Poland;Romania;Netherlands;Belgium;Greece;Czechia;Portugal;Sweden;Hungary;Belarus;Serbia;Austria;Switzerland;Bulgaria;Denmark;Finland;Slovakia;Norway;Ireland;Croatia;Republic of Moldova;Bosnia and Herzegovina;Albania;Lithuania;The former Yugoslav Republic of Macedonia;Slovenia;Latvia;Estonia;Montenegro;Luxembourg;Malta;Iceland;Andorra;Monaco;San Marino}
 {set;~oceania;Australia;Papua New Guinea;New Zealand;Fiji;Solomon Islands;Vanuatu;Samoa;Kiribati;Tonga;Micronesia (Federated States of);Marshall Islands;Palau;Nauru;Tuvalu}
-{if;{get;_{userid}location};!=;;
+{if;{get;_{userid}location};==;;
 {if;{indexof;{get;~iso2};{upper;{get;~L}}};!=;-1;
 	{set;_{userid}location;{get;~countries;{indexof;{get;~iso2};{upper;{get;~L}}}}}
 	{switch;{get;_{userid}location};
@@ -52,7 +53,7 @@
 	}
 	{//;{return;false}}
 }}
-{if;{get;_{userid}location};!=;;
+{if;{get;_{userid}location};==;;
 {if;{indexof;{get;~iso3};{upper;{get;~L}}};!=;-1;
 	{set;_{userid}location;{get;~countries;{indexof;{get;~iso3};{upper;{get;~L}}}}}
 	{switch;{get;_{userid}location};
@@ -61,7 +62,7 @@
 	}
 	{//;{return;false}}
 }}
-{if;{get;_{userid}location};!=;;
+{if;{get;_{userid}location};==;;
 {set;~l;[]}
 {foreach;~state;~states;
 	{if;{lower;{get;~state}};includes;{lower;{get;~L}};

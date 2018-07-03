@@ -13,7 +13,7 @@
 		birthday;{set;~birthday;{get;~values;{get;~i}}};
 		cuddles;{set;~cuddles;{get;~values;{get;~i}}};
 		spoon;{set;~s;{get;~values;{get;~i}}}{execcc;spoon};
-		location;{set;~L;{get;~values;{get;~i}}}{set;_{userid}location;{get;~L}}{execcc;location};
+		location;{set;~L;{get;~values;{get;~i}}}{set;_{userid}location}{execcc;location};
 		description;{set;~description;{get;~values;{get;~i}}};
 		image;{if;{regextest;{get;~values;{get;~i}};/^https?:\/\/.+\.(?:jpe?g|png|gif)$/i};{set;~image;{get;~values;{get;~i}}}};
 		color;{set;~color;{color;{get;~values;{get;~i}}}};
