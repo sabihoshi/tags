@@ -418,6 +418,13 @@ If kickat and banat have been set using the settings command, the target could p
 	{if;{length;{get;_{get;~category}.commands}};!=;0;
 		{set;~{get;~category}.commands;{get;_{get;~category}.commands}}
 	}
+	{foreach;~command;~{get;~category}.commands;
+		{if;{indexof;{get;~command.{get;~command}};Aliases};!=;-1;
+			{foreach;~alias;{split;{get;~command.{get;~command};{math;+;{indexof;{get;~command.{get;~command}};Aliases};1}};,{space}};
+				{set;~command.{get;~alias};{get;~command.{get;~command}}}
+			}
+		}
+	}
 }
 {//; Default view for help }
 {if;{argslength};==;0;
@@ -442,11 +449,6 @@ If kickat and banat have been set using the settings command, the target could p
 {//; Configure command }
 {if;{length;{get;_command.{get;~command}}};!=;0;
 	{set;~command.{get;~command};{get;_command.{get;~command}}}
-}
-{if;{indexof;{get;~command.{get;~command}};Aliases};!=;-1;
-	{foreach;~alias;{get;~command.{get;~command};{math;+;{indexof;{get;~command.{get;~command}};Aliases};1}};
-		{set;~command.{get;~alias};{get;~command.{get;~command}}}
-	}
 }
 {switch;true;
 	{bool;{length;{get;_command.{get;~command}}};!=;0};{set;~varType;_};
