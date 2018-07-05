@@ -25,7 +25,7 @@
 		fields.inline:true;
 		fields.name:Commands;
 		fields.value:{clean;```prolog
-			Usage: {lb}set{semi}_command.<commandName>{semi}<description>{semi}[Aliases{semi}<alias...>]{semi}[Flags{semi}<flag...>]{semi}[Extra field{semi}<Field value>]{rb}
+			Usage: {lb}set{semi}_command.<commandName>{semi}<description>{semi}[Aliases{semi}<alias...>]{semi}[Flags{semi}<flag...>]{rb}
 			Example:
 				{lb}set{semi}_command.kill{semi}
 				{zws}	**__Usage__**: {lb}prefix{rb}kill [@user]{semi}
