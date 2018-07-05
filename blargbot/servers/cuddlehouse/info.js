@@ -68,4 +68,5 @@
 	}
 }
 {void;{dm;{userid};Your <#445286098323767296> post was a success! Preview:;{get;~embed}}}
+{void;{roleremove;463626473899819010}}
 {set;_{userid}info;{send;445286098323767296;{get;~embed}}}
