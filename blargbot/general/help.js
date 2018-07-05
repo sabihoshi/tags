@@ -32,9 +32,10 @@
 				{zws}	Flags{semi}`-i` - Custom image for killing{semi}
 				{zws}	Aliases{semi}stab, hunt
 				{rb}
-			set the info for your command. `Aliases` and `Flags` are case sensitive! `Aliases` will also in turn set the `command.commandName` for the aliases you provided. Separate by commas.
+			set the info for your command. `Aliases` and `Flags` are case sensitive! `Aliases` will also in turn set the `~command.commandName` for the aliases you provided. Separate by commas.
 			```};
 		fields.inline:true;
+		image.url:https://stockings.are-pretty.sexy/dd56c3.gif;
 		color:#efff00
 	}}
 	{return}
