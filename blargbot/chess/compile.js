@@ -15,13 +15,13 @@
 {//;'}
 {set;@help;
 ```ruby
-`Chess Help Menu {get;@version}` ``` 
+`Chess Help Menu {get;@version}` ```
 **Commands:**
-1. `{prefix}t chess theme` - Changes your style to the desired theme. 
+1. `{prefix}t chess theme` - Changes your style to the desired theme.
 2. `{prefix}t chess start <@user> [w|b]` - Starts a match against user. If a color is chosen, that will be your color.
 3. `{prefix}t chess move <pos1> <pos2> [queen|knight|rook|bishop]` - Moves the piece in `pos1` to `pos2`, example you move the rook at `a1` to `a8`, it ill be `{prefix}t chess move a1 a8`. The queen, knight, rook, and bishop are when promoting a pawn.
 4. `{prefix}t chess <forfeit|quit|stop|end>` - Forfeit your current match and lose the game.
-5. `{prefix}t chess stalemate` - To announce if your current game is a stalemate. 
+5. `{prefix}t chess stalemate` - To announce if your current game is a stalemate.
 ```py
 >>> Made by: Kao#0001```
 }
@@ -29,7 +29,7 @@
 	:tada: **Congratulations! ** {username}#{userdiscrim} has won the game!
 }
 {set;@chess_link0;
-	http://jinchess.com/chessboard/?p= 
+	http://jinchess.com/chessboard/?p=
 }
 {set;@chess_link1;
 	http://apronus.com/chess/diagram/stagram.php?d=P
@@ -92,7 +92,7 @@
 					{realpad;gray-tiles;14;{space};left} | slate
 					{realpad;green-marble;14;{space};left} | winter
 					{realpad;pale-wood;14;{space};left} | wooden-dark
-					{realpad;plain;14;{space};left} |``` 
+					{realpad;plain;14;{space};left} |```
 					Do `{prefix}t chess theme advanced` to get more info about advanced features. Do `{prefix}t chess theme obsolete` to get the new style of the board.;/\t/g;};
 				board;
 					{set;~p_stat;
@@ -183,7 +183,7 @@
 						{realpad;xl;8;{space};left} | Extra large sized board.
 						{newline}			{realpad;r;8;{space};left} | coordinates at the Rim of the board.
 						{realpad;o;8;{space};left} | coordinates at the Outside of the board. (Default)
-						{realpad;nc;8;{space};left} | No Coordinates shown.``` 
+						{realpad;nc;8;{space};left} | No Coordinates shown.```
 						Do `{prefix}t chess theme advanced` to get more info about advanced features.;/\t/g;};
 						s;Set chess board size to small!{set;@{userid}chess_size;s};
 						m;Set chess board size to medium!{set;@{userid}chess_size;m};
@@ -214,7 +214,7 @@
 				{realpad;dark;8;{space};left} | `dark [hex]` code for the dark colored tiles. Leave blank for default.
 				{realpad;light;8;{space};left} | `light [hex]` code for the light colored tiles. Leave blank for default.
 				{newline}	{realpad;o;8;{space};left} | coordinates at the Outside of the board. (Default)
-				{realpad;nc;8;{space};left} | No Coordinates shown.``` 
+				{realpad;nc;8;{space};left} | No Coordinates shown.```
 				Do `{prefix}t chess theme obsolete` to use the old style of the board.;/\t/g;};
 				alpha;Succesfully set piece style to alpha!{set;@{userid}chess_piecen;1};
 				linares;Succesfully set piece style to linares!{set;@{userid}chess_piecen;2};
@@ -279,9 +279,9 @@
 				white;w;
 				b;b;
 				black;b;
-				r;{randchoice;w;b};
-				random;{randchoice;w;b};
-				{randchoice;w;b}
+				r;{randchoose;w;b};
+				random;{randchoose;w;b};
+				{randchoose;w;b}
 			}
 		}
 		{if;==;-1;{get;@{userid}chess_color};
@@ -312,7 +312,7 @@
 		{set;index0;1}{set;index1;7}{repeat;{set;@{get;~p}{get;~{get;index0}}{get;index1};p}{if;==;8;{get;index0};{set;index0;1}{void;{decrement;index1}};{void;{increment;index0}}};8}
 		{set;index0;1}{set;index1;2}{repeat;{set;@{get;~p}{get;~{get;index0}}{get;index1};P}{if;==;8;{get;index0};{set;index0;1}{void;{decrement;index1}};{void;{increment;index0}}};8}
 		**Game Started as {if;==;w;{get;@{userid}chess_color};White;Black}!**
-		{set;~p;{get;@{userid}chess_instance}} 
+		{set;~p;{get;@{userid}chess_instance}}
 		**Move Number**: **__{get;@{get;~p}move}__** - **{username;{get;@{get;~p}p{if;==;w;{get;@{get;~p}tm};1;2}}}{get;@aph}s** turn to move
 		{switch;{get;@{userid}chess_style};
 			obsolete;
@@ -368,7 +368,7 @@
 			}}
 		}
 		{if;==;{if;==;w;{get;@{userid}chess_color};1;2};{get;~side};
-			This is not your piece you `heccin baka` 
+			This is not your piece you `heccin baka`
 			{return}
 		}
 		{switch;{get;~side};
@@ -400,7 +400,7 @@
 			}}
 		}
 		{if;==;{if;==;w;{get;@{userid}chess_color};2;1};{get;~side_2};
-			:x: You cannot move your piece here! {get;~side_2} 
+			:x: You cannot move your piece here! {get;~side_2}
 			{return}
 		}
 		{set;~h1;{get;~{substring;{get;~mv1};0;1}}}
@@ -415,7 +415,7 @@
 			b;
 				{switch;{get;~piece};
 					-;0;
-					r; 
+					r;
 						{set;~hor;{if;!=;{get;~hor1};{get;~hor2};true{set;~rook_move;h};false}}
 						{set;~ver;{if;!=;{get;~ver1};{get;~ver2};true{set;~rook_move;v};false}}
 						{if;{logic;&&;{get;~hor};{get;~ver}};
@@ -436,7 +436,7 @@
 										{void;
 											{increment;~i_h1}
 										}
-										{if;!=;-;{get;@{get;~p}{get;~{get;~i_h1}}{get;~v1}};	
+										{if;!=;-;{get;@{get;~p}{get;~{get;~i_h1}}{get;~v1}};
 											{set;~continue;false}
 										};
 										{math;-;{get;~hor1};{get;~hor2};1}
@@ -577,7 +577,7 @@
 							{return}
 						}
 						{set;~attack;true};
-					b; 
+					b;
 						{set;~hor;{math;-;{get;~hor1};{get;~ver1}}}
 						{set;~ver;{math;-;{get;~hor2};{get;~ver2}}}
 						{if;!=;{get;~hor};{get;~ver};
@@ -612,7 +612,7 @@
 								{set;@{get;~p}{get;~mv2};{get;~piece}}
 								{set;@{get;~p}{get;~mv1};-}
 								{set;~move_success;true};
-							2;	
+							2;
 								{if;!=;b;{get;@{userid}chess_color};
 									:x: You can not move your piece here!
 									{return}
@@ -634,7 +634,7 @@
 								{set;~attack;true}
 							}
 						};
-					q; 
+					q;
 						{set;~hor;{if;!=;{get;~hor1};{get;~hor2};true{set;~queen_move;h};false}}
 						{set;~ver;{if;!=;{get;~ver1};{get;~ver2};true{set;~queen_move;v};false}}
 						{if;{logic;&&;{get;~hor};{get;~ver}};
@@ -780,10 +780,10 @@
 									{set;~attack;true}
 							}
 						};
-					k; 
+					k;
 						{if;==;1;{get;@{get;~p}unmoved$k};
 							{switch;{get;~mv2};
-								g8;	
+								g8;
 									{if;{logic;&&;{if;==;1;{get;@{get;~p}unmoved$k};true;false};{if;==;1;{get;@{get;~p}unmoved$r_h8};true;false}};
 										{set;~castling;true};
 										:x: The King or Rook has already moved and you cannot castle anymore!
@@ -813,7 +813,7 @@
 										:x: FATAL ERROR! `{lb}userid{rb}side_2 out of bounds`
 											{return}
 									};
-								c8;	
+								c8;
 									{if;{logic;&&;{if;==;1;{get;@{get;~p}unmoved$k};true;false};{if;==;1;{get;@{get;~p}unmoved$r_a8};true;false}};
 										{set;~castling;true};
 										:x: The King or Rook has already moved and you cannot castle anymore!
@@ -892,7 +892,7 @@
 										:x:  FATAL ERROR! Please report to tag creator. `side_2 is out of bounds.`
 										{return}
 									}
-								
+
 							};
 							{set;~hor;
 								{switch;{get;~hor1};
@@ -1019,7 +1019,7 @@
 										}
 										{if;==;1;{get;@{get;~p}unmoved$p_{get;~mv1}};
 											{switch;{get;~side_2};
-												0;	
+												0;
 													{set;@{get;~p}{get;~mv2};{get;~piece}}
 													{set;@{get;~p}{get;~mv1};-}
 													{set;~move_success;true};
@@ -1046,12 +1046,12 @@
 													:x: You cannot move your piece here!
 													{return}
 												}
-												{if;!=;1;{get;@{get;~p}passant$P_{get;~{get;~h2}}{incr;{get;~v2}}};
+												{if;!=;1;{get;@{get;~p}passant$P_{get;~{get;~h2}}{increment;{get;~v2}}};
 													:x: You cannot move your piece here!
 													{return}
 												}
-												{if;!=;p;{get;@{get;~p}{get;~{get;~h2}}{incr;{get;~v2}}};
-													:x:  FATAL ERROR! Please report to tag creator. `p does not exist in {get;~{get;~h2}}{incr;{get;~v2}}`
+												{if;!=;p;{get;@{get;~p}{get;~{get;~h2}}{increment;{get;~v2}}};
+													:x:  FATAL ERROR! Please report to tag creator. `p does not exist in {get;~{get;~h2}}{increment;{get;~v2}}`
 													{return}
 												}
 												{if;!=;{get;@{get;~p}passant};{get;@{get;~p}move};
@@ -1060,7 +1060,7 @@
 												}
 												{set;@{get;~p}{get;~mv2};{get;~piece}}
 												{set;@{get;~p}{get;~mv1};-}
-												{set;@{get;~p}{get;~{get;~h2}}{incr;{get;~v2}};-}
+												{set;@{get;~p}{get;~{get;~h2}}{increment;{get;~v2}};-}
 												{set;~move_success;true}
 												{set;~passant;true};
 											1;
@@ -1084,7 +1084,7 @@
 											{return}
 										};
 									2;:x: You can not move your piece here! {return};
-									:x:  FATAL ERROR! Please report to tag creator. `~ver is out of bounds` 
+									:x:  FATAL ERROR! Please report to tag creator. `~ver is out of bounds`
 									{return}
 								}
 						}
@@ -1093,7 +1093,7 @@
 								{get;@{get;~p}unmoved$p_{get;~mv1}};
 								{if;==;2;{get;~ver};
 									{set;@{get;~p}passant$p_{get;~mv2};1}
-									{set;@{get;~p}passant;{incr;{get;@{get;~p}move}}}
+									{set;@{get;~p}passant;{increment;{get;@{get;~p}move}}}
 								}
 								{set;@{get;~p}unmoved$p_{get;~mv1};0}
 							}
@@ -1208,18 +1208,18 @@
 														{if;!=;true;{regexreplace;{get;~mv2};/[a-h]6/i;true};
 															:x: You cannot move your piece here!
 															{return};
-														{if;!=;1;{get;@{get;~p}passant$p_{get;~{get;~h2}}{decr;{get;~v2}}};
+														{if;!=;1;{get;@{get;~p}passant$p_{get;~{get;~h2}}{decrement;{get;~v2}}};
 															:x: You cannot move your piece here!
 															{return};
-														{if;!=;p;{get;@{get;~p}{get;~{get;~h2}}{decr;{get;~v2}}};
-															:x:  FATAL ERROR! Please report to tag creator. `p does not exist in {get;~{get;~h2}}{decr;{get;~v2}}`
+														{if;!=;p;{get;@{get;~p}{get;~{get;~h2}}{decrement;{get;~v2}}};
+															:x:  FATAL ERROR! Please report to tag creator. `p does not exist in {get;~{get;~h2}}{decrement;{get;~v2}}`
 															{return};
 														{if;!=;{get;@{get;~p}passant};{get;@{get;~p}move};
 															:x: You cannot make an En Passant move anymore! It must be immedietly after the enemy pawn moves.
 															{return};
 															{set;@{get;~p}{get;~mv2};{get;~piece}}
 															{set;@{get;~p}{get;~mv1};-}
-															{set;@{get;~p}{get;~{get;~h2}}{decr;{get;~v2}};-}
+															{set;@{get;~p}{get;~{get;~h2}}{decrement;{get;~v2}};-}
 															{set;~move_success;true}
 															{set;~passant;true}
 														}}}};
@@ -1244,7 +1244,7 @@
 													{return}
 												};
 											2;:x: You can not move your piece here! {return};
-											:x:  FATAL ERROR! Please report to tag creator. `~ver is out of bounds` 
+											:x:  FATAL ERROR! Please report to tag creator. `~ver is out of bounds`
 											{return}
 										}
 								}
@@ -1253,7 +1253,7 @@
 										{get;@{get;~p}unmoved$P_{get;~mv1}};
 										{if;==;2;{get;~ver};
 											{set;@{get;~p}passant$P_{get;~mv2};1}
-											{set;@{get;~p}passant;{incr;{get;@{get;~p}move}}}
+											{set;@{get;~p}passant;{increment;{get;@{get;~p}move}}}
 										}
 										{set;@{get;~p}unmoved$P_{get;~mv1};0}
 									}
@@ -1269,7 +1269,7 @@
 								}
 							}
 						};
-					Q; 
+					Q;
 						{set;~hor;{if;!=;{get;~hor1};{get;~hor2};true{set;~queen_move;h};false}}
 						{set;~ver;{if;!=;{get;~ver1};{get;~ver2};true{set;~queen_move;v};false}}
 						{if;{logic;&&;{get;~hor};{get;~ver}};
@@ -1418,7 +1418,7 @@
 					K;
 						{if;==;1;{get;@{get;~p}unmoved$K};
 							{switch;{get;~mv2};
-								g1;	
+								g1;
 									{if;{logic;&&;{if;==;1;{get;@{get;~p}unmoved$K};true;false};{if;==;1;{get;@{get;~p}unmoved$R_h1};true;false}};
 										{set;~castling;true};
 										:x: The King or Rook has already moved and you cannot castle anymore!
@@ -1448,7 +1448,7 @@
 										:x: FATAL ERROR! `{lb}userid{rb}side_2 out of bounds`
 											{return}
 									};
-								c1;	
+								c1;
 									{if;{logic;&&;{if;==;1;{get;@{get;~p}unmoved$K};true;false};{if;==;1;{get;@{get;~p}unmoved$R_a1};true;false}};
 										{set;~castling;true};
 										:x: The King or Rook has already moved and you cannot castle anymore!
@@ -1703,7 +1703,7 @@
 										{void;
 											{increment;~i_h1}
 										}
-										{if;!=;-;{get;@{get;~p}{get;~{get;~i_h1}}{get;~v1}};	
+										{if;!=;-;{get;@{get;~p}{get;~{get;~i_h1}}{get;~v1}};
 											{set;~continue;false}
 										};
 										{math;-;{get;~hor1};{get;~hor2};1}
@@ -1797,14 +1797,14 @@
 			{return}
 		};
 	board;
-		{if;!=;1;{get;@{userid}chess_game};	
+		{if;!=;1;{get;@{userid}chess_game};
 			:x: You do not have an active chess game!;
 		{set;~p;{get;@{userid}chess_instance}}
 		**Move Number**: **__{get;@{get;~p}move}__** - **{username;{get;@{get;~p}p{if;==;w;{get;@{get;~p}tm};1;2}}}{get;@aph}s** turn to move
 		{switch;{get;@{userid}chess_style};
 			obsolete;
-				{get;@chess_link0}{set;index0;1}{set;index1;8}{loop;1;64;{get;@{get;~p}{get;~{get;index0}}{get;index1}}{if;==;8;{get;index0};{set;index0;1}{void;{decrement;index1}};{void;{increment;index0}}}}&tm={get;@{get;~p}tm}{if;==;m;{get;@{userid}chess_size};;&s={get;@{userid}chess_size}}&tt={regexreplace;{username;{get;@{get;~p}p2}};/[^a-zA-Z0-9]/g;}&ct={regexreplace;{username;{get;@{get;~p}p1}};/[^a-zA-Z0-9]/g;}{switch;{get;@{userid}chess_board};;;~plain;;&bp={get;@{userid}chess_board}}{switch;{get;@{userid}chess_board};;;alpha;;&ps={get;@{userid}chess_piece}}{switch;{get;@{userid}chess_coord};;&cm=o;nc;;&cm={get;@{userid}chess_coord}};
-				{get;@chess_link1}{set;index0;1}{set;index1;1}{regexreplace;{loop;1;64;{get;@{get;~p}{get;~{get;index0}}{get;index1}}{if;==;8;{get;index0};{set;index0;1}{void;{increment;index1}};{void;{increment;index0}}}};/-/g;_}&p={get;@{userid}chess_sizen}&s={get;@{userid}chess_piecen}&c={get;@{userid}chess_color_darkn}{get;@{userid}chess_color_lightn}{switch;{get;@{userid}chess_coordn};;&r=FFFFFF;nc;;o;&r=FFFFFF;&r=FFFFFF}{set;k;{if;&&;{if;!=;;{get;~{get;~p}1a};1;0};{if;!=;;{get;~{get;~p}1b};1;0};{get;~{get;~p}1a}Q{get;~{get;~p}1b}Q0Q0Q255A}{if;&&;{if;!=;;{get;~{get;~p}2a};1;0};{if;!=;;{get;~{get;~p}2b};1;0};{get;~{get;~p}2a}Q{get;~{get;~p}2b}{if;==;true;{get;~{get;~p}eat};Q255Q0Q0;Q0Q0Q255}}}{if;!=;;{get;k};&k={get;k}}&z={get;@{get;~p}tm}{if;==;b;{get;@{get;~p}tm};&f=1}
+				{get;@chess_link0}{set;index0;1}{set;index1;8}{repeat;1;64;{get;@{get;~p}{get;~{get;index0}}{get;index1}}{if;==;8;{get;index0};{set;index0;1}{void;{decrement;index1}};{void;{increment;index0}}}}&tm={get;@{get;~p}tm}{if;==;m;{get;@{userid}chess_size};;&s={get;@{userid}chess_size}}&tt={regexreplace;{username;{get;@{get;~p}p2}};/[^a-zA-Z0-9]/g;}&ct={regexreplace;{username;{get;@{get;~p}p1}};/[^a-zA-Z0-9]/g;}{switch;{get;@{userid}chess_board};;;~plain;;&bp={get;@{userid}chess_board}}{switch;{get;@{userid}chess_board};;;alpha;;&ps={get;@{userid}chess_piece}}{switch;{get;@{userid}chess_coord};;&cm=o;nc;;&cm={get;@{userid}chess_coord}};
+				{get;@chess_link1}{set;index0;1}{set;index1;1}{regexreplace;{repeat;1;64;{get;@{get;~p}{get;~{get;index0}}{get;index1}}{if;==;8;{get;index0};{set;index0;1}{void;{increment;index1}};{void;{increment;index0}}}};/-/g;_}&p={get;@{userid}chess_sizen}&s={get;@{userid}chess_piecen}&c={get;@{userid}chess_color_darkn}{get;@{userid}chess_color_lightn}{switch;{get;@{userid}chess_coordn};;&r=FFFFFF;nc;;o;&r=FFFFFF;&r=FFFFFF}{set;k;{if;&&;{if;!=;;{get;~{get;~p}1a};1;0};{if;!=;;{get;~{get;~p}1b};1;0};{get;~{get;~p}1a}Q{get;~{get;~p}1b}Q0Q0Q255A}{if;&&;{if;!=;;{get;~{get;~p}2a};1;0};{if;!=;;{get;~{get;~p}2b};1;0};{get;~{get;~p}2a}Q{get;~{get;~p}2b}{if;==;true;{get;~{get;~p}eat};Q255Q0Q0;Q0Q0Q255}}}{if;!=;;{get;k};&k={get;k}}&z={get;@{get;~p}tm}{if;==;b;{get;@{get;~p}tm};&f=1}
 		}};
 		{switch;{lower;{args;0}};
 			forfeit;{void};
@@ -1862,8 +1862,8 @@
 	{set;~en;{get;@{userid}en}}
 	{switch;{get;@{get;~en}chess_style};
 		obsolete;
-			{get;@chess_link0}{set;index0;1}{set;index1;8}{loop;1;64;{get;@{get;~p}{get;~{get;index0}}{get;index1}}{if;==;8;{get;index0};{set;index0;1}{void;{decrement;index1}};{void;{increment;index0}}}}&tm={get;@{get;~p}tm}{if;==;m;{get;@{get;~en}chess_size};;&s={get;@{get;~en}chess_size}}&tt={regexreplace;{username;{get;@{get;~p}p2}};/[^a-zA-Z0-9]/g;}&ct={regexreplace;{username;{get;@{get;~p}p1}};/[^a-zA-Z0-9]/g;}{switch;{get;@{get;~en}chess_board};;;~plain;;&bp={get;@{get;~en}chess_board}}{switch;{get;@{get;~en}chess_board};;;alpha;;&ps={get;@{get;~en}chess_piece}}{switch;{get;@{get;~en}chess_coord};;&cm=o;nc;;&cm={get;@{get;~en}chess_coord}};
-			{get;@chess_link1}{set;index0;1}{set;index1;1}{regexreplace;{loop;1;64;{get;@{get;~p}{get;~{get;index0}}{get;index1}}{if;==;8;{get;index0};{set;index0;1}{void;{increment;index1}};{void;{increment;index0}}}};/-/g;_}&p={get;@{get;~en}chess_sizen}&s={get;@{get;~en}chess_piecen}&c={get;@{get;~en}chess_color_darkn}{get;@{get;~en}chess_color_lightn}{switch;{get;@{get;~en}chess_coordn};;&r=FFFFFF;nc;;o;&r=FFFFFF;&r=FFFFFF}{set;k;{if;&&;{if;!=;;{get;~{get;~p}1a};1;0};{if;!=;;{get;~{get;~p}1b};1;0};{get;~{get;~p}1a}Q{get;~{get;~p}1b}Q0Q0Q255A}{if;&&;{if;!=;;{get;~{get;~p}2a};1;0};{if;!=;;{get;~{get;~p}2b};1;0};{get;~{get;~p}2a}Q{get;~{get;~p}2b}{if;==;true;{get;~{get;~p}eat};Q255Q0Q0;Q0Q0Q255}}}{if;!=;;{get;k};&k={get;k}}&z={get;@{get;~p}tm}{if;==;b;{get;@{get;~p}tm};&f=1}
+			{get;@chess_link0}{set;index0;1}{set;index1;8}{repeat;1;64;{get;@{get;~p}{get;~{get;index0}}{get;index1}}{if;==;8;{get;index0};{set;index0;1}{void;{decrement;index1}};{void;{increment;index0}}}}&tm={get;@{get;~p}tm}{if;==;m;{get;@{get;~en}chess_size};;&s={get;@{get;~en}chess_size}}&tt={regexreplace;{username;{get;@{get;~p}p2}};/[^a-zA-Z0-9]/g;}&ct={regexreplace;{username;{get;@{get;~p}p1}};/[^a-zA-Z0-9]/g;}{switch;{get;@{get;~en}chess_board};;;~plain;;&bp={get;@{get;~en}chess_board}}{switch;{get;@{get;~en}chess_board};;;alpha;;&ps={get;@{get;~en}chess_piece}}{switch;{get;@{get;~en}chess_coord};;&cm=o;nc;;&cm={get;@{get;~en}chess_coord}};
+			{get;@chess_link1}{set;index0;1}{set;index1;1}{regexreplace;{repeat;1;64;{get;@{get;~p}{get;~{get;index0}}{get;index1}}{if;==;8;{get;index0};{set;index0;1}{void;{increment;index1}};{void;{increment;index0}}}};/-/g;_}&p={get;@{get;~en}chess_sizen}&s={get;@{get;~en}chess_piecen}&c={get;@{get;~en}chess_color_darkn}{get;@{get;~en}chess_color_lightn}{switch;{get;@{get;~en}chess_coordn};;&r=FFFFFF;nc;;o;&r=FFFFFF;&r=FFFFFF}{set;k;{if;&&;{if;!=;;{get;~{get;~p}1a};1;0};{if;!=;;{get;~{get;~p}1b};1;0};{get;~{get;~p}1a}Q{get;~{get;~p}1b}Q0Q0Q255A}{if;&&;{if;!=;;{get;~{get;~p}2a};1;0};{if;!=;;{get;~{get;~p}2b};1;0};{get;~{get;~p}2a}Q{get;~{get;~p}2b}{if;==;true;{get;~{get;~p}eat};Q255Q0Q0;Q0Q0Q255}}}{if;!=;;{get;k};&k={get;k}}&z={get;@{get;~p}tm}{if;==;b;{get;@{get;~p}tm};&f=1}
 	}
 }
 {if;==;true;{get;@perm_move};

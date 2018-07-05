@@ -4,7 +4,7 @@
 {switch;{lower;{args;1}};;
 	Please do `{prefix}t chess theme <type>` in order to get that style.
 	```prolog
-	​{realpad;Piece;11;{space};left}
+	{realpad;Piece;11;{space};left}
 	{realpad;alpha;7;{space};left} | (Default)
 	{realpad;linares;7;{space};left} | merida``````prolog
 	{realpad;Sizes;12;{space};left}
@@ -42,6 +42,6 @@
 			:x: Provide a valid hexcode!
 			{return}
 		}};
-		{embed;{exec;err;<:chess_cross:436745175294017546> Invalid command!}}
+		{embed;{exec;chess_error;Invalid command!}}
 		{return}
 }

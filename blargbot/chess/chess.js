@@ -34,6 +34,6 @@
 		{exec;chess_debug;{lower;{args}}};
 	{get;~end};
 		{exec;chess_quit;{lower;{args}}};
-		{embed;{exec;err;<:chess_cross:436745175294017546> Invalid command!}}
+		{embed;{exec;chess_error;Invalid command!}}
 		{return}
 }

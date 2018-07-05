@@ -19,7 +19,7 @@
 				{void;
 					{increment;~i_h1}
 				}
-				{if;!=;-;{get;@{get;~p}{get;~{get;~i_h1}}{get;~v1}};	
+				{if;!=;-;{get;@{get;~p}{get;~{get;~i_h1}}{get;~v1}};
 					{set;~continue;false}
 				};
 				{math;-;{get;~hor1};{get;~hor2};1}

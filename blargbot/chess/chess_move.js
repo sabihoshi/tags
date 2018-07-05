@@ -1,28 +1,28 @@
 {lang;cs}
 {if;!=;1;{get;@{userid}chess_game};
-	:x: You do not have an active chess game!
+	{exec;chess_error;You do not have an active chess game!}
 	{return}
 }
 {set;~p;{get;@{userid}chess_instance}}
 {if;!=;{get;@{userid}chess_color};{get;@{get;~p}tm};
-	{exec;error;:x: It is not your turn yet! Wait for your opponent to make a move!}
+	{exec;chess_error;It is not your turn yet! Wait for your opponent to make a move!}
 	{return}
 }
 {if;<;{argslength};3;
-	:x: Did you even try to move the piece?
+	{exec;chess_error;Did you even try to move the piece?}
 	{return}
 }
 {set;~mv1;{substring;{args;1};0;2}}
 {set;~mv2;{substring;{args;2};0;2}}
 {if;==;{get;~mv1};{get;~mv2};
-	:x: Did you even try to move the piece?
+	{exec;chess_error;Did you even try to move the piece?}
 	{return}
 }
 {if;{logic;&&;
 	{regextest;{get;~mv1};/[a-h][1-8]/i};
 	{regextest;{get;~mv2};/[a-h][1-8]/i}};
 	{void};
-	:x: Invalid move! `{if;==;{regextest;{get;~mv1};/[a-h][1-8]/};false;{get;~mv1}} {if;==;{regextest;{get;~mv2};/[a-h][1-8]/};false;{get;~mv2}} out of bounds`
+	{exec;chess_error;Invalid move! `{if;==;{regextest;{get;~mv1};/[a-h][1-8]/};false;{get;~mv1}} {if;==;{regextest;{get;~mv2};/[a-h][1-8]/};false;{get;~mv2}} out of bounds`}
 	{return}
 }
 {set;~a;1}{set;~1;a}{set;~b;2}{set;~2;b}{set;~c;3}{set;~3;c}{set;~d;4}{set;~4;d}{set;~e;5}{set;~5;e}{set;~f;6}{set;~6;f}{set;~g;7}{set;~7;g}{set;~h;8}{set;~8;h}
@@ -33,12 +33,12 @@
 	}}
 }
 {if;==;{if;==;w;{get;@{userid}chess_color};1;2};{get;~side};
-	This is not your piece you `heccin baka` 
+	This is not your piece you `heccin baka`
 	{return}
 }
 {switch;{get;~side};
 	0;
-		:x: There is no piece here, what are you trying to move?
+		{exec;chess_error;There is no piece here, what are you trying to move?}
 		{return};
 	-1;
 		:x:  FATAL ERROR! Please report to tag creator.
@@ -48,15 +48,16 @@
 		{return};
 	1;
 		{if;!=;b;{get;@{userid}chess_color};
-			:x: This is not your piece you `heccing baka`
+			{exec;chess_error;This is not your piece you `heccing baka`}
 			{return}
 		};
 	2;
 		{if;!=;w;{get;@{userid}chess_color};
-			:x: This is not your piece you `heccing baka`
+			{exec;chess_error;This is not your piece you `heccing baka`}
 			{return}
 		};
-	:x:  FATAL ERROR! Please report to tag creator. `{get;~side} is undefined.`
+	{exec;chess_error; FATAL ERROR! Please report to tag creator. `{get;~side} is undefined.`}
+	{return}
 }
 {set;~piece2;{get;@{get;~p}{get;~mv2}}}
 {set;~side_2;
@@ -65,7 +66,7 @@
 	}}
 }
 {if;==;{if;==;w;{get;@{userid}chess_color};2;1};{get;~side_2};
-	:x: You cannot move your piece here! {get;~side_2} 
+	{exec;chess_error;You cannot move your piece here! {get;~side_2}}
 	{return}
 }
 {set;~h1;{get;~{substring;{get;~mv1};0;1}}}
@@ -80,19 +81,19 @@
 	b;
 		{switch;{get;~piece};
 			-;0;
-			r;	
+			r;
 				{exec;chess_move_br;{args}};
-			n;	
+			n;
 				{exec;chess_move_bn;{args}};
-			b;	
+			b;
 				{exec;chess_move_bb;{args}};
-			q;	
+			q;
 				{exec;chess_move_bq;{args}};
-			k;	
+			k;
 				{exec;chess_move_bk;{args}};
-			p;	
+			p;
 				{exec;chess_move_bp;{args}};
-			:x: FATAL ERROR! Please report to tag creator. `chess_color and piece does not match.`
+			{exec;chess_error;FATAL ERROR! Please report to tag creator. `chess_color and piece does not match.`}
 			{return}
 		};
 	w;
@@ -100,19 +101,19 @@
 			-;0;
 			P;
 				{exec;chess_move_wp;{args}};
-			Q;	
+			Q;
 				{exec;chess_move_wq;{args}};
-			K;	
+			K;
 				{exec;chess_move_wk;{args}};
-			B;	
+			B;
 				{exec;chess_move_wb;{args}};
 			N;
 				{exec;chess_move_wn;{args}};
 			R;
 				{exec;chess_move_wr;{args}};
-			:x: FATAL ERROR! Please report to tag creator. `chess_color and piece does not match.`
+			{exec;chess_error;FATAL ERROR! Please report to tag creator. `chess_color and piece does not match.`}
 			{return}
 		};
-	:x: FATAL ERROR! Please report to tag creator. `chess_color is out of bounds.`
+	{exec;chess_error;FATAL ERROR! Please report to tag creator. `chess_color is out of bounds.`}
 	{return}
 }
