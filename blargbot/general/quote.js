@@ -1,6 +1,6 @@
 {set;~c;{channelid}}
 {switch;{argslength};
-    0;Usage: {newline}`{prefix}{commandname} [channelid] <messageid>`{return};
+	0;Usage: {newline}`{prefix}{commandname} [channelid] <messageid>`{return};
     1;{set;~m;{args;0}};
     {set;~c;{args;0}}{set;~m;{args;1}}
 }
@@ -10,12 +10,12 @@
 {set;~eColor;[]}
 {set;~roles;{roles;{get;~user}}}
 {foreach;~color;{get;~roles};
-  {if;{rolecolor;{get;~color}};!=;000000;
-    {push;{get;~eColor};{rolecolor;{get;~color}}}
-  }
+	{if;{rolecolor;{get;~color}};!=;000000;
+		{push;{get;~eColor};{rolecolor;{get;~color}}}
+	}
 }
 {if;{length;{get;~eColor}};==;0;
-  {set;~eColor;pink}
+	{set;~eColor;pink}
 }
 {set;~url;
     https://discordapp.com/channels/
