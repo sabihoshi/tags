@@ -15,13 +15,13 @@
 {inject;;'}
 {aset;help;
 ```ruby
-`Chess Help Menu {aget;version}` ``` 
+`Chess Help Menu {aget;version}` ```
 **Commands:**
-1. `t!t chess theme` - Changes your style to the desired theme. 
+1. `t!t chess theme` - Changes your style to the desired theme.
 2. `t!t chess start <@user> [w|b]` - Starts a match against user. If a color is chosen, that will be your color.
 3. `t!t chess move <pos1> <pos2> [queen|knight|rook|bishop]` - Moves the piece in `pos1` to `pos2`, example you move the rook at `a1` to `a8`, it ill be `t!t chess move a1 a8`. The queen, knight, rook, and bishop are when promoting a pawn.
 4. `t!t chess <forfeit|quit|stop|end>` - Forfeit your current match and lose the game.
-5. `t!t chess stalemate` - To announce if your current game is a stalemate. 
+5. `t!t chess stalemate` - To announce if your current game is a stalemate.
 ```py
 >>> Made by: Kao#0001```
 }
@@ -29,7 +29,7 @@
 	:tada: **Congratulations! ** {username}#{userdiscrim} has won the game!
 }
 {aset;chess_link0;
-	http://jinchess.com/chessboard/?p= 
+	http://jinchess.com/chessboard/?p=
 }
 {aset;chess_link1;
 	http://apronus.com/chess/diagram/stagram.php?d=P
@@ -107,7 +107,7 @@
 						{pad;l;gray-tiles;14;{space}} | slate
 						{pad;l;green-marble;14;{space}} | winter
 						{pad;l;pale-wood;14;{space}} | wooden-dark
-						{pad;l;plain;14;{space}} |``` 
+						{pad;l;plain;14;{space}} |```
 						Do `t!t chess theme advanced` to get more info about advanced features. Do `t!t chess theme obsolete` to get the new style of the board.;/\t/g;};
 					board;
 						{aset;~p_stat;
@@ -200,7 +200,7 @@
 							{aget;nl}
 							{pad;l;r;8;{space}} | coordinates at the Rim of the board.
 							{pad;l;o;8;{space}} | coordinates at the Outside of the board. (Default)
-							{pad;l;nc;8;{space}} | No Coordinates shown.``` 
+							{pad;l;nc;8;{space}} | No Coordinates shown.```
 							Do `t!t chess theme advanced` to get more info about advanced features.;/\t/g;};
 							s;Set chess board size to small!{aset;{userid}chess_size;s};
 							m;Set chess board size to medium!{aset;{userid}chess_size;m};
@@ -233,7 +233,7 @@
 					{pad;l;light;8;{space}} | `light [hex]` code for the light colored tiles. Leave blank for default.
 					{aget;nl}
 					{pad;l;o;8;{space}} | coordinates at the Outside of the board. (Default)
-					{pad;l;nc;8;{space}} | No Coordinates shown.``` 
+					{pad;l;nc;8;{space}} | No Coordinates shown.```
 					Do `t!t chess theme obsolete` to use the old style of the board.;/\t/g;};
 					alpha;Succesfully set piece style to alpha!{aset;{userid}chess_piecen;1};
 					linares;Succesfully set piece style to linares!{aset;{userid}chess_piecen;2};
@@ -344,7 +344,7 @@
 			{set;index0;1}{set;index1;7}{loop;1;8;{aset;{aget;~p}{aget;~{get;index0}}{get;index1};p}{if;==;8;{get;index0};{set;index0;1}{set;index1;{decr;{get;index1}}};{set;index0;{incr;{get;index0}}}}}
 			{set;index0;1}{set;index1;2}{loop;1;8;{aset;{aget;~p}{aget;~{get;index0}}{get;index1};P}{if;==;8;{get;index0};{set;index0;1}{set;index1;{decr;{get;index1}}};{set;index0;{incr;{get;index0}}}}}
 			**Game Started as {if;==;w;{aget;{userid}chess_color};White;Black}!**
-			{aset;~p;{aget;{userid}chess_instance}} 
+			{aset;~p;{aget;{userid}chess_instance}}
 			**Move Number**: **__{aget;{aget;~p}move}__** - **{username;{aget;{aget;~p}p{if;==;w;{aget;{aget;~p}tm};1;2}}}{aget;aph}s** turn to move
 			{switch;{aget;{userid}chess_style};
 				obsolete;
@@ -355,7 +355,7 @@
 		;/\t+|^[\r\n]+/gm;};
 	stalemate;
 		{regexreplace;
-			{if;==;true;{aget;return};;	
+			{if;==;true;{aget;return};;
 			{aset;~p;{aget;{userid}chess_instance}}
 			{if;!=;1;{aget;{userid}chess_game};:x: You don not have an active chess game!;
 			{if;!=;1;{aget;{aget;~p}stalemate_in};Stalemate announced! <@{aget;{userid}en}>, please do `t!t chess stalemate` to confirm it.{aset;{aget;~p}stalemate_in;1}{aset;{aget;~p}stalemate_en;{userid}};
@@ -377,7 +377,7 @@
 				**Introduction:**
 				You have copied this tag from the creator, **{get;username}#{get;userdiscrim}**.
 				Thank you for appreciating my work enough that you wanted it on your own server. But be sure to thank me, and to make sure to tell me that you have copied it. Run the tag `t!t chess_copy` in the Tatsumaki Server in order to get instructions on how to make the tag work.;
-			{if;!=;1;{aget;{userid}chess_game};	
+			{if;!=;1;{aget;{userid}chess_game};
 				:x: You do not have an active chess game!;
 			{aset;~p;{aget;{userid}chess_instance}}
 			{if;!=;{aget;{userid}chess_color};{aget;{aget;~p}tm};
@@ -454,7 +454,7 @@
 				b;
 					{switch;{aget;~piece};
 						-;0;
-						r; 
+						r;
 							{aset;~hor;{if;!=;{aget;~hor1};{aget;~hor2};1{aset;~rook_move;h};0}}
 							{aset;~ver;{if;!=;{aget;~ver1};{aget;~ver2};1{aset;~rook_move;v};0}}
 							{if;&&;{aget;~hor};{aget;~ver};
@@ -469,7 +469,7 @@
 												{if;!=;0;{math;-;{aget;~hor1};{aget;~hor2};1};
 													{loop;1;{math;-;{aget;~hor1};{aget;~hor2};1};
 														{aset;~i_h1;{incr;{aget;~i_h1}}}
-														{if;!=;-;{aget;{aget;~p}{aget;~{aget;~i_h1}}{aget;~v1}}; 
+														{if;!=;-;{aget;{aget;~p}{aget;~{aget;~i_h1}}{aget;~v1}};
 															{aset;~continue;false}
 														}
 													}
@@ -574,7 +574,7 @@
 									h1;{aset;{aget;~p}unmoved$r_h8;0};
 								}
 							};
-						n; 
+						n;
 							{aset;~hor;
 								{switch;{aget;~hor1};
 									{math;+;{aget;~hor2};1};1{aset;~h_m;v};
@@ -641,7 +641,7 @@
 									}
 								}
 							};
-						b; 
+						b;
 							{aset;~hor;{math;-;{aget;~hor1};{aget;~hor2}}}
 							{aset;~ver;{math;-;{aget;~ver1};{aget;~ver2}}}
 							{if;!=;{aget;~hor};{aget;~ver};
@@ -654,7 +654,7 @@
 										{aset;~i_v1;{if;>;{aget;~v1};{aget;~v2};{decr;{aget;~i_v1}};{incr;{aget;~i_v1}}}}
 										{if;!=;-;{aget;{aget;~p}{aget;~{aget;~i_h1}}{aget;~i_v1}};
 											{aset;~continue;0}
-										} 
+										}
 									}
 								}
 								{if;==;0;{aget;continue};
@@ -696,7 +696,7 @@
 									}
 								}
 							};
-						q; 
+						q;
 							{aset;~hor;{if;!=;{aget;~hor1};{aget;~hor2};1{aset;~queen_move;h};0}}
 							{aset;~ver;{if;!=;{aget;~ver1};{aget;~ver2};1{aset;~queen_move;v};0}}
 							{if;&&;{aget;~hor};{aget;~ver};
@@ -712,7 +712,7 @@
 											{aset;~i_v1;{if;>;{aget;~v1};{aget;~v2};{decr;{aget;~i_v1}};{incr;{aget;~i_v1}}}}
 											{if;!=;-;{aget;{aget;~p}{aget;~{aget;~i_h1}}{aget;~i_v1}};
 												{aset;~continue;0}
-											} 
+											}
 										}
 									}
 									{if;==;0;{aget;continue};
@@ -764,7 +764,7 @@
 												{if;!=;0;{math;-;{aget;~hor1};{aget;~hor2};1};
 													{loop;1;{math;-;{aget;~hor1};{aget;~hor2};1};
 														{aset;~i_h1;{incr;{aget;~i_h1}}}
-														{if;!=;-;{aget;{aget;~p}{aget;~{aget;~i_h1}}{aget;~v1}}; 
+														{if;!=;-;{aget;{aget;~p}{aget;~{aget;~i_h1}}{aget;~v1}};
 															{aset;~continue;false}
 														}
 													}
@@ -863,10 +863,10 @@
 										}
 								}
 							};
-						k; 
+						k;
 							{if;==;1;{aget;{aget;~p}unmoved$k};
 								{switch;{aget;~mv2};
-									g8; 
+									g8;
 										{if;&&;{if;==;1;{aget;{aget;~p}unmoved$k};1;0};{if;==;1;{aget;{aget;~p}unmoved$r_h8};1;0};;
 											:x: The King or Rook has already moved and you cannot castle anymore!
 											{aset;return;true}
@@ -899,7 +899,7 @@
 												}
 											}
 										};
-									c8; 
+									c8;
 										{if;&&;{if;==;1;{aget;{aget;~p}unmoved$k};1;0};{if;==;1;{aget;{aget;~p}unmoved$r_a8};1;0};;
 											:x: The King or Rook has already moved and you cannot castle anymore!
 											{aset;return;true}
@@ -1204,7 +1204,7 @@
 														{aset;return;true}
 													};
 												2;:x: You can not move your piece here! {aset;return;true};
-												:x:  FATAL ERROR! Please report to tag creator. `~ver is out of bounds` 
+												:x:  FATAL ERROR! Please report to tag creator. `~ver is out of bounds`
 												{aset;return;true}
 											}
 									}
@@ -1366,7 +1366,7 @@
 														{aset;return;true}
 													};
 												2;:x: You can not move your piece here! {aset;return;true};
-												:x:  FATAL ERROR! Please report to tag creator. `~ver is out of bounds` 
+												:x:  FATAL ERROR! Please report to tag creator. `~ver is out of bounds`
 												{aset;return;true}
 											}
 									}
@@ -1391,7 +1391,7 @@
 									}
 								}
 							};
-						Q; 
+						Q;
 							{aset;~hor;{if;!=;{aget;~hor1};{aget;~hor2};1{aset;~queen_move;h};0}}
 							{aset;~ver;{if;!=;{aget;~ver1};{aget;~ver2};1{aset;~queen_move;v};0}}
 							{if;&&;{aget;~hor};{aget;~ver};
@@ -1407,7 +1407,7 @@
 											{aset;~i_v1;{if;>;{aget;~v1};{aget;~v2};{decr;{aget;~i_v1}};{incr;{aget;~i_v1}}}}
 											{if;!=;-;{aget;{aget;~p}{aget;~{aget;~i_h1}}{aget;~i_v1}};
 												{aset;~continue;0}
-											} 
+											}
 										}
 									}
 									{if;==;0;{aget;continue};
@@ -1557,7 +1557,7 @@
 						K;
 							{if;==;1;{aget;{aget;~p}unmoved$K};
 								{switch;{aget;~mv2};
-									g1; 
+									g1;
 										{if;&&;{if;==;1;{aget;{aget;~p}unmoved$K};1;0};{if;==;1;{aget;{aget;~p}unmoved$R_h1};1;0};;
 											:x: The King or Rook has already moved and you cannot castle anymore!
 											{aset;return;true}
@@ -1588,7 +1588,7 @@
 											:x:  FATAL ERROR! Please report to tag creator. `{lb}userid{rb}side_2 out of bounds`
 												{aset;return;true}
 										}}};
-									c1; 
+									c1;
 										{if;&&;{if;==;1;{aget;{aget;~p}unmoved$K};1;0};{if;==;1;{aget;{aget;~p}unmoved$R_a1};1;0};;
 											:x: The King or Rook has already moved and you cannot castle anymore!
 											{aset;return;true}
@@ -1775,7 +1775,7 @@
 										{aset;~i_v1;{if;>;{aget;~v1};{aget;~v2};{decr;{aget;~i_v1}};{incr;{aget;~i_v1}}}}
 										{if;!=;-;{aget;{aget;~p}{aget;~{aget;~i_h1}}{aget;~i_v1}};
 											{aset;~continue;0}
-										} 
+										}
 									}
 								}
 								{if;==;0;{aget;continue};
@@ -1897,7 +1897,7 @@
 											{if;!=;0;{math;-;{aget;~hor1};{aget;~hor2};1};
 												{loop;1;{math;-;{aget;~hor1};{aget;~hor2};1};
 													{aset;~i_h1;{incr;{aget;~i_h1}}}
-													{if;!=;-;{aget;{aget;~p}{aget;~{aget;~i_h1}}{aget;~v1}}; 
+													{if;!=;-;{aget;{aget;~p}{aget;~{aget;~i_h1}}{aget;~v1}};
 														{aset;~continue;false}
 													}
 												}
@@ -2022,7 +2022,7 @@
 				**Introduction:**
 				You have copied this tag from the creator, **{get;username}#{get;userdiscrim}**.
 				Thank you for appreciating my work enough that you wanted it on your own server. But be sure to thank me, and to make sure to tell me that you have copied it. Run the tag `t!t chess_copy` in the Tatsumaki Server in order to get instructions on how to make the tag work.;
-			{if;!=;1;{aget;{userid}chess_game};	
+			{if;!=;1;{aget;{userid}chess_game};
 				:x: You do not have an active chess game!;
 			{aset;~p;{aget;{userid}chess_instance}}
 			**Move Number**: **__{aget;{aget;~p}move}__** - **{username;{aget;{aget;~p}p{if;==;w;{aget;{aget;~p}tm};1;2}}}{aget;aph}s** turn to move
@@ -2104,4 +2104,4 @@
 }
 {if;==;true;{aget;always_move};
 	{aset;{userid}chess_color;{aget;{aget;~p}tm}}
-};/\t+|^[\r\n]+/gm;}	
+};/\t+|^[\r\n]+/gm;}
