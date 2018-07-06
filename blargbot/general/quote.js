@@ -21,13 +21,14 @@
     https://discordapp.com/channels/
 }
 {set;~image;{shift;{messageattachments;{get;~c};{get;~m}}}}
+{set;~msg;{regexreplace;{messagetext;{get;~c};{get;~m}};/(\[.+?\])(\(.+?\))/g;$1{zws}$2}}
 {embed;{embedbuild;
     footer.text:Sent by {username;{get;~user}}#{userdiscrim;{get;~user}};
     footer.icon_url:{useravatar;{get;~user}};
     title:Quote link;
     url:{get;~url}{guildid}/{get;~c}/{get;~m};
     {if;{length;{get;~image}};!=;0;image.url:{get;~image}};
-    description:❝ {regexreplace;{messagetext;{get;~c};{get;~m}};/(\[.+?\])(\(.+?\))/g;$1{zws}$2} ❞ {if;{messageedittime;{get;~c};{get;~m}};!=;Invalid date;(edited)}; 
+    description:{if;{get;~msg};!=;;❝ {get;~msg} ❞} {if;{messageedittime;{get;~c};{get;~m}};!=;Invalid date;(edited)};
     timestamp:{messagetime;{get;~c};{get;~m};YYYY-MM-DDTHH:mm:ssZ};
     color:{get;~eColor;0}
 }}
