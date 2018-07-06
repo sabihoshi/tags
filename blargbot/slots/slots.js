@@ -33,7 +33,7 @@
 	{set;~msg;{send;{channelid};{func.randomize}}}
 	{repeat;{sleep;1s}{edit;{get;~msg};{func.randomize}};4};
 	{func.randomize}
-}
+}{void;
 {//; Calculate payout }
 {set;~10;🍉🍉🍉;🍊🍊🍊;🍇🍇🍇;🍈🍈🍈;🍐🍐🍐}
 {set;~75;7⃣7⃣7⃣;🔔🔔🔔}
@@ -65,7 +65,7 @@
 		{zws}
 		**{username}** used **{get;~bet}** credit(s) and {if;{get;~pay};==;0;lost everything.;won **{math;*;{get;~bet};{get;~pay}}** credits!}
 	}
-}
+}}
 {if;{iscc};
 	{edit;{get;~msg};{messagetext;{get;~msg}}{newline}{func.payout}};
 	{func.payout}
