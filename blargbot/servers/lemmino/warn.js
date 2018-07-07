@@ -13,11 +13,15 @@
 	}
 	{return}
 }
-{//;Set the user}
 {suppresslookup}
 {set;~user;{userid;{args;0}}}
+{//; Warn logging }
+{if;{lower;{args;0}};==;view;
+	{exec;warn_log;"{args}" -v};
+	{exec;warn_log;{args}}
+}
+{//; Actually warning the user }
 {if;{get;~user};==;;{usermention}, please provide a valid user!{return}}
-{//;Actually warning the user}
 {void;{warn;{get;~user};{flag;c};{flag;r}}}
 :ok_hand: **{username;{get;~user}}#{userdiscrim;{get;~user}}** has been given {if;0{flag;c};>;1;{flag;c} warnings.;a warning.} They now have {warnings;{get;~user}} warnings.
 {void;
@@ -25,9 +29,9 @@
 	{roleremove;462822300383707137;{get;~user}}
 	{roleremove;326422286842200064;{get;~user}}
 }
-{//;DM the user of their warning}
-{dm;{get;~user};{buildembed;author.name:{username}#{userdiscrim} ({userid});author.icon_url:{useravatar};title:You have gotten a warning!;description:You have {warnings;{get;~user}} now{newline}Reason: {get;~r};timestamp:{time};color:peach}}
-{//;Automatically pardon the user after 24 hours if no time flag is set. Ignore if more than two warnings.}
+{//; DM the user }
+{exec;warn_dm}
+{//; Automatically pardon the user after 24 hours if no time flag is set. Ignore if more than two warnings. }
 {switch;{warnings;{get;~user}};
 	0;{void};
 	1;
