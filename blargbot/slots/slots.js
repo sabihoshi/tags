@@ -8,11 +8,6 @@
 		{parseint;{args;0}}
 	}
 }
-{//; Make sure user has enough credits }
-{//; {if;{get;@{userid}credits};<;{get;~bet};
-	:x: | **{username}, you do not have enough credits to make this bet! Do `{prefix}{if;{logic;!;{iscc}};t{space}}{commandname} daily` to get more credits.**
-	{return}
-} }
 {//; Setup functions }
 {function;fruit;{randchoose;🍌;🍒;🍐;🍈;🍇;🍊;🍉;🇱🇻;🍌;🍒;🔔;🇱🇻;7⃣;💎}}
 {function;randomize;
@@ -22,7 +17,7 @@
 		{repeat;-;18}
 		{join;{get;~fr1};{space}:{space}}
 		{zws}
-		{join;{get;~fr2};{space}:{space}}
+		{join;{get;~fr2};{space}:{space}} **<**
 		{zws}
 		{join;{get;~fr3};{space}:{space}}
 		{repeat;-;18}
@@ -46,16 +41,14 @@
 		{get;~10};10;
 		🍒🍒🍒;3;
 		🍌🍌🍌;1;
-		{switch;true;
-			{regextest;{get;~f};/^(?:(💎)(💎).|(💎).(💎)|.(💎)(💎))$/};20;
-			{regextest;{get;~f};/^(?:(🇱🇻)(🇱🇻).|(🇱🇻).(🇱🇻)|.(🇱🇻)(🇱🇻))$/};10;
-			{regextest;{get;~f};/^(?:(🍐)(🍐).|(🍐).(🍐)|.(🍐)(🍐))$/};3;
-			{regextest;{get;~f};/^(?:(🍈)(🍈).|(🍈).(🍈)|.(🍈)(🍈))$/};3;
-			{regextest;{get;~f};/^(?:(🍇)(🍇).|(🍇).(🍇)|.(🍇)(🍇))$/};3;
-			{regextest;{get;~f};/^(?:(🍊)(🍊).|(🍊).(🍊)|.(🍊)(🍊))$/};3;
-			{regextest;{get;~f};/^(?:(🍉)(🍉).|(🍉).(🍉)|.(🍉)(🍉))$/};3;
-			{regextest;{get;~f};/^(?:(🍒)(🍒).|(🍒).(🍒)|.(🍒)(🍒))$/};1;
-			0
+		{trim;
+			{set;~3;🍐;🍈;🍇;🍊;🍉;🍒}
+			{function;compare;{switch;{params};💎;50;7⃣;25;🔔;25;🇱🇻;10;{get;~3};3;🍒;1;🍌;0}}
+			{switch;true;
+				{bool;{get;~fr2;0};==;{get;~fr2;1}};{func.compare;{get;~fr2;0}};
+				{bool;{get;~fr2;1};==;{get;~fr2;2}};{func.compare;{get;~fr2;1}};
+				{bool;{get;~fr2;0};==;{get;~fr2;2}};{func.compare;{get;~fr2;2}};0
+			}
 		}
 	}
 }
