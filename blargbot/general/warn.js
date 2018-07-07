@@ -2,18 +2,14 @@
 {if;{logic;!;{ismod}};{return}}
 {//;Help if there's no arguments given}
 {if;{argslength};==;0;
-	{clean;**__Command Name__**: warn
-	**__Usage__**: `warn <user> [flags]`
-	Issues a warning.
-	If mod-logging is enabled, the warning will be logged.
-	If `kickat` and `banat` have been set using the settings command, the target could potentially get banned or kicked.
-
-	**__Flags__**:
-	​ ​ ​ ​ `-r` The reason for the warning.
-	​ ​ ​ ​ `-c` The number of warnings that will be issued.
-	​ ​ ​ ​ `-t` The length of time before user will automatically get pardoned.
-	}
+	Please provide a user!
 	{return}
+}
+{if;{lower;{args;0}};==;view;
+	{suppresslookup}
+	{set;~user;{userid;{args;1}}}
+	{if;{get;~user};==;;{usermention}, please provide a valid user!{return}};
+	{if;{length;{get;_{get;~user}warn.log}};==;0;User does not have any logs.{return}}
 }
 {//;Set the user}
 {suppresslookup}
