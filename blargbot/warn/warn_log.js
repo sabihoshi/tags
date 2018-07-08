@@ -13,8 +13,8 @@
 	{foreach;~color;{get;~roles};{if;{rolecolor;{get;~color}};!=;000000;{push;{get;~eColor};{rolecolor;{get;~color}}}}}
 	{if;{length;{get;~eColor}};==;0;{set;~eColor;peach}}
 	{set;~embed;
-		author.name:{username}#{userdiscrim} ({userid});
-		author.icon_url:{useravatar};
+		author.name:{username;{get;~user}}#{userdiscrim;{get;~user}} ({userid;{get;~user}});
+		author.icon_url:{useravatar;{get;~user}};
 		color:{get;~eColor;0}
 	}
 	{apply;push;~embed;{get;_{get;~user}warn.log}}
