@@ -1,6 +1,6 @@
 {if;{logic;!;{iscc}};{return}}
 {if;{flagset;v};
-	{if;{args;1};==;-v;
+	{if;{argslength};==;2;
 		{set;~user;{userid}};
 		{suppresslookup}
 		{set;~user;{userid;{args;1}}}

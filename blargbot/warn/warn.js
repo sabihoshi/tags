@@ -9,7 +9,7 @@
 
 {//; Warn logging }
 {if;{lower;{args;0}};==;view;
-	{exec;warn_log;"{args}" -v};
+	{exec;warn_log;"{join;{argsarray};" "}" -v};
 	{exec;warn_log;{args}}
 }
 
@@ -19,7 +19,7 @@
 :ok_hand: **{username;{get;~user}}#{userdiscrim;{get;~user}}** has been given {if;0{flag;c};>;1;{flag;c} warnings.;a warning.} They now have {warnings;{get;~user}} warnings.
 
 {//; DM the user }
-{exec;warn_dm}
+{exec;warn_dm;{args}}
 
 {//; 1. Automatically pardon the user after 24 hours if no time flag is set. }
 

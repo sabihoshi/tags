@@ -17,7 +17,7 @@
 {set;~user;{userid;{args;0}}}
 {//; Warn logging }
 {if;{lower;{args;0}};==;view;
-	{exec;warn_log;"{args}" -v};
+	{exec;warn_log;"{join;{argsarray};" "}" -v};
 	{exec;warn_log;{args}}
 }
 {//; Actually warning the user }
@@ -30,7 +30,7 @@
 	{roleremove;326422286842200064;{get;~user}}
 }
 {//; DM the user }
-{exec;warn_dm}
+{exec;warn_dm;{args}}
 {//; Automatically pardon the user after 24 hours if no time flag is set. Ignore if more than two warnings. }
 {switch;{warnings;{get;~user}};
 	0;{void};
