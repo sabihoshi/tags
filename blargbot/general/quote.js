@@ -1,12 +1,13 @@
 {set;~c;{channelid}}
 {switch;{argslength};
-	0;Usage: {newline}`{prefix}{commandname} [channelid] <messageid>`{return};
+	0;Usage: {newline}`{prefix}{commandname} [channel] <messageid>`{return};
     1;{set;~m;{args;0}};
     {set;~c;{args;0}}{set;~m;{args;1}}
 }
 {suppresslookup}
 {set;~user;{messagesender;{get;~c};{get;~m}}}
-{if;{get;~user};==;`No message found`;Invalid messageID/channelID{return}}
+{if;{get;~user};==;`No message found`;Invalid channel/messageID{return}}
+{if;{logic;&&;{isnsfw;{get;~c}};{logic;!;{isnsfw}}};:x: Please use a nsfw channel!{return}}
 {set;~eColor;[]}
 {set;~roles;{roles;{get;~user}}}
 {foreach;~color;{get;~roles};
