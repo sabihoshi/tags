@@ -1,4 +1,6 @@
 {if;{logic;!;{iscc}};{return;false}}
+{set;~roles;456795518467702798;455357627719745536;453957028243701764;453958480089448459;455791164931702795;458320325566922773;455357588507328533;455788076468535322;459981489183129600;455788879958507521;458319229372858377}
+{foreach;~role;~roles;{if;{hasrole;{get;~role};{void;{roleremove;{get;~role}}}}}}
 {if;{length;{get;~L}};>;1;
 {set;~states;
 	Alabama;Alaska;Arizona;Arkansas;Armed Forces America;Armed Forces Europe;Armed Forces Pacific;California;Colorado;Connecticut;Delaware;District of Columbia;Florida;Georgia;Hawaii;Idaho;Illinois;Indiana;Iowa;Kansas;Kentucky;Louisiana;Maine;Maryland;Massachusetts;Michigan;Minnesota;Mississippi;Missouri;Montana;Nebraska;Nevada;New Hampshire;New Jersey;New Mexico;New York;North Carolina;North Dakota;Ohio;Oklahoma;Oregon;Pennsylvania;Rhode Island;South Carolina;South Dakota;Tennessee;Texas;Utah;Vermont;Virginia;Washington;West Virginia;Wisconsin;Wyoming
