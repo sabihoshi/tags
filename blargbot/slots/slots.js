@@ -23,12 +23,10 @@
 		{repeat;-;18}
 	}
 }
-{//; Determine whether to do animation if it's a cc }
-{if;{iscc};
-	{set;~msg;{send;{channelid};{func.randomize}}}
-	{repeat;{sleep;1s}{edit;{get;~msg};{func.randomize}};4};
-	{func.randomize}
-}{void;
+{//; Roll the slots 5 times }
+{set;~msg;{output;{func.randomize}}}
+{repeat;{sleep;1s}{edit;{get;~msg};{func.randomize}};4}
+{void;
 {//; Calculate payout }
 {set;~10;🍉🍉🍉;🍊🍊🍊;🍇🍇🍇;🍈🍈🍈;🍐🍐🍐}
 {set;~75;7⃣7⃣7⃣;🔔🔔🔔}
@@ -59,7 +57,5 @@
 		**{username}** used **{get;~bet}** credit(s) and {if;{get;~pay};==;0;lost everything.;won **{math;*;{get;~bet};{get;~pay}}** credits!}
 	}
 }}
-{if;{iscc};
-	{edit;{get;~msg};{messagetext;{get;~msg}}{newline}{func.payout}};
-	{func.payout}
-}
+{//; Output the final state of the slots }
+{edit;{get;~msg};{messagetext;{get;~msg}}{newline}{func.payout}}
