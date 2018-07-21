@@ -26,7 +26,7 @@
 {set;~msgid;{output;{func.list}}}
 {reactadd;{get;~msgid};⬅➡}
 {repeat;
-	{//; Make sure only applicabl emojis work }
+	{//; Make sure only applicable emojis work }
 	{set;~reaction;{waitreaction;{get;~msgid};{userid};{switch;{get;~p};1;➡;{get;~maxp};⬅;⬅➡};true;300}}
 	{//; Remove emojis added by user }
 	{reactremove;{get;~msgid};⬅➡}
