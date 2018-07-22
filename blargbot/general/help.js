@@ -255,7 +255,7 @@ Custom commands take precedent over all other commands. As such, you can use it 
   **cc set <name> <content>** - provides the functionality of `create` and `edit` in a single command
   **cc delete <name>** - deletes the ccommand with given name, provided that you own it
   **cc rename <ccommand1> <ccommand2>** - renames the ccommand by the name of `ccommand1` to `ccommand2`
-  **cc flag <name> | <add|remove> <name> <Flags;> - Retrieves or sets the Flags; for a custom command. Flags; are added in the format `-x <name> <desc>`. For example,** `-f flag This is a flag!`
+  **cc flag <name> | <add|remove> <name> <Flags> - Retrieves or sets the Flags for a custom command. Flags are added in the format `-x <name> <desc>`. For example,** `-f flag This is a flag!`
   **cc cooldown <name> [time]** - Sets the cooldown of a tag, in milliseconds. Cooldowns must be greater than 500ms.
   **cc raw <name>** - displays the raw code of a ccommand
   **cc setrole <name> [role names...]** - sets the roles required to execute the ccommand
@@ -283,7 +283,7 @@ Commands:
 `-r` or `--roles` - Exception: A list of roles that are exempt from censorship.
 `-c` or `--channels` - Exception: A list of channels that are exempt from censorship.
 }	{set;~command.announce;
-**__Usage__**: `announce < <text> | Flags; >`
+**__Usage__**: `announce < <text> | Flags >`
 Makes an annoucement to a configured role, or resets the announcement configuration.;Flags;`-r` or `--reset` - Resets the announcement settings
 }	{set;~command.ban;
 **__Usage__**: `ban <user> [days] [Flags]`
@@ -329,7 +329,7 @@ Toggles logging for the specified events. Available events are:
 `track` removes users from the ignore list
 }	{set;~command.logs;
 **__Usage__**: `logs <number> [Flags]`
-Creates a chatlog page for a specified channel, where `number` is the amount of lines to get. You can retrieve a maximum of 1000 logs.For more specific logs, you can specify Flags;.
+Creates a chatlog page for a specified channel, where `number` is the amount of lines to get. You can retrieve a maximum of 1000 logs.For more specific logs, you can specify Flags.
 For example, if you wanted to get 100 messages `stupid cat` deleted, you would do this:
 `logs 100 --type delete --user stupid cat` If you want to use multiple of the same type, separate parameters with commas or chain them together. For example:
 `logs 100 -CU -u stupid cat, dumb cat`;Flags;`-t` or `--type` - The type(s) of message. Value can be CREATE, UPDATE, and/or DELETE, separated by commas.
@@ -369,7 +369,7 @@ Sets the reason for an action on the modlog.
 **__Usage__**: `roleme <list | add | remove | edit>`
 A roleme is a system to automatically give/remove roles to a user when they say a specific catchphrase. You can make these catchphrases anything you want, case sensitive/insensitive, and only activate in specific channels. The roleme command has three subcommands:
 list: lists all the rolemes active on the guild.
-add: adds a roleme to the guild. Just follow the instructions, or use Flags;.
+add: adds a roleme to the guild. Just follow the instructions, or use Flags.
 remove: returns a list of rolemes so you can choose one to remove.
 edit: modifies a roleme using the provided Flags;Flags;`-a` or `--add` - Add: A list of roles to add in the roleme
 `-r` or `--remove` - Add: A list of roles to remove in the roleme
@@ -378,7 +378,7 @@ edit: modifies a roleme using the provided Flags;Flags;`-a` or `--add` - Add: A 
 `-c` or `--channel` - Add: The channels the roleme should be in
 `-m` or `--message` - Add: The BBTag-compatible message to output on activation
 }	{set;~command.rvoteban;
-**__Usage__**: `rvoteban (<user> | <Flags;>)`
+**__Usage__**: `rvoteban (<user> | <Flags>)`
 Removes the votebans for a specific user, or removes all votebans completely.;Aliases;rpollban, removevoteban, removepollban, rvb, rpb;Flags;`-a` or `--all` - Removes all votebans
 }	{set;~command.settings;
 **__Usage__**: `settings [keys|help|set <key>]`
