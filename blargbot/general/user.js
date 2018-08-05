@@ -47,7 +47,7 @@
 		fields.value:{usercreatedat;MMMM DD, YYYY HH:mm:ss;{get;~user}}{newline}{trim;{func.time;{usercreatedat;X;{get;~user}}}};
 		fields.inline:true;
 		fields.name:Is a bot;
-		fields.value:{if;{userisbot};<:chess_check:436745175025319938>;<:chess_cross:436745175294017546>};
+		fields.value:{if;{userisbot;{get;~user}};<:chess_check:436745175025319938>;<:chess_cross:436745175294017546>};
 		fields.inline:true;
 		fields.name:Roles;
 		fields.value:{zws}{foreach;~role;{roles;{get;~user}};<@&{get;~role}>{space}};
@@ -112,20 +112,33 @@
 		}
 		{//; Remove all emojis when waitreaction limit is reached }
 		{reactremove;{get;~msgid};{reactlist;{get;~msgid};{reactlist;{get;~msgid}}}};
-	{if;{argslength};==;0;
-		{embed;{func.user;{userid}}};
-		{set;~user;{parseint;{abs;{args;0}}}}
-		{if;{get;~user};==;NaN;
-			{suppresslookup}
-			{set;~user;{userid;{args}}}
-			{if;{get;~user};==;;
-				{embed;{exec;err;<:chess_cross:436745175294017546> Please provide a valid user!}}
-				{return}
-			};
-			{set;~users;{guildmembers}}
-			{set;~user;{get;~users;{get;~user}}}
+		{if;{argslength};==;0;
+			{embed;{func.user;{userid}}};
+			{set;~user;{parseint;{abs;{args;0}}}}
+			{if;{get;~user};==;NaN;
+				{suppresslookup}
+				{set;~user;{userid;{args}}}
+				{if;{get;~user};==;;
+					{embed;{exec;err;<:chess_cross:436745175294017546> Please provide a valid user!}}
+					{return}
+				};
+				{if;{regextest;{get;~user};/^\d{17,21}$/};
+					{if;{userid;{args;0};quiet};==;;
+						{embed;{exec;err;<:chess_cross:436745175294017546> Please provide a valid user!}}
+						{return};
+						{set;~user;{args;0}}
+					};
+					{suppresslookup}
+					{if;{get;~user};>;{length;{guildmembers}};
+						{set;~user;{userid;{args}}};
+						{set;~users;{guildmembers}}
+						{set;~user;{get;~users;{get;~user}}}
+					}
+					{if;{get;~user};==;;{embed;{exec;err;<:chess_cross:436745175294017546> Please provide a valid user!}}}
+					{return}
+				}
+			}
+			{embed;{func.user;{get;~user}}}
+			{return}
 		}
-		{embed;{func.user;{get;~user}}}
-		{return}
-	}
 }
