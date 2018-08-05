@@ -1,5 +1,5 @@
 {clean;{fallback;NaN}{if;{lower;{args;0}};==;-v;{set;~f;{exec;number;{clean;{args;1;n}}}}{set;~v;true};{set;~f;{exec;number;{clean;{args}}}}{set;~v;false}}{if;{get;~v};```cs{set;~c;{get;~f}}}
-{while;{logic;!;{regextest;{get;~f};/^(?:-?(?:\d+\.\d*|\.?\d+)|NaN)$/}};
+{while;{logic;!;{regextest;{get;~f};/^(?:-?(?:\d+\.\d*|\.?\d+)$|NaN)/}};
     {set;~f;{regexreplace;{get;~f};/\s+|\s*\+\s*0(?!\d+\.\d*|\.?\d+)\s*/g;}}{//;Spaces and commas and results with zero}{if;{get;~v};{if;{get;~nf};!=;{get;~f};{set;~nf;{get;~f}}01 - {get;~f}}}
 	{exec;whileregex;"~f" "/--|\+\+/g" "+"}{//;Sign convention}{if;{get;~v};{if;{get;~nf};!=;{get;~f};{set;~nf;{get;~f}}02 - {get;~f}}}
 	{exec;whileregex;"~f" "/-\+|\+-/g" "-"}{//;Sign convention}{if;{get;~v};{if;{get;~nf};!=;{get;~f};{set;~nf;{get;~f}}03 - {get;~f}}}
