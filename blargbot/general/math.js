@@ -11,7 +11,7 @@
 	{exec;whileregex;"~f" "/pow\((.+?),(.+?)\)/g" "(($1)^($2))"}{//;Math.pow(x,y)}{if;{get;~v};{if;{get;~nf};!=;{get;~f};{set;~nf;{get;~f}}09 - {get;~f}}}
 	{exec;whileregexinject;"~f" "/((?:\d+\.\d*|\.?\d+))(\^)(-?(?:\d+\.\d*|\.?\d+))/" "{lb}lb{rb}math{lb}semi{rb}$2{lb}semi{rb}$1{lb}semi{rb}$3{lb}rb{rb}"}{//;Solve x^y}{if;{get;~v};{if;{get;~nf};!=;{get;~f};{set;~nf;{get;~f}}10 - {get;~f}}}
 	{set;~f;{exec;number;{get;~f}}}
-	{exec;whileregexinject;"~f" "/(-?(?:\d+\.\d*|\.?\d+))([*/])(-?(?:\d+\.\d*|\.?\d+))/" "{lb}lb{rb}math{lb}semi{rb}$2{lb}semi{rb}$1{lb}semi{rb}$3{lb}rb{rb}"}{//;Solve x*y, x/y}{if;{get;~v};{if;{get;~nf};!=;{get;~f};{set;~nf;{get;~f}}11 - {get;~f}}}
+	{exec;whileregexinject;"~f" "/(-?(?:\d+\.\d*|\.?\d+))([*/%])(-?(?:\d+\.\d*|\.?\d+))/" "{lb}lb{rb}math{lb}semi{rb}$2{lb}semi{rb}$1{lb}semi{rb}$3{lb}rb{rb}"}{//;Solve x*y, x/y, x%y}{if;{get;~v};{if;{get;~nf};!=;{get;~f};{set;~nf;{get;~f}}11 - {get;~f}}}
 	{exec;whileregexinject;"~f" "/(-?(?:\d+\.\d*|\.?\d+))([-+])(\d+\.\d*|\.?\d+)/" "{lb}lb{rb}math{lb}semi{rb}$2{lb}semi{rb}$1{lb}semi{rb}$3{lb}rb{rb}"}{//;Solve x+y, x-y}{if;{get;~v};{if;{get;~nf};!=;{get;~f};{set;~nf;{get;~f}}12 - {get;~f}}}
 	{exec;whileregex;"~f" "/\((-?(?:\d+\.\d*|\.?\d+))\)\((-?(?:\d+\.\d*|\.?\d+))\)/" "($1*$2)"}{//;Resolve (x)(y) -> (x*y)}{if;{get;~v};{if;{get;~nf};!=;{get;~f};{set;~nf;{get;~f}}13 - {get;~f}}}
 	{exec;whileregex;"~f" "/\((-?(?:\d+\.\d*|\.?\d+))\)(-?(?:\d+\.\d*|\.?\d+))/" "($1*$2)"}{//;Resolve (x)y -> (x*y)}{if;{get;~v};{if;{get;~nf};!=;{get;~f};{set;~nf;{get;~f}}14 - {get;~f}}}
