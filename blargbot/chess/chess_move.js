@@ -1,119 +1,140 @@
-{lang;cs}
-{if;!=;1;{get;@{userid}chess_game};
-	{exec;chess_error;You do not have an active chess game!}
+{if;{get;~key};!=;{get;@chess.key};
+	{func.error;Please run this tag in a cc! Do `{prefix}cc import chess chess` to continue.}
 	{return}
 }
-{set;~p;{get;@{userid}chess_instance}}
-{if;!=;{get;@{userid}chess_color};{get;@{get;~p}tm};
-	{exec;chess_error;It is not your turn yet! Wait for your opponent to make a move!}
+{if;{get;_{userid}chess.start};!=;1;
+	{func.error;You don't have a game yet! Do `{prefix}{commandname} start @user [white|black]`
+	{return}
+}}
+{if;{argslength};<;3;
+	{func.error;Please provide a valid move!
+	{return}
+}}
+{set;~mv1;{lower;{args;1}}}
+{set;~mv2;{lower;{args;2}}}
+{if;
+	{logic;!;{logic;&&;
+		{regextest;{get;~mv1};/^[a-h][1-8]$/i};
+		{regextest;{get;~mv2};/^[a-h][1-8]$/i}
+	}};
+	{func.error;Please provide a valid move!}
 	{return}
 }
-{if;<;{argslength};3;
-	{exec;chess_error;Did you even try to move the piece?}
-	{return}
-}
-{set;~mv1;{substring;{args;1};0;2}}
-{set;~mv2;{substring;{args;2};0;2}}
-{if;==;{get;~mv1};{get;~mv2};
-	{exec;chess_error;Did you even try to move the piece?}
-	{return}
-}
-{if;{logic;&&;
-	{regextest;{get;~mv1};/[a-h][1-8]/i};
-	{regextest;{get;~mv2};/[a-h][1-8]/i}};
-	{void};
-	{exec;chess_error;Invalid move! `{if;==;{regextest;{get;~mv1};/[a-h][1-8]/};false;{get;~mv1}} {if;==;{regextest;{get;~mv2};/[a-h][1-8]/};false;{get;~mv2}} out of bounds`}
-	{return}
-}
-{set;~a;1}{set;~1;a}{set;~b;2}{set;~2;b}{set;~c;3}{set;~3;c}{set;~d;4}{set;~4;d}{set;~e;5}{set;~5;e}{set;~f;6}{set;~6;f}{set;~g;7}{set;~7;g}{set;~h;8}{set;~8;h}
-{set;~piece;{get;@{get;~p}{get;~mv1}}}
-{set;~side;
-	{if;==;-;{get;@{get;~p}{get;~mv1}};0;
-	{if;{regextest;{get;@{get;~p}{get;~mv1}};/r|n|b|q|k|p/};1;2
-	}}
-}
-{if;==;{if;==;w;{get;@{userid}chess_color};1;2};{get;~side};
-	This is not your piece you `heccin baka`
-	{return}
-}
-{switch;{get;~side};
-	0;
-		{exec;chess_error;There is no piece here, what are you trying to move?}
+{switch;{get;_{get;~p}{get;~mv1};0};
+	["R","N","B","Q","K","P"];
+		{if;{get;_{userid}chess.color};==;b;{func.error;Baka, that's not your piece!}}
 		{return};
-	-1;
-		:x:  FATAL ERROR! Please report to tag creator.
-		p_stat {get;@{userid}p_stat}
-		chess_instance {get;@{userid}chess_instance}
-		side {get;~side}
+	["r","n","b","q","k","p"];
+		{if;{get;_{userid}chess.color};==;w;{func.error;Baka, that's not your piece!}}
+		{return}
+}
+{switch;{get;_{get;~p}{get;~mv1};1};
+	["R","N","B","Q","K","P"];
+		{if;{get;_{userid}chess.color};==;w;{func.error;Baka, that's your pieces!}}
 		{return};
-	1;
-		{if;!=;b;{get;@{userid}chess_color};
-			{exec;chess_error;This is not your piece you `heccing baka`}
-			{return}
-		};
-	2;
-		{if;!=;w;{get;@{userid}chess_color};
-			{exec;chess_error;This is not your piece you `heccing baka`}
-			{return}
-		};
-	{exec;chess_error; FATAL ERROR! Please report to tag creator. `{get;~side} is undefined.`}
-	{return}
+	["r","n","b","q","k","p"];
+		{if;{get;_{userid}chess.color};==;w;{func.error;Baka, that's your pieces!}}
+		{return}
 }
-{set;~piece2;{get;@{get;~p}{get;~mv2}}}
-{set;~side_2;
-	{if;==;-;{get;@{get;~p}{get;~mv2}};0;
-	{if;{regextest;{get;@{get;~p}{get;~mv2}};/r|n|b|q|k|p/};1;2
+{function;chess.move;
+	{if;{logic;!;{bool;{slice;{get;_{get;~p}{get;~mv1}};1};includes;{get;~mv2}}};
+		{func.error;That's an invalid move! Possible moves are `{join;{slice;{get;_{get;~p}{get;~mv1}};1};`, `}`}
+		{return}
+	}
+}
+{function;promotion;
+	{//; Send the message to the channel }
+	{set;~msgid;{send;{channelid};
+		{embedbuild;
+			author.name:{username}#{userdiscrim};
+			author.icon_url:{useravatar};
+			title:Pawn Promotion;
+			description:{clean;
+				React according to the piece you want to promote your pcawn to.
+				{switch;{get;_{userid}chess.color};
+					w;
+						<:wq:432200724437401610> <:wr:432200723531431938> <:wb:432200723711787008>;
+					b;
+						<:bq:432200723858456576> <:br:432200723451871233> <:bb:432200721476222978>
+				}
+			};
+			thumbnail.url:https://cdn.discordapp.com/emojis/{if;{get;_{userid}chess.color};==;w;432200723820970014;432200721853710336}.png
+		}
 	}}
-}
-{if;==;{if;==;w;{get;@{userid}chess_color};2;1};{get;~side_2};
-	{exec;chess_error;You cannot move your piece here! {get;~side_2}}
-	{return}
-}
-{set;~h1;{get;~{substring;{get;~mv1};0;1}}}
-{set;~h2;{get;~{substring;{get;~mv2};0;1}}}
-{set;~v1;{substring;{get;~mv1};1;2}}
-{set;~v2;{substring;{get;~mv2};1;2}}
-{set;~ver1;{if;>;{get;~v1};{get;~v2};{get;~v1};{get;~v2}}}
-{set;~ver2;{if;<;{get;~v1};{get;~v2};{get;~v1};{get;~v2}}}
-{set;~hor1;{if;>;{get;~h1};{get;~h2};{get;~h1};{get;~h2}}}
-{set;~hor2;{if;<;{get;~h1};{get;~h2};{get;~h1};{get;~h2}}}
-{switch;{get;@{userid}chess_color};
-	b;
-		{switch;{get;~piece};
-			-;0;
-			r;
-				{exec;chess_move_br;{args}};
-			n;
-				{exec;chess_move_bn;{args}};
-			b;
-				{exec;chess_move_bb;{args}};
-			q;
-				{exec;chess_move_bq;{args}};
-			k;
-				{exec;chess_move_bk;{args}};
-			p;
-				{exec;chess_move_bp;{args}};
-			{exec;chess_error;FATAL ERROR! Please report to tag creator. `chess_color and piece does not match.`}
+	{//; Add the corresponding reactions to the message }
+	{reactadd;{get;~msgid};🇶 🇷 🇧 ❎}
+	{//; Wait until user reacts one of the emojis provided }
+	{set;~reaction;
+		{waitreaction;{get;~msgid};{userid};
+			🇶 🇷 🇧 ❎
+		}
+	}
+	{//; Get the content of the reaction }
+	{switch;{get;~reaction;3};
+		["🇶","🇷","🇧"];
+			Promoted the {if;{get;_{userid}chess.color};==;w;<:wp:432200723820970014> to {switch;{get;~reaction;3};🇶;<:wq:432200724437401610>;🇷;<:wr:432200723531431938>;🇧;<:wb:432200723711787008>};<:bp:432200721853710336> to {switch;{get;~reaction;3};🇶;<:bq:432200723858456576>;🇷;<:br:432200723451871233>;🇧;<:bb:432200721476222978>}};
+		❎;
+			Move Cancelled.
+			{return};
+			User took too long to respond!
 			{return}
+	}
+}
+{switch;{get;_{get;~p}{get;~mv1};0};
+	K;
+		{switch;{get;~mv2};
+			g1;
+				{for;~H;5;>=;7;
+					{if;{indexof;{get;_{get;~p}attacked.w};{get;~{get;~H}}1};!=;-1;
+						{func.error;You cannot move the King into or from a check!}
+						{return}
+					}
+				};
+			b1;
+				{for;~H;5;>=;2;-1;
+					{if;{indexof;{get;_{get;~p}attacked.w};{get;~{get;~H}}1};!=;-1;
+						{func.error;You cannot move the King into or from a check!}
+						{return}
+					}
+				};
+			{func.chess.move}
 		};
-	w;
-		{switch;{get;~piece};
-			-;0;
-			P;
-				{exec;chess_move_wp;{args}};
-			Q;
-				{exec;chess_move_wq;{args}};
-			K;
-				{exec;chess_move_wk;{args}};
-			B;
-				{exec;chess_move_wb;{args}};
-			N;
-				{exec;chess_move_wn;{args}};
-			R;
-				{exec;chess_move_wr;{args}};
-			{exec;chess_error;FATAL ERROR! Please report to tag creator. `chess_color and piece does not match.`}
-			{return}
+	k;
+		{switch;{get;~mv2};
+			g8;
+				{for;~H;5;>=;7;
+					{if;{indexof;{get;_{get;~p}attacked.w};{get;~{get;~H}}8};!=;-1;
+						{func.error;You cannot castle the King into or from a check!}
+						{return}
+					}
+				};
+			b8;
+				{for;~H;5;>=;2;-1;
+					{if;{indexof;{get;_{get;~p}attacked.w};{get;~{get;~H}}8};!=;-1;
+						{func.error;You cannot move the King into or from a check!}
+						{return}
+					}
+				};
+			{func.chess.move}
 		};
-	{exec;chess_error;FATAL ERROR! Please report to tag creator. `chess_color is out of bounds.`}
-	{return}
+	P;
+		{if;{substring;{get;~mv2};1};==;8;
+			{func.promotion};
+			{func.chess.move}
+		};
+	p;
+		{if;{substring;{get;~mv2};1};==;1;
+			{func.promotion};
+			{func.chess.move}
+		};
+	["Q","R","N","B","q","r","n","b"];
+		{func.chess.move}
+}
+{set;_{get;~p}{get;~mv2};{get;_{get;~p}{get;~mv1};0}}
+{set;_{get;~p}{get;~mv1};_}
+{//; Refill the valid moves of the board }
+{for;~V;1;<=;8;
+	{for;~H;1;<=;8;
+		{exec;chess_refill;{get;~{get;~H}}{get;~V}}
+	}
 }

@@ -523,7 +523,10 @@
 								h8;{set;@{get;~p}unmoved$r_h8;0};
 							}
 						};
-					n;
+					n;b1 a3  c1 a3   3  1   3   1+1 or 1+2
+2   1
+
+2   1+1 or 1+2
 						{set;~hor;
 							{switch;{get;~hor1};
 								{math;+;{get;~hor2};1};1{set;~h_m;v};

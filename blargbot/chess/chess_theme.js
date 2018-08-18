@@ -1,4 +1,7 @@
-{lang;cs}
+{if;{get;~key};!=;{get;@chess.key};
+	{func.error;Please run this tag in a cc! Do `{prefix}cc import chess chess` to continue.}
+	{return}
+}
 {fallback;}
 {set;~sizes;21;27;37;49;65;87;115}
 {switch;{lower;{args;1}};;
@@ -20,9 +23,9 @@
 	{realpad;light;8;{space};left} | `light [hex]` code for the light colored tiles. Leave blank for default.
 	{newline}	{realpad;o;8;{space};left} | coordinates at the Outside of the board. (Default)
 	{realpad;nc;8;{space};left} | No Coordinates shown.```;
-	alpha;Succesfully set piece style to alpha!{set;@{userid}chess_piecen;1};
-	linares;Succesfully set piece style to linares!{set;@{userid}chess_piecen;2};
-	merida;Succesfully set piecestyle to merida!{set;@{userid}chess_piecen;0};
+	alpha;Successfully set piece style to alpha!{set;@{userid}chess_piecen;1};
+	linares;Successfully set piece style to linares!{set;@{userid}chess_piecen;2};
+	merida;Successfully set piecestyle to merida!{set;@{userid}chess_piecen;0};
 	{get;~sizes};Set chess board size to {parseint;{args;1}}px!{set;@{userid}chess_sizen;{parseint;{args;1}}};
 	o;Set chess coordinates to the outside of the board!{set;@{userid}chess_coordn;o};
 	nc;Hidden chess coordinates!{set;@{userid}chess_coordn;nc};
