@@ -134,8 +134,10 @@
 						{set;~users;{guildmembers}}
 						{set;~user;{get;~users;{get;~user}}}
 					}
-					{if;{get;~user};==;;{embed;{exec;err;<:chess_cross:436745175294017546> Please provide a valid user!}}}
-					{return}
+					{if;{get;~user};==;;
+						{embed;{exec;err;<:chess_cross:436745175294017546> Please provide a valid user!}}
+						{return}
+					}
 				}
 			}
 			{embed;{func.user;{get;~user}}}
