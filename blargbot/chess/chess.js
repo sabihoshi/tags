@@ -1,3 +1,36 @@
+{//; Function for the help menu in chess }
+{function;chess.help;
+	{embedbuild;
+		title:Chess Help Menu;
+		fields.name:{prefix}t chess theme;
+		fields.value:Changes your chess style to the desired theme.{newline}Use without any arguments to get the help menu;
+		fields.inline:true;
+		fields.name:{prefix}t chess start <@user> [w|b];
+		fields.value:Starts a match against user.{newline}If a color is chosen, that will be your color.;
+		fields.inline:true;
+		fields.name:{prefix}t chess move <pos1> <pos2>;
+		fields.value:Moves the piece in `pos1` to `pos2`.{newline}For example you want to move the rook at `a1` to `a8`{newline}It will be `t!t chess move a1 a8`;
+		fields.inline:true;
+		fields.name:{prefix}t chess <forfeit|quit|stop|end>;
+		fields.value:Terminate your current match and forfeit.;
+		fields.inline:true;
+		fields.name:{prefix}t chess stalemate;
+		fields.value:Since the game cannot detect if a stalemate happens or not{newline}The two players must announce it is a stalemate.;
+		fields.inline:true;
+		fields.name:{prefix}t promote <position> <queen|knight|rook|bishop>;
+		fields.value:Promotes a <:wp:432200723820970014> piece to the desired piece.;
+		fields.inline:true;
+		color:black;
+		footer.text:Made by Kao#0001;
+		footer.icon_url:{useravatar;246903976937783296};
+		thumbnail.url:https://cdn.discordapp.com/emojis/432200723724369920.png;
+		timestamp:{time}
+	}
+}
+{if;{logic;||;{bool;{argslength};==;0};{bool;{lower;{args;0}};==;help}};
+	{embed;{func.chess.help}}
+	{return}
+}
 {function;error;
 	{embed;{embedbuild;
 		author.name:{username}#{userdiscrim};
@@ -20,8 +53,8 @@
 	{//; Default values for users }
 	{set;~users;{userid};{get;~en}}
 	{foreach;~user;~users;
-		{if;{logic;!;{regextest;{get;@{get;~user}chess.color.dark};/^(?:[a-f0-9]{lb}3{rb}|[a-f0-9]{lb}6{rb})$/i}};{set;@{get;~user}chess.color.dark;8F604F}}
-		{if;{logic;!;{regextest;{get;@{get;~user}chess.color.light};/^(?:[a-f0-9]{lb}3{rb}|[a-f0-9]{lb}6{rb})$/i}};{set;@{get;~user}chess.color.light;FFCC99}}
+		{if;{logic;!;{regextest;{get;@{get;~user}chess.color.dark};/^(?:[a-f0-9]{3}|[a-f0-9]{6})$/i}};{set;@{get;~user}chess.color.dark;8F604F}}
+		{if;{logic;!;{regextest;{get;@{get;~user}chess.color.light};/^(?:[a-f0-9]{3}|[a-f0-9]{6})$/i}};{set;@{get;~user}chess.color.light;FFCC99}}
 		{if;{logic;!;{bool;["nc","o"];includes;{get;@{get;~user}chess.coord}}};{set;@{get;~user}chess.coord;o}}
 		{if;{logic;!;{bool;["0","1","2"];includes;{get;@{get;~user}chess.piece}}};{set;@{get;~user}chess.coord;1}}
 		{if;{logic;!;{bool;["21","27","37","49","65","87","115"];includes;{get;@{get;~user}chess.size}}};{set;@{get;~user}chess.size;37}}
@@ -50,145 +83,13 @@
 		timestamp:{time}
 	}}
 }
+{//; For creating the history of the chess board }
 {function;chess.history;
 	{set;~p;{get;_{userid}chess.game}}
 	{if;{logic;!;{isarray;{get;_{get;~p}chess.history}}};{set;_{get;~p}chess.history;[]}}
 	{push;_{get;~p}chess.history;{func.chess.board}}
 }
-{function;chess.refill;
-	{//; Refill the valid moves of the board }
-	{for;~V;1;<=;8;
-		{for;~H;1;<=;8;
-			{func.default}
-			{//; Reinitialize array }
-			{set;_{get;~p}{get;~{get;~H}}{get;~V};["{get;_{get;~p}{get;~{get;~H}}{get;~V};0}"]}
-			{function;refill.rook;
-				{//; Horizontally, Right }
-				{set;~continue;true}
-				{for;~i;{math;+;{get;~H};1};<=;8;
-					{if;{get;_{get;~p}{get;~{get;~i}}{get;~V};0};==;_;
-						{if;{get;~continue};{push;_{get;~p}{get;~{get;~H}}{get;~V};{get;~{get;~i}}{get;~V}}};
-						{set;~continue;false}
-					}
-				}
-				{//; Horizontally, Left }
-				{set;~continue;true}
-				{for;~i;{math;-;{get;~H};1};>=;1;-1;
-					{if;{get;_{get;~p}{get;~{get;~i}}{get;~V};0};==;_;
-						{if;{get;~continue};{push;_{get;~p}{get;~{get;~H}}{get;~V};{get;~{get;~i}}{get;~V}}};
-						{set;~continue;false}
-					}
-				}
-				{//; Vertically, Up }
-				{set;~continue;true}
-				{for;~i;{math;+;{get;~V};1};<=;8;
-					{if;{get;_{get;~p}{get;~{get;~H}}{get;~i};0};==;_;
-						{if;{get;~continue};{push;_{get;~p}{get;~{get;~H}}{get;~V};{get;~{get;~H}}{get;~i}}};
-						{set;~continue;false}
-					}
-				}
-				{//; Vertically, Down }
-				{set;~continue;true}
-				{for;~i;{math;-;{get;~V};1};>=;1;-1;
-					{if;{get;_{get;~p}{get;~{get;~H}}{get;~i};0};==;_;
-						{if;{get;~continue};{push;_{get;~p}{get;~{get;~H}}{get;~V};{get;~{get;~H}}{get;~i}}};
-						{set;~continue;false}
-					}
-				}
-			}
-			{function;refill.bishop;
-				{//; Right, Up }
-				{set;~continue;true}
-				{for;~i;1;<=;8;
-					{set;~pos;{get;~{math;+;{get;~H};{get;~i}}}{math;+;{get;~V};{get;~i}}}
-					{if;{get;_{get;~p}{get;~pos};0};==;_;
-						{if;{get;~continue};{push;_{get;~p}{get;~{get;~H}}{get;~V};{get;~pos}}};
-						{set;~continue;false}
-					}
-				}
-				{//; Right, Down }
-				{set;~continue;true}
-				{for;~i;1;<=;8;
-					{set;~pos;{get;~{math;+;{get;~H};{get;~i}}}{math;-;{get;~V};{get;~i}}}
-					{if;{get;_{get;~p}{get;~pos};0};==;_;
-						{if;{get;~continue};{push;_{get;~p}{get;~{get;~H}}{get;~V};{get;~pos}}};
-						{set;~continue;false}
-					}
-				}
-				{//; Left, Up }
-				{set;~continue;true}
-				{for;~i;1;<=;8;
-					{set;~pos;{get;~{math;+;{get;~H};{get;~i}}}{math;+;{get;~V};{get;~i}}}
-					{if;{get;_{get;~p}{get;~pos};0};==;_;
-						{if;{get;~continue};{push;_{get;~p}{get;~{get;~H}}{get;~V};{get;~pos}}};
-						{set;~continue;false}
-					}
-				}
-				{//; Left, Down }
-				{set;~continue;true}
-				{for;~i;1;<=;8;
-					{set;~pos;{get;~{math;+;{get;~H};{get;~i}}}{math;-;{get;~V};{get;~i}}}
-					{if;{get;_{get;~p}{get;~pos};0};==;_;
-						{if;{get;~continue};{push;_{get;~p}{get;~{get;~H}}{get;~V};{get;~pos}}};
-						{set;~continue;false}
-					}
-				}
-			}
-			{switch;{get;_{get;~p}{get;~{get;~H}}{get;~V};0};
-				_;
-					{void};
-				["R","r"];
-					{func.refill.rook};
-				["N","n"];
-					{//; Data pairs for valid Knight positions }
-					{set;~Hor;1;-1;1;-1;2;2;-2;-2}
-					{set;~Ver;2;2;-2;-2;1;-1;1;-1}
-					{//; Make sure data pair is an empty spot }
-					{for;~i;0;<;8;
-						{set;~pos;{get;~{math;+;{get;~H};{get;~Hor;{get;~i}}}}{math;+;{get;~V};{get;~Ver;{get;~i}}}}
-						{if;{get;_{get;~p}{get;~pos}};==;_;{push;_{get;~p}{get;~{get;~H}}{get;~V};{get;~pos}}}
-					};
-				["B","b"];
-					{func.refill.bishop};
-				["Q","q"];
-					{func.refill.rook}
-					{func.refill.bishop};
-				["K","k"];
-					{//; Data pairs for valid King positions }
-					{set;~Hor;-1;0;1;-1;1;-1;0;1}
-					{set;~Ver;1;1;1;0;0;-1;-1;-1}
-					{for;~i;0;<;8;
-						{set;~pos;{get;~{math;+;{get;~H};{get;~Hor;{get;~i}}}}{math;+;{get;~V};{get;~Ver;{get;~i}}}}
-						{if;{get;_{get;~p}{get;~pos}};==;_;{push;_{get;~p}{get;~{get;~H}}{get;~V};{get;~pos}}}
-					};
-				P;
-					{if;{get;_{get;~p}{get;~{get;~H}}{math;+;{get;~V};1}};==;_;
-						{push;_{get;~p}{get;~{get;~H}}{get;~V};{get;~{get;~H}}{math;+;{get;~V};1}}
-						{if;{get;_{get;~p}{get;~{get;~H}}{get;~V}.moved};!=;true;
-							{if;{get;_{get;~p}{get;~{get;~H}}{math;+;{get;~V};2}};==;_;
-								{push;_{get;~p}{get;~{get;~H}}{get;~V};{get;~{get;~H}}{math;+;{get;~V};2}}
-							}
-						}
-					};
-				p;
-					{if;{get;_{get;~p}{get;~{get;~H}}{math;-;{get;~V};1}};==;_;
-						{push;_{get;~p}{get;~{get;~H}}{get;~V};{get;~{get;~H}}{math;-;{get;~V};1}}
-						{if;{get;_{get;~p}{get;~{get;~H}}{get;~V}.moved};!=;true;
-							{if;{get;_{get;~p}{get;~{get;~H}}{math;-;{get;~V};2}};==;_;
-								{push;_{get;~p}{get;~{get;~H}}{get;~V};{get;~{get;~H}}{math;-;{get;~V};2}}
-							}
-						}
-					}
-			}
-		}
-	}
-}
-{if;{argslength};==;0;
-	{exec;chess_help}
-	{return}
-}
 {switch;{lower;{args;0}};
-	help;{exec;chess_help;{args}};
 	start;
 		{if;{get;~key};!=;{get;@chess.key};
 			{func.error;Please run this tag in a cc! Do `{prefix}cc import chess chess` to continue.}
@@ -334,11 +235,11 @@
 		{//; Function for moving pieces }
 		{function;chess.move;
 			{if;{logic;!;{bool;{slice;{get;_{get;~p}{get;~mv1}};1};includes;{get;~mv2}}};
-				{func.error;That's an invalid move! Possible moves are `{join;{slice;{get;_{get;~p}{get;~mv1}};1};`, `}`}
+				{func.error;That's an invalid move! {if;{length;{get;_{get;~p}{get;~mv1}}};>;1;Possible moves are `{join;{slice;{get;_{get;~p}{get;~mv1}};1};`, `}`}}
 				{return};
 				{func.default}
-				{set;_{get;~p}{get;~mv2};{get;_{get;~p}{get;~mv1};0}}
-				{set;_{get;~p}{get;~mv1};_}
+				{set;_{get;~p}{get;~mv2};["{get;_{get;~p}{get;~mv1};0}"]}
+				{set;_{get;~p}{get;~mv1};["_"]}
 				{if;{get;_{get;~p}chess.tm};==;w;
 					{set;_{get;~p}chess.tm;b}
 					{set;_{get;~p}chess.tw;w};
@@ -438,7 +339,132 @@
 			["Q","R","N","B","q","r","n","b"];
 				{func.chess.move}
 		}
-		{func.chess.refill}
+		{//; Refill the valid moves of the board }
+		{for;~V;1;<=;8;
+			{for;~H;1;<=;8;
+				{func.default}
+				{//; Reinitialize array }
+				{set;_{get;~p}{get;~{get;~H}}{get;~V};["{get;_{get;~p}{get;~{get;~H}}{get;~V};0}"]}
+				{function;refill.rook;
+					{//; Horizontally, Right }
+					{set;~continue;true}
+					{for;~i;{math;+;{get;~H};1};<=;8;
+						{if;{get;_{get;~p}{get;~{get;~i}}{get;~V};0};==;_;
+							{if;{get;~continue};{push;_{get;~p}{get;~{get;~H}}{get;~V};{get;~{get;~i}}{get;~V}}};
+							{set;~continue;false}
+						}
+					}
+					{//; Horizontally, Left }
+					{set;~continue;true}
+					{for;~i;{math;-;{get;~H};1};>=;1;-1;
+						{if;{get;_{get;~p}{get;~{get;~i}}{get;~V};0};==;_;
+							{if;{get;~continue};{push;_{get;~p}{get;~{get;~H}}{get;~V};{get;~{get;~i}}{get;~V}}};
+							{set;~continue;false}
+						}
+					}
+					{//; Vertically, Up }
+					{set;~continue;true}
+					{for;~i;{math;+;{get;~V};1};<=;8;
+						{if;{get;_{get;~p}{get;~{get;~H}}{get;~i};0};==;_;
+							{if;{get;~continue};{push;_{get;~p}{get;~{get;~H}}{get;~V};{get;~{get;~H}}{get;~i}}};
+							{set;~continue;false}
+						}
+					}
+					{//; Vertically, Down }
+					{set;~continue;true}
+					{for;~i;{math;-;{get;~V};1};>=;1;-1;
+						{if;{get;_{get;~p}{get;~{get;~H}}{get;~i};0};==;_;
+							{if;{get;~continue};{push;_{get;~p}{get;~{get;~H}}{get;~V};{get;~{get;~H}}{get;~i}}};
+							{set;~continue;false}
+						}
+					}
+				}
+				{function;refill.bishop;
+					{//; Right, Up }
+					{set;~continue;true}
+					{for;~i;1;<=;8;
+						{set;~pos;{get;~{math;+;{get;~H};{get;~i}}}{math;+;{get;~V};{get;~i}}}
+						{if;{get;_{get;~p}{get;~pos};0};==;_;
+							{if;{get;~continue};{push;_{get;~p}{get;~{get;~H}}{get;~V};{get;~pos}}};
+							{set;~continue;false}
+						}
+					}
+					{//; Right, Down }
+					{set;~continue;true}
+					{for;~i;1;<=;8;
+						{set;~pos;{get;~{math;+;{get;~H};{get;~i}}}{math;-;{get;~V};{get;~i}}}
+						{if;{get;_{get;~p}{get;~pos};0};==;_;
+							{if;{get;~continue};{push;_{get;~p}{get;~{get;~H}}{get;~V};{get;~pos}}};
+							{set;~continue;false}
+						}
+					}
+					{//; Left, Up }
+					{set;~continue;true}
+					{for;~i;1;<=;8;
+						{set;~pos;{get;~{math;+;{get;~H};{get;~i}}}{math;+;{get;~V};{get;~i}}}
+						{if;{get;_{get;~p}{get;~pos};0};==;_;
+							{if;{get;~continue};{push;_{get;~p}{get;~{get;~H}}{get;~V};{get;~pos}}};
+							{set;~continue;false}
+						}
+					}
+					{//; Left, Down }
+					{set;~continue;true}
+					{for;~i;1;<=;8;
+						{set;~pos;{get;~{math;+;{get;~H};{get;~i}}}{math;-;{get;~V};{get;~i}}}
+						{if;{get;_{get;~p}{get;~pos};0};==;_;
+							{if;{get;~continue};{push;_{get;~p}{get;~{get;~H}}{get;~V};{get;~pos}}};
+							{set;~continue;false}
+						}
+					}
+				}
+				{switch;{get;_{get;~p}{get;~{get;~H}}{get;~V};0};
+					_;
+						{void};
+					["R","r"];
+						{func.refill.rook};
+					["N","n"];
+						{//; Data pairs for valid Knight positions }
+						{set;~Hor;1;-1;1;-1;2;2;-2;-2}
+						{set;~Ver;2;2;-2;-2;1;-1;1;-1}
+						{//; Make sure data pair is an empty spot }
+						{for;~i;0;<;8;
+							{set;~pos;{get;~{math;+;{get;~H};{get;~Hor;{get;~i}}}}{math;+;{get;~V};{get;~Ver;{get;~i}}}}
+							{if;{get;_{get;~p}{get;~pos};0};==;_;{push;_{get;~p}{get;~{get;~H}}{get;~V};{get;~pos}}}
+						};
+					["B","b"];
+						{func.refill.bishop};
+					["Q","q"];
+						{func.refill.rook}
+						{func.refill.bishop};
+					["K","k"];
+						{//; Data pairs for valid King positions }
+						{set;~Hor;-1;0;1;-1;1;-1;0;1}
+						{set;~Ver;1;1;1;0;0;-1;-1;-1}
+						{for;~i;0;<;8;
+							{set;~pos;{get;~{math;+;{get;~H};{get;~Hor;{get;~i}}}}{math;+;{get;~V};{get;~Ver;{get;~i}}}}
+							{if;{get;_{get;~p}{get;~pos};0};==;_;{push;_{get;~p}{get;~{get;~H}}{get;~V};{get;~pos}}}
+						};
+					P;
+						{if;{get;_{get;~p}{get;~{get;~H}}{math;+;{get;~V};1};0};==;_;
+							{push;_{get;~p}{get;~{get;~H}}{get;~V};{get;~{get;~H}}{math;+;{get;~V};1}}
+							{if;{get;_{get;~p}{get;~{get;~H}}{get;~V}.moved};!=;true;
+								{if;{get;_{get;~p}{get;~{get;~H}}{math;+;{get;~V};2};0};==;_;
+									{push;_{get;~p}{get;~{get;~H}}{get;~V};{get;~{get;~H}}{math;+;{get;~V};2}}
+								}
+							}
+						};
+					p;
+						{if;{get;_{get;~p}{get;~{get;~H}}{math;-;{get;~V};1};0};==;_;
+							{push;_{get;~p}{get;~{get;~H}}{get;~V};{get;~{get;~H}}{math;-;{get;~V};1}}
+							{if;{get;_{get;~p}{get;~{get;~H}}{get;~V}.moved};!=;true;
+								{if;{get;_{get;~p}{get;~{get;~H}}{math;-;{get;~V};2};0};==;_;
+									{push;_{get;~p}{get;~{get;~H}}{get;~V};{get;~{get;~H}}{math;-;{get;~V};2}}
+								}
+							}
+						}
+				}
+			}
+		}
 		{func.chess.board};
 	quit;
 		{func.default}
@@ -450,8 +476,5 @@
 			```prolog
 			{func.default}{for;~V;1;<=;8;{for;~H;1;<=;8;{slice;{get;_{get;~p}{get;~{get;~H}}{get;~V}};0}{newline}}}```
 		};
-	refill;
-		{func.default}
-		{func.chess.refill};
-	{exec;chess_help;{args}}
+	{embed;{func.chess.help}}
 }
