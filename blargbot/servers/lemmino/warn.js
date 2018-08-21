@@ -22,7 +22,7 @@
 }
 {//; Actually warning the user }
 {if;{get;~user};==;;{usermention}, please provide a valid user!{return}}
-{void;{warn;{get;~user};{flag;c};{flag;r}}}
+{void;{warn;{get;~user};{flag;c};{flag;r}{newline}Issued by {usermention}}}
 :ok_hand: **{username;{get;~user}}#{userdiscrim;{get;~user}}** has been given {if;0{flag;c};>;1;{flag;c} warnings.;a warning.} They now have {warnings;{get;~user}} warnings.
 {void;
 	{roleadd;326024382910824449;{get;~user}}
@@ -36,11 +36,10 @@
 	0;{void};
 	1;
 		{timer;
-			{void;{pardon;{get;~user};{flag;c};Auto-pardon after set time.}{roleremove;327953998663385088;{get;~user}}};
+			{void;{pardon;{get;~user};{flag;c};Auto-pardon after set time.{newline}Issued by {usermention}}{roleremove;327953998663385088;{get;~user}}};
 			{if;{flagset;t};{flag;t};24h}
 		};
 	2;
 		{set;_{userid}kicked;true};
 		{set;_{userid}banned;true}
 }
-{timer;{send;326759213261127680;Issued by {usermention}};15s}
