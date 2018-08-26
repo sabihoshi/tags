@@ -35,7 +35,7 @@
 	{set;~user;{params}}
 	{embedbuild;
 		author.icon_url:{useravatar;{get;~user}};
-		author.name:{username;{get;~user}}#{userdiscrim} {if;{username;{get;~user}};!=;{usernick;{get;~user}};({usernick;{get;~user}})};
+		author.name:{username;{get;~user}}#{userdiscrim;{get;~user}} {if;{username;{get;~user}};!=;{usernick;{get;~user}};({usernick;{get;~user}})};
 		thumbnail.url:{useravatar;{get;~user}};
 		fields.name:Joined;
 		fields.value:{userjoinedat;MMMM DD, YYYY HH:mm:ss;{get;~user}}{newline}{trim;{func.time;{userjoinedat;X;{get;~user}}}};
