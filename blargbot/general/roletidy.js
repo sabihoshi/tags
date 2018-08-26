@@ -5,7 +5,7 @@
  }
 {set;~style;0}
 {foreach;~role;{roles};
-	{switch;{get~style};
+	{switch;{get;~style};
 		0;
 			{if;{rolemembers;{get;~role}};==;0;
 				{roledelete;{get;~role}}
