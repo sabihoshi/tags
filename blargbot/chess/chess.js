@@ -5,7 +5,7 @@
 	{embed;{embedbuild;
 		author.name:{username}#{userdiscrim};
 		author.icon_url:{useravatar};
-		description:{params};
+		description:{params}{if;{flagset;d};```prolog{newline}{inject;{flag;d}```}};
 		footer.icon_url:https://cdn.discordapp.com/emojis/432200723724369920.png;
 		footer.text:Do {prefix}{commandname} help for more help.;
 		timestamp:{time};
@@ -59,10 +59,11 @@
 {function;default;
 	{//; Global variables }
 	{set;~p;{get;_{userid}chess.game}}
-	{set;~en;{get;_{get;~p}chess.{if;{get;_{userid}chess.color};==;w;b;w}}}
+	{set;~en;{get;_{get;~p}chess.{switch;{get;_{userid}chess.color};w;b;b;w}}}
 	{set;~tm;{get;_{get;~p}chess.{get;_{get;~p}chess.tm}}}
 	{set;~tw;{get;_{get;~p}chess.{get;_{get;~p}chess.tw}}}
 	{set;~1;a}{set;~a;1}{set;~3;c}{set;~c;3}{set;~4;d}{set;~d;4}{set;~5;e}{set;~e;5}{set;~2;b}{set;~b;2}{set;~6;f}{set;~f;6}{set;~7;g}{set;~g;7}{set;~8;h}{set;~h;8}
+	{set;~move;{get;_{get;~p}chess.move}}
 	{set;~loading;https://thighs.are-pretty.sexy/dc7978.gif}
 	{//; Default values for users }
 	{set;~users;{userid};{get;~en}}
@@ -80,36 +81,43 @@
 	{get;~n}{switch;{substring;{get;~n};{math;-;{length;{get;~n}};2}};11;ᵗʰ;12;ᵗʰ;13;ᵗʰ;{switch;{substring;{get;~n};{math;-;{length;{get;~n}};1}};1;ˢᵗ;2;ⁿᵈ;3;ʳᵈ;ᵗʰ}}
 }
 {//; Functions for the chess link }
-{function;txt64;
-	&txt64={base64encode;{usernick;{get;~{params}}}}&txtfont64=QXZlbmlyLWJsYWNr&txtsize=25&txtfit=max&txtalign={switch;{params};tw;top;bottom}%2C%20center&txtclr=fff&txtshad=15&markalign=middle%2C%20center
-}
 {function;chess.link;
-	{set;~link;http://apronus.com/chess/diagram/stagram.php?d=P{for;~V;1;<=;8;{for;~H;1;<=;8;{get;_{get;~p}{get;~{get;~H}}{get;~V};0}}}&p={get;@{get;~tm}chess.size}&s={get;@{get;~tm}chess.piece}&c={get;@{get;~tm}chess.color.dark}{get;@{get;~tm}chess.color.light}{repeat;0;12}{switch;{get;@{get;~tm}chess.coord};nc;;&r=FFFFFF}{set;~k;{if;{logic;&&;{bool;{get;~Va};!=;};{bool;{get;~Vb};!=;}};{get;~Va}Q{get;~Vb}Q0Q0Q255A}{if;{logic;&&;{bool;{get;~2a};!=;};{bool;{get;~2b};!=;}};{get;~2a}Q{get;~2b}{if;{get;~eat};Q255Q0Q0;Q0Q0Q255}}}{if;!=;;{get;~k};&k={get;~k}}&z={get;_{get;~p}chess.tm}{if;{get;_{get;~p}chess.tm};==;b;&f=1}}
+	http://apronus.com/chess/diagram/stagram.php?d=P{for;~V;1;<=;8;{for;~H;1;<=;8;{get;_{get;~p}{get;~{get;~H}}{get;~V};0}}}&p={get;@{get;~tm}chess.size}&s={get;@{get;~tm}chess.piece}&c={get;@{get;~tm}chess.color.dark}{get;@{get;~tm}chess.color.light}{repeat;0;12}{switch;{get;@{get;~tm}chess.coord};nc;;&r=FFFFFF}{if;{logic;{flagset;o}};{if;{length;{get;_{get;~p}mark}};!=;0;&k;{foreach;~i;_{get;~p}mark;{}}}}&z={get;_{get;~p}chess.tm}{if;{get;_{get;~p}chess.tm};==;b;&f=1}
+}
+{function;txt64;
+	&txt64={base64encode;{usernick;{get;~{params}}}}&txtfont64=QXZlbmlyLUJsYWNrT2JsaXF1ZQ&txtsize=18&txtfit=max&txtalign={switch;{params};tw;top;bottom}%2C%20center&txtclr=fff&txtshad=15&markalign=middle%2C%20center
+}
+{function;chess.image;
+	{func.default}
 	{set;~generate;https://sandbox-uploads.imgix.net/u/1535370388-f3185bdeef5792d8a212982660d6baa2?fit=crop&w=330&h=385&markalign=middle%2C%20center&mark64=}
-	{get;~generate}{base64encode;{get;~link}}&ba=middle%2C%20center&markalpha=50&blend64={base64encode;{get;~generate}{base64encode;{get;~generate}{base64encode;{get;~link}}{func.txt64;tw}}{func.txt64;tm}}
+	{get;~generate}{base64encode;{get;_{get;~p}old}}&ba=middle%2C%20center&markalpha=40&blend64={base64encode;{get;~generate}{base64encode;{func.chess.link}}{func.txt64;tw}}{func.txt64;tm}
 }
 {//; Link for the chess board }
 {function;chess.board;
 	{func.default}
 	{embed;{embedbuild;
 		author.name:{username;{get;~tw}}#{userdiscrim;{get;~tw}};
-		author.icon_url:https://cdn.discordapp.com/emojis/{if;{get;_{get;~p}chess.tw};==;w;432200723724369920;432200721820155924}.png;
+		author.icon_url:https://cdn.discordapp.com/emojis/{switch;{get;_{get;~p}chess.tw};w;432200723724369920;b;432200721820155924}.png;
 		color:white;
 		title:{func.move.count} Move;
-		description:{params}{newline}**[Board]({func.chess.link})**;
-		image.url:{func.chess.link};
+		description:{params}{newline}**[Board]({func.chess.image})**;
+		image.url:{func.chess.image};
 		footer.text:{username;{get;~tm}}#{userdiscrim;{get;~tm}};
-		footer.icon_url:https://cdn.discordapp.com/emojis/{if;{get;_{get;~p}chess.tm};==;w;432200723724369920;432200721820155924}.png;
+		footer.icon_url:https://cdn.discordapp.com/emojis/{switch;{get;_{get;~p}chess.tm};w;432200723724369920;b;432200721820155924}.png;
 		timestamp:{time}
 	}}
 }
 {//; For creating the history of the chess board }
 {function;chess.history;
-	{set;~p;{get;_{userid}chess.game}}
+	{func.default}
 	{if;{logic;!;{isarray;{get;_{get;~p}chess.history}}};{set;_{get;~p}chess.history;[]}}
-	{push;_{get;~p}chess.history;{func.chess.board}}
+	{//; 1, imgix, apronus, promotion, castle }
+	{push;_{get;~p}chess.history;["{get;_{get;~p}chess.move}","{func.chess.image}","{func.chess.board}","{get;~promotion}","{get;~castle}","{for;~V;1;<=;8;{for;~H;1;<=;8;{get;_{get;~p}{get;~{get;~H}}{get;~V};0}}}"]}
 }
 {switch;{lower;{args;0}};
+	board;
+		{func.default}
+		{func.chess.board};
 	start;
 		{//; Make sure you don't have an existing game }
 		{if;{get;_{userid}chess.start};==;1;
@@ -154,7 +162,6 @@
 		{set;_{get;~p}h1;["R"]}
 		{//; White Pawns }
 		{for;~H;1;<=;8;
-			{set;_{get;~p}{get;~{get;~H}}2.moved;false}
 			{set;_{get;~p}{get;~{get;~H}}2;
 				P;
 				{get;~{get;~H}}3;
@@ -172,7 +179,6 @@
 		{set;_{get;~p}h8;["r"]}
 		{//; Black Pawns }
 		{for;~H;1;<=;8;
-			{set;_{get;~p}{get;~{get;~H}}7.moved;false}
 			{set;_{get;~p}{get;~{get;~H}}7;
 				p;
 				{get;~{get;~H}}6;
@@ -202,11 +208,14 @@
 		}
 		{//; Output the board }
 		{func.chess.board;**Game started!**};
-	board;
-		{func.chess.board};
 	move;
 		{if;{get;_{userid}chess.start};!=;1;
 			{func.error;You don't have a game yet! Do `{prefix}{commandname} start @user [white|black]`}
+			{return}
+		}
+		{func.default}
+		{if;{userid};!=;{get;~tm};
+			{func.error;It's not your turn yet! Please wait for your turn.}
 			{return}
 		}
 		{if;{argslength};<;3;
@@ -224,81 +233,112 @@
 			{return}
 		}
 		{switch;{get;_{get;~p}{get;~mv1};0};
-			["R","N","B","Q","K","P"];
-				{if;{get;_{userid}chess.color};==;b;
-					{func.error;Baka, that's not your piece!}
-					{return}
-				};
-			["r","n","b","q","k","p"];
-				{if;{get;_{userid}chess.color};==;w;
-					{func.error;Baka, that's not your piece!}
-					{return}
-				}
+			{switch;{get;_{get;~p}chess.tm};w;["r","n","b","q","k","p","_"];b;["R","N","B","Q","K","P","_"]};
+				{func.error;Baka, that's not your piece!}
+				{return}
 		}
 		{switch;{get;_{get;~p}{get;~mv2};0};
-			["R","N","B","Q","K","P"];
-				{if;{get;_{userid}chess.color};==;w;
-					{func.error;Baka, that's your pieces!}
-					{return}
-				}
-				;
-			["r","n","b","q","k","p"];
-				{if;{get;_{userid}chess.color};==;w;
-					{func.error;Baka, that's your pieces!}
-					{return}
-				}
+			{switch;{get;_{get;~p}chess.tm};w;["R","N","B","Q","K","P"];b;["r","n","b","q","k","p"]};
+				{func.error;Baka, that's your pieces!}
+				{return}
 		}
 		{//; Function for moving pieces }
 		{function;chess.move;
+			{func.default}
 			{if;{logic;!;{bool;{slice;{get;_{get;~p}{get;~mv1}};1};includes;{get;~mv2}}};
 				{func.error;That's an invalid move! {if;{length;{get;_{get;~p}{get;~mv1}}};>;1;Possible moves are `{join;{slice;{get;_{get;~p}{get;~mv1}};1};`, `}`}}
 				{return}
 			}
-			{func.default}
-			{set;_{get;~p}{get;~mv2};["{get;_{get;~p}{get;~mv1};0}"]}
-			{set;_{get;~p}{get;~mv1};["_"]}
-			{if;{get;_{get;~p}chess.tm};==;w;
-				{set;_{get;~p}chess.tm;b}
-				{set;_{get;~p}chess.tw;w};
-				{set;_{get;~p}chess.tm;w}
-				{set;_{get;~p}chess.tw;b}
+			{switch;{get;_{get;~p}chess.tm};
+				w;
+					{set;_{get;~p}chess.tm;b}
+					{set;_{get;~p}chess.tw;w};
+				b;
+					{set;_{get;~p}chess.tm;w}
+					{set;_{get;~p}chess.tw;b}
 			}
+			{set;_{get;~p}{get;~mv2};["{get;_{get;~p}{get;~mv1};0}"]}
+			{set;_{get;~p}old;{func.chess.link;-o}}
+			{set;_{get;~p}{get;~mv1};["_"]}
+			{set;_{get;~p}{get;_{get;~p}chess.move}mark;{substring;{get;~mv1};0;1};{substring;{get;~mv1};1;2};0;0;255}
+			{set;_{get;~p}{get;_{get;~p}chess.move}mark.2;{substring;{get;~mv1};0;1};{substring;{get;~mv1};1;2};0;0;255}
+			{if;{switch;{get;_{get;~p}chess.tm};w;["r","n","b","q","k","p"];b;["R","N","B","Q","K","P"]};includes;{get;_{get;~p}{get;~mv2};0};
+
+			{void;{increment;_{get;~p}chess.move}}
+			{func.chess.board}
 		}
 		{function;promotion;
+			{func.default}
 			{//; Send the message to the channel }
 			{set;~msgid;{send;{channelid};
 				{embedbuild;
-					author.name:{username}#{userdiscrim};
-					author.icon_url:{useravatar};
+					author.name:{username;{get;~tm}}#{userdiscrim;{get;~tm}};
+					author.icon_url:{useravatar;{get;~tm}};
 					title:Pawn Promotion;
 					description:{clean;
 						React according to the piece you want to promote your pawn to.
-						{switch;{get;_{userid}chess.color};
+						{switch;{get;_{get;~p}chess.tm};
 							w;
-								<:wq:432200724437401610> <:wr:432200723531431938> <:wb:432200723711787008>;
+								**Queen** <:wq:432200724437401610> | **Rook** <:wr:432200723531431938> | **Bishop** <:wb:432200723711787008> | **Cancel** <:chess_cross:436745175294017546>;
 							b;
-								<:bq:432200723858456576> <:br:432200723451871233> <:bb:432200721476222978>
+								**Queen** <:bq:432200723858456576> | **Rook** <:br:432200723451871233> | **Bishop** <:bb:432200721476222978> | **Cancel** <:chess_cross:436745175294017546>
 						}
 					};
-					thumbnail.url:https://cdn.discordapp.com/emojis/{if;{get;_{userid}chess.color};==;w;432200723820970014;432200721853710336}.png
+					thumbnail.url:https://cdn.discordapp.com/emojis/{switch;{get;_{get;~p}chess.tm};w;432200723820970014;b;432200721853710336}.png
 				}
 			}}
+			{set;~react;
+				{switch;{get;_{get;~p}chess.tm};
+					w;<:wq:432200724437401610> <:wr:432200723531431938> <:wb:432200723711787008>;
+					b;<:bq:432200723858456576> <:br:432200723451871233> <:bb:432200721476222978>
+				}
+			}
 			{//; Add the corresponding reactions to the message }
-			{reactadd;{get;~msgid};🇶 🇷 🇧 ❎}
+			{reactadd;{get;~msgid};{get;~react} <:chess_cross:436745175294017546>}
 			{//; Wait until user reacts one of the emojis provided }
 			{set;~reaction;
-				{waitreaction;{get;~msgid};{userid};
-					🇶 🇷 🇧 ❎
+				{waitreaction;{get;~msgid};{userid;{get;~tm}};
+					{get;~react} <:chess_cross:436745175294017546>
 				}
 			}
 			{//; Get the content of the reaction }
 			{switch;{get;~reaction;3};
-				["🇶","🇷","🇧"];
-					Promoted the {if;{get;_{userid}chess.color};==;w;<:wp:432200723820970014> to {switch;{get;~reaction;3};🇶;<:wq:432200724437401610>;🇷;<:wr:432200723531431938>;🇧;<:wb:432200723711787008>};<:bp:432200721853710336> to {switch;{get;~reaction;3};🇶;<:bq:432200723858456576>;🇷;<:br:432200723451871233>;🇧;<:bb:432200721476222978>}};
-				❎;
-					Move Cancelled.
+				{switch;{get;_{get;~p}chess.tm};
+					w;["<:wq:432200724437401610>","<:wr:432200723531431938>","<:wb:432200723711787008>"];
+					b;["<:bq:432200723858456576>","<:br:432200723451871233>","<:bb:432200721476222978>"]
+				};
+					{set;~pr;_}
+					{switch;{get;_{get;~p}chess.tm};
+						w;
+							{switch;{get;~reaction;3};
+								<:wq:432200724437401610>;{set;~pr;Q};
+								<:wr:432200723531431938>;{set;~pr;R};
+								<:wb:432200723711787008>;{set;~pr;B}
+							}
+						b;
+							{switch;{get;~reaction;3};
+								<:bq:432200723858456576>;{set;~pr;q};
+								<:br:432200723451871233>;{set;~pr;r};
+								<:bb:432200721476222978>;{set;~pr;b}
+							}
+					}
+					{switch;{get;_{get;~p}chess.tm};
+						w;
+							{set;_{get;~p}chess.tm;b}
+							{set;_{get;~p}chess.tw;w};
+						b;
+							{set;_{get;~p}chess.tm;w}
+							{set;_{get;~p}chess.tw;b}
+					}
+					{set;_{get;~p}{get;~mv2};["{get;~pr}"]}
+					{set;_{get;~p}old;{func.chess.link;-o}}
+					{set;_{get;~p}{get;~mv1};["_"]}
+					{void;{increment;_{get;~p}chess.move}}
+					{func.chess.board;Promoted the {switch;{get;_{get;~p}chess.tm};w;<:bp:432200721853710336>;b;<:wp:432200723820970014>} to {get;~reaction;3}};
+				<:chess_cross:436745175294017546>;
+					{func.chess.board;Move Cancelled.}
 					{return};
-					User took too long to respond!
+					{func.chess.board;User took too long to respond!}
 					{return}
 			}
 		}
@@ -447,16 +487,17 @@
 						{set;~hor;-1;1}
 						{if;{get;_{get;~p}{get;~{get;~H}}{get;~V};0};==;P;
 							{set;~o;+}
+							{set;~V.c;2}
 							{set;~ver;1;1};
 							{set;~o;-}
+							{set;~V.c;7}
 							{set;~ver;-1;-1}
 						}
 						{if;{get;_{get;~p}{get;~{get;~H}}{math;{get;~o};{get;~V};1};0};==;_;
 							{push;_{get;~p}{get;~{get;~H}}{get;~V};{get;~{get;~H}}{math;{get;~o};{get;~V};1}}
-							{if;{get;_{get;~p}{get;~{get;~H}}{get;~V}.moved};!=;true;
+							{if;{get;~V};==;{get;~V.c};
 								{if;{get;_{get;~p}{get;~{get;~H}}{math;{get;~o};{get;~V};2};0};==;_;
 									{push;_{get;~p}{get;~{get;~H}}{get;~V};{get;~{get;~H}}{math;{get;~o};{get;~V};2}}
-									{set;_{get;~p}{get;~{get;~H}}{get;~V}.moved;true}
 								}
 							}
 						}
@@ -467,8 +508,10 @@
 						}
 				}
 			}
-		}
-		{func.chess.board};
+		};
+	link;
+		{func.default}
+		{func.chess.link};
 	quit;
 		{func.default}
 		{set;_{userid}chess.start}
@@ -479,6 +522,9 @@
 			```prolog
 			{func.default}{for;~V;1;<=;8;{for;~H;1;<=;8;{get;~{get;~H}}{get;~V} {slice;{get;_{get;~p}{get;~{get;~H}}{get;~V}};0}{newline}}}```
 		};
+	debug;
+		{func.default}
+		{inject;{args}};
 	theme;
 		{func.default}
 		{if;{argslength};<;2;
