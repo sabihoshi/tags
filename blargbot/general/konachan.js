@@ -1,0 +1,1 @@
+{set;~r;{request;http://konachan.com/post.json?limit=100&tags={if;{logic;!;{isnsfw}};rating%3Asafe+}{regexreplace;{uriencode;{regexreplace;{args};/\s+/g;{space}}};/(rating%3A(?:e|explicit|q|questionable|questionableplus))/;{if;{isnsfw};$1}}}}{exec;embed;-i {jget;~r;body.{randint;0;{length;{jget;{get;~r};body}}}.file_url}}
