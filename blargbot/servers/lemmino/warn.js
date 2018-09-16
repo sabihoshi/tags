@@ -36,7 +36,7 @@
 	0;{void};
 	1;
 		{timer;
-			{void;{pardon;{get;~user};{flag;c};Auto-pardon after set time.{newline}Issued by {usermention}}{roleremove;327953998663385088;{get;~user}}};
+			{void;{pardon;{get;~user};{flag;c};Auto-pardon after set time.{newline}Issued by {usermention}}{roleremove;326024382910824449;{get;~user}}};
 			{if;{flagset;t};{flag;t};24h}
 		};
 	2;
