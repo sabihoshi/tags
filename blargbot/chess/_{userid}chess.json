@@ -1,0 +1,11 @@
+{
+	"start": "1",
+	"game": "",
+	"coord": "oc",
+	"piece": "1",
+	"size": "37",
+	"color": {
+		"dark": "8F604F",
+		"light": "FFCC99"
+	}
+}
