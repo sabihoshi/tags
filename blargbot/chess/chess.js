@@ -13,7 +13,7 @@
 	}}
 }
 {//; Make sure execution is in a cc }
-a{if;{logic;!;{iscc}};
+{if;{logic;!;{iscc}};
 	{func.error;
 		{if;{execcc;chess;-q};==;`CCommand not found: chess`;
 			This tag can only work in a custom command! Please do `{prefix}cc import chess` to use the tag.;
