@@ -1,4 +1,18 @@
- {//; Checking if cc exists }
+{//;
+
+	===== Notes =====
+	Missing features
+	- En Passant
+	- Checks
+	- Checkmates
+	- Undo
+	- History
+
+	Changelog
+	12/26/2018
+	- Add changelog
+ }
+{//; Checking if cc exists }
 {if;{flagset;q};{return}}
 {//; Function for errors }
 {function;error;
@@ -89,7 +103,9 @@
 }
 {function;chess.image;
 	{func.default}
+	{//; Base image }
 	{set;~generate;https://sandbox-uploads.imgix.net/u/1535370388-f3185bdeef5792d8a212982660d6baa2?fit=crop&w=330&h=385&markalign=middle%2C%20center&mark64=}
+	{//; Add the past state to the image }
 	{get;~generate}{base64encode;{jget;_{get;~p}chess;old}}&ba=middle%2C%20center&markalpha=40&blend64={base64encode;{get;~generate}{base64encode;{func.chess.link}}{func.txt64;tw}}{func.txt64;tm}
 }
 {//; Link for the chess board }
@@ -217,6 +233,139 @@
 				{func.error;Baka, that's your pieces!}
 				{return}
 		}
+		{//; Refill the valid moves of the board }
+		{function;chess.refill;
+			{for;~V;1;<=;8;
+				{for;~H;1;<=;8;
+					{func.default}
+					{//; Raw of current position }
+					{set;~position;pieces.{get;~{get;~H}}{get;~V}}
+					{set;~position.length;{length;{jget;_{get;~p}chess;{get;~position}}}}
+					{//; Reinitialize array }
+					{jset;_{get;~p}chess;{get;~position};["{jget;_{get;~p}chess;{get;~position}.0}"]}
+					{//; Create the flipped version of the pieces }
+					{switch;{jget;_{get;~p}chess;{get;~position}.0};
+						["R","N","B","Q","K","P"];{set;~flip;["r","n","b","q","k","p","_"]};
+						["r","n","b","q","k","p"];{set;~flip;["R","N","B","Q","K","P","_"]};
+						{set;~flip}
+					}
+					{//; Function for adding the valid position to the end of the array }
+					{function;flip;
+						{set;~piece;{jget;_{get;~p}chess;pieces.{get;~pos}.0}}
+						{if;{switch;{get;~piece};{get;~flip};true;false};
+							{if;{get;~continue};
+								{jset;_{get;~p}chess;{get;~position}.{get;~position.length};{get;~pos}}
+								{if;{get;~piece};!=;_;{set;~continue;false}}
+							};
+							{set;~continue;false}
+						}
+					}
+					{//; Refill for the Rook }
+					{function;refill.rook;
+						{//; ➡ }
+						{set;~continue;true}
+						{for;~i;{math;+;{get;~H};1};<=;8;
+							{set;~pos;{get;~{get;~i}}{get;~V}}
+							{func.flip}
+						}
+						{//; ⬅ }
+						{set;~continue;true}
+						{for;~i;{math;-;{get;~H};1};>=;1;-1;
+							{set;~pos;{get;~{get;~i}}{get;~V}}
+							{func.flip}
+						}
+						{//; ⬆ }
+						{set;~continue;true}
+						{for;~i;{math;+;{get;~V};1};<=;8;
+							{set;~pos;{get;~{get;~H}}{get;~i}}
+							{func.flip}
+						}
+						{//; ⬇ }
+						{set;~continue;true}
+						{for;~i;{math;-;{get;~V};1};>=;1;-1;
+							{set;~pos;{get;~{get;~H}}{get;~i}}
+							{func.flip}
+						}
+					}
+					{function;refill.bishop;
+						{//; ↗, ↘, ↖, ↙ }
+						{set;~o;+;+;+;-;-;+;-;-}
+						{//; Make sure data pair is an empty spot }
+						{while;{length;{get;~o}};!=;0;
+							{set;~continue;true}
+							{set;~o1;{shift;~o}}
+							{set;~o2;{shift;~o}}
+							{for;~i;1;<=;8;
+								{set;~pos;{get;~{math;{get;~o1};{get;~H};{get;~i}}}{math;{get;~o2};{get;~V};{get;~i}}}
+								{func.flip}
+							}
+						}
+					}
+					{switch;{jget;_{get;~p}chess;{get;~position};0};
+						["R","r"];
+							{func.refill.rook};
+						["N","n"];
+							{//; Data pairs for valid Knight positions }
+							{set;~hor;1;-1;1;-1;2;2;-2;-2}
+							{set;~ver;2;2;-2;-2;1;-1;1;-1}
+							{//; Make sure data pair is an empty spot }
+							{for;~i;0;<;8;
+								{set;~pos;{get;~{math;+;{get;~H};{get;~hor;{get;~i}}}}{math;+;{get;~V};{get;~ver;{get;~i}}}}
+								{if;{switch;{jget;_{get;~p}chess;pieces.{get;~pos}.0};{get;~flip};true;false};
+									{jset;_{get;~p}chess;{get;~position}.{get;~position.length};{get;~pos}}
+								}
+							};
+						["B","b"];
+							{func.refill.bishop};
+						["Q","q"];
+							{func.refill.rook}
+							{func.refill.bishop};
+						["K","k"];
+							{//; Data pairs for valid King positions }
+							{set;~hor;-1;0;1;-1;1;-1;0;1}
+							{set;~ver;1;1;1;0;0;-1;-1;-1}
+							{for;~i;0;<;8;
+								{set;~pos;{get;~{math;+;{get;~H};{get;~hor;{get;~i}}}}{math;+;{get;~V};{get;~ver;{get;~i}}}}
+								{if;{get;~flip};includes;{jget;_{get;~p}chess;pieces.{get;~pos}.0};
+									{jset;_{get;~p}chess;{get;~position}.{get;~position.length};{get;~pos}}
+								}
+							};
+						["P","p"];
+							{set;~hor;-1;1}
+							{//; Make sure data pair for color is correct }
+							{if;{jget;_{get;~p}chess;{get;~position}.0};==;P;
+								{set;~o;+}
+								{set;~V.c;2}
+								{set;~ver;1;1};
+								{set;~o;-}
+								{set;~V.c;7}
+								{set;~ver;-1;-1}
+							}
+							{//; Math for horizontal positions }
+							{set;~oV1;{math;{get;~o};{get;~V};1}}
+							{set;~oV2;{math;{get;~o};{get;~V};2}}
+							{//; Check if positions are valid moves }
+							{if;{get;_{get;~p}{get;~{get;~H}}{get;~oV1};0};==;_;
+								{jset;_{get;~p}chess;{get;~position}.{get;~positionlength};{get;~{get;~H}}{get;~oV1}}
+								{if;{get;~V};==;{get;~V.c};
+									{if;{jget;_{get;~p}chess;pieces.{get;~{get;~H}}{get;~oV2}.0};==;_;
+										{jset;_{get;~p}chess;{get;~position}.{get;~positionlength};
+											{get;~{get;~H}}{get;~oV2}
+										}
+									}
+								}
+							}
+							{//; Data pairs for valid Pawn positions }
+							{for;~i;0;<;2;
+								{set;~pos;{get;~{math;+;{get;~H};{get;~hor;{get;~i}}}}{math;+;{get;~V};{get;~ver;{get;~i}}}}
+								{if;{switch;{jget;_{get;~p}chess;pieces.{get;~pos}.0};{get;~flip};{bool;{jget;_{get;~p}chess;pieces.{get;~pos}.0};!=;_};false};
+									{jset;_{get;~p}chess;{get;~position}.{get;~position.length};{get;~pos}}
+								}
+							}
+					}
+				}
+			}
+		}
 		{//; Function for moving pieces }
 		{function;chess.move;
 			{func.default}
@@ -224,6 +373,44 @@
 				{func.error;That's an invalid move! {if;{length;{get;_{get;~p}{get;~mv1}}};>;1;Possible moves are `{join;{slice;{jget;_{get;~p}chess;pieces.{get;~mv1}};1};`, `}`}}
 				{return}
 			}
+			{//; Move the piece }
+			{set;~chess.{get;~mv2};{jget;_{get;~p}chess;pieces.{get;~mv1}.0}}
+			{jset;_{get;~p}chess;pieces.{get;~mv2};["{jget;_{get;~p}chess;pieces.{get;~mv1}.0}"]}
+
+			{//; Generate new moves }
+			{func.chess.refill}
+
+			{//; Aggregate all the valid moves each color can do }
+			{func.default}
+			{jset;_{get;~p}chess;attacked.w;
+				[{for;~V;1;<=;8;{for;~H;1;<=;8;{get;~{get;~H}}{get;~V}{jget;_{get;~p}chess;pieces.{get;~{get;~H}}{get;~V}}}}]
+			}
+			{jset;_{get;~p}chess;attacked.w;
+				[{for;~V;1;<=;8;{for;~H;1;<=;8;{get;~{get;~H}}{get;~V}{jget;_{get;~p}chess;pieces.{get;~{get;~H}}{get;~V}}}}]
+			}
+
+			{//; Find the King }
+			{func.default}
+			{for;~V;1;<=;8;{for;~H;1;<=;8;
+				{set;~p;{jget;_{get;~p}chess;pieces.{get;~{get;~H}}{get;~V}.0}}
+				{if;{get;~p};==;K;
+					{set;~w.k;{get;~{get;~H}}{get;~V}}
+				}
+				{if;{get;~p};==;k;
+					{set;~b.k;{get;~{get;~H}}{get;~V}}
+				}
+			}}
+
+			{//; See if in check }
+			{switch;{jget;_{get;~p}chess;tm};
+				w;
+					{if;}
+				b;
+
+
+			}
+
+			{//; Change the piece to move }
 			{switch;{jget;_{get;~p}chess;tm};
 				w;
 					{jset;_{get;~p}chess;tm;b}
@@ -232,12 +419,13 @@
 					{jset;_{get;~p}chess;tm;w}
 					{jset;_{get;~p}chess;tw;b}
 			}
-			{jset;_{get;~p}chess;pieces.{get;~mv2};["{jget;_{get;~p}chess;pieces.{get;~mv1}.0}"]}
+			{//; Set old image }
 			{jset;_{get;~p}chess;old;{func.chess.link;-o}}
 			{jset;_{get;~p}chess;pieces.{get;~mv1};["_"]}
 			{jset;_{get;~p}chess;mark.0;["{substring;{get;~mv1};0;1}","{substring;{get;~mv1};1;2}","0","0","255"]}
 			{jset;_{get;~p}chess;mark.1;["{substring;{get;~mv2};0;1}","{substring;{get;~mv2};1;2}",{if;{switch;{jget;_{get;~p}chess;tm};w;["r","n","b","q","k","p"];b;["R","N","B","Q","K","P"]};includes;{jget;_{get;~p}chess;pieces.{get;~mv2}.0};"255","0","0";"0","0","255"}]}
 			{jset;_{get;~p}chess;move;{math;+;{jget;_{get;~p}chess;move};1}}
+			{func.chess.refill}
 			{func.chess.board}
 		}
 		{function;promotion;
@@ -316,7 +504,21 @@
 			}
 		}
 		{//; Aggregate all the valid moves each color can do }
-		{func.default}{jset;_{get;~p}chess;attacked.w;[{for;~V;1;<=;8;{for;~H;1;<=;8;{get;~{get;~H}}{get;~V}{jget;_{get;~p}chess;pieces.{get;~{get;~H}}{get;~V}}}}]}
+		{func.default}
+		{jset;_{get;~p}chess;attacked.w;
+			[{for;~V;1;<=;8;{for;~H;1;<=;8;{get;~{get;~H}}{get;~V}{jget;_{get;~p}chess;pieces.{get;~{get;~H}}{get;~V}}}}]
+		}
+		{//; Find the King }
+		{func.default}
+		{for;~V;1;<=;8;{for;~H;1;<=;8;
+			{set;~p;{jget;_{get;~p}chess;pieces.{get;~{get;~H}}{get;~V}.0}}
+			{if;{get;~p};==;K;
+				{set;~w.k;{get;~{get;~H}}{get;~V}}
+			}
+			{if;{get;~p};==;k;
+				{set;~b.k;{get;~{get;~H}}{get;~V}}
+			}
+		}}
 		{//; Check if the move was valid }
 		{func.default}
 		{switch;{jget;_{get;~p}chess;pieces.{get;~mv1}.0};
@@ -324,6 +526,7 @@
 			K;
 				{switch;{get;~mv2};
 					g1;
+						{//; Castling }
 						{for;~H;5;>=;7;
 							{if;{indexof;{get;_{get;~p}attacked.w};{get;~{get;~H}}1};!=;-1;
 								{func.error;You cannot move the King into or from a check!}
@@ -331,6 +534,7 @@
 							}
 						};
 					b1;
+					{//; Castling }
 						{for;~H;5;>=;2;-1;
 							{if;{indexof;{get;_{get;~p}attacked.w};{get;~{get;~H}}1};!=;-1;
 								{func.error;You cannot move the King into or from a check!}
@@ -342,6 +546,7 @@
 			k;
 				{switch;{get;~mv2};
 					g8;
+						{//; Castling }
 						{for;~H;5;>=;7;
 							{if;{indexof;{get;_{get;~p}attacked.w};{get;~{get;~H}}8};!=;-1;
 								{func.error;You cannot castle the King into or from a check!}
@@ -349,6 +554,7 @@
 							}
 						};
 					b8;
+						{//; Castling }
 						{for;~H;5;>=;2;-1;
 							{if;{indexof;{get;_{get;~p}attacked.w};{get;~{get;~H}}8};!=;-1;
 								{func.error;You cannot move the King into or from a check!}
@@ -369,137 +575,6 @@
 				};
 			["Q","R","N","B","q","r","n","b"];
 				{func.chess.move}
-		}
-		{//; Refill the valid moves of the board }
-		{for;~V;1;<=;8;
-			{for;~H;1;<=;8;
-				{func.default}
-				{//; Raw of current position }
-				{set;~position;pieces.{get;~{get;~H}}{get;~V}}
-				{set;~position.length;{length;{jget;_{get;~p}chess;{get;~position}}}}
-				{//; Reinitialize array }
-				{jset;_{get;~p}chess;{get;~position};["{jget;_{get;~p}chess;{get;~position}.0}"]}
-				{//; Create the flipped version of the pieces }
-				{switch;{jget;_{get;~p}chess;{get;~position}.0};
-					["R","N","B","Q","K","P"];{set;~flip;["r","n","b","q","k","p","_"]};
-					["r","n","b","q","k","p"];{set;~flip;["R","N","B","Q","K","P","_"]};
-					{set;~flip}
-				}
-				{//; Function for adding the valid position to the end of the array }
-				{function;flip;
-					{set;~piece;{jget;_{get;~p}chess;pieces.{get;~pos}.0}}
-					{if;{switch;{get;~piece};{get;~flip};true;false};
-						{if;{get;~continue};
-							{jset;_{get;~p}chess;{get;~position}.{get;~position.length};{get;~pos}}
-							{if;{get;~piece};!=;_;{set;~continue;false}}
-						};
-						{set;~continue;false}
-					}
-				}
-				{//; Refill for the Rook }
-				{function;refill.rook;
-					{//; ➡ }
-					{set;~continue;true}
-					{for;~i;{math;+;{get;~H};1};<=;8;
-						{set;~pos;{get;~{get;~i}}{get;~V}}
-						{func.flip}
-					}
-					{//; ⬅ }
-					{set;~continue;true}
-					{for;~i;{math;-;{get;~H};1};>=;1;-1;
-						{set;~pos;{get;~{get;~i}}{get;~V}}
-						{func.flip}
-					}
-					{//; ⬆ }
-					{set;~continue;true}
-					{for;~i;{math;+;{get;~V};1};<=;8;
-						{set;~pos;{get;~{get;~H}}{get;~i}}
-						{func.flip}
-					}
-					{//; ⬇ }
-					{set;~continue;true}
-					{for;~i;{math;-;{get;~V};1};>=;1;-1;
-						{set;~pos;{get;~{get;~H}}{get;~i}}
-						{func.flip}
-					}
-				}
-				{function;refill.bishop;
-					{//; ↗, ↘, ↖, ↙ }
-					{set;~o;+;+;+;-;-;+;-;-}
-					{//; Make sure data pair is an empty spot }
-					{while;{length;{get;~o}};!=;0;
-						{set;~continue;true}
-						{set;~o1;{shift;~o}}
-						{set;~o2;{shift;~o}}
-						{for;~i;1;<=;8;
-							{set;~pos;{get;~{math;{get;~o1};{get;~H};{get;~i}}}{math;{get;~o2};{get;~V};{get;~i}}}
-							{func.flip}
-						}
-					}
-				}
-				{switch;{jget;_{get;~p}chess;{get;~position};0};
-					["R","r"];
-						{func.refill.rook};
-					["N","n"];
-						{//; Data pairs for valid Knight positions }
-						{set;~hor;1;-1;1;-1;2;2;-2;-2}
-						{set;~ver;2;2;-2;-2;1;-1;1;-1}
-						{//; Make sure data pair is an empty spot }
-						{for;~i;0;<;8;
-							{set;~pos;{get;~{math;+;{get;~H};{get;~hor;{get;~i}}}}{math;+;{get;~V};{get;~ver;{get;~i}}}}
-							{if;{switch;{jget;_{get;~p}chess;pieces.{get;~pos}.0};{get;~flip};true;false};
-								{jset;_{get;~p}chess;{get;~position}.{get;~position.length};{get;~pos}}
-							}
-						};
-					["B","b"];
-						{func.refill.bishop};
-					["Q","q"];
-						{func.refill.rook}
-						{func.refill.bishop};
-					["K","k"];
-						{//; Data pairs for valid King positions }
-						{set;~hor;-1;0;1;-1;1;-1;0;1}
-						{set;~ver;1;1;1;0;0;-1;-1;-1}
-						{for;~i;0;<;8;
-							{set;~pos;{get;~{math;+;{get;~H};{get;~hor;{get;~i}}}}{math;+;{get;~V};{get;~ver;{get;~i}}}}
-							{if;{get;~flip};includes;{jget;_{get;~p}chess;pieces.{get;~pos}.0};
-								{jset;_{get;~p}chess;{get;~position}.{get;~position.length};{get;~pos}}
-							}
-						};
-					["P","p"];
-						{set;~hor;-1;1}
-						{//; Make sure data pair for color is correct }
-						{if;{jget;_{get;~p}chess;{get;~position}.0};==;P;
-							{set;~o;+}
-							{set;~V.c;2}
-							{set;~ver;1;1};
-							{set;~o;-}
-							{set;~V.c;7}
-							{set;~ver;-1;-1}
-						}
-						{//; Math for horizontal positions }
-						{set;~oV1;{math;{get;~o};{get;~V};1}}
-						{set;~oV2;{math;{get;~o};{get;~V};2}}
-						{//; Check if positions are valid moves }
-						{if;{get;_{get;~p}{get;~{get;~H}}{get;~oV1};0};==;_;
-							{jset;_{get;~p}chess;{get;~position}.{get;~positionlength};{get;~{get;~H}}{get;~oV1}}
-							{if;{get;~V};==;{get;~V.c};
-								{if;{jget;_{get;~p}chess;pieces.{get;~{get;~H}}{get;~oV2}.0};==;_;
-									{jset;_{get;~p}chess;{get;~position}.{get;~positionlength};
-										{get;~{get;~H}}{get;~oV2}
-									}
-								}
-							}
-						}
-						{//; Data pairs for valid Pawn positions }
-						{for;~i;0;<;2;
-							{set;~pos;{get;~{math;+;{get;~H};{get;~hor;{get;~i}}}}{math;+;{get;~V};{get;~ver;{get;~i}}}}
-							{if;{switch;{jget;_{get;~p}chess;pieces.{get;~pos}.0};{get;~flip};{bool;{jget;_{get;~p}chess;pieces.{get;~pos}.0};!=;_};false};
-								{jset;_{get;~p}chess;{get;~position}.{get;~position.length};{get;~pos}}
-							}
-						}
-				}
-			}
 		};
 	link;
 		{func.default}
