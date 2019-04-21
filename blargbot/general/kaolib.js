@@ -13,7 +13,7 @@
     {if;{get;~kl_funcs};==;;{set;~kl_funcs;[]}}
     {push;~kl_docs;
 <h4 id="{params;0}"><a href="#{params;0}">🔗</a> func.{get;~kl_prefix}{params;0}</h4>
-> `{params;1}`
+> `{if;{isarray;{params;1}};{join;{params;1};` `};{params;1}}`
 
 {params;2;n}
     }
@@ -40,14 +40,59 @@
     {set;~regex;/(?:{get;~map;{get;~i}})/g}
     {set;~ch;{get;~convert;{get;~i}}}
     {set;~string;{apply;regexreplace;{get;~string};{get;~regex};{get;~ch}}}
-}}{get;~string}}}{if;{commandname};==;kaolib;
+}}{get;~string}}
+
+{func._//;indexer;["<array>", "<start>", "[stop]", "[step]"];Applies an indexer to `array`.}
+{func;{get;~kl_prefix}indexer;
+	{if;{paramslength};<;2;
+		{throw;InvalidArgumentException: There is no overload that takes in {paramslength} arguments.}
+		{return;false}
+	}
+	{if;{logic;!;{isarray;{params;0}}};
+		{throw;InvalidArrayException}
+		{return;false};
+		{set;~arr;{params;0}}
+	}
+	{set;~args;[]}
+	{foreach;~arg;{slice;{paramsarray};1};
+		{set;~buffer;{parseint;{get;~arg}}}
+		{if;{get;~buffer};==;NaN;
+			{throw;InvalidArgumentException: There is no overload that takes in a string.}
+			{return;false}
+		}
+		{push;~args;{get;~arg}}
+	}
+	{if;{logic;||;
+		{bool;{length;{get;~arr}};<=;{get;~args;0}};
+		{bool;{length;{get;~arr}};<;{get;~args;1}}};
+		{throw;IndexOutOfRangeException}
+		{return;false}
+	}
+	{switch;{length;{get;~args}};
+		1;{slice;{get;~arr};{get;~args;0}};
+		2;{slice;{get;~arr};{get;~args;0};{get;~args;1}};
+		3;
+			{set;~arr_buffer;[]}
+			{if;{get;~args;0};<;{get;~args;1};
+				{set;~ope;<};
+				{set;~ope;>}
+			}
+			{for;~i;{get;~args;0};<;{get;~args;1};{get;~args;2};
+				{if;{get;~i};<;0;
+					{push;~arr_buffer;{math;+;{length;{get;~arr}};{get;~i}}};
+					{push;~arr_buffer;{get;~arr;{get;~i}}}
+				}
+			}
+			{get;~arr_buffer}
+	}
+}
+}{if;{commandname};==;kaolib;
 Welcome to **Kaolib** - a collection of useful functions for BBTag.
 Credits to **stupid cat#8160** for library template.
 
 For full documentation, please visit: {dump;
 # Kaolib
 > A BBTag library full of HelpfulShit:tm:
-ba
 Welcome to **Kaolib** - a collection of useful functions for BBTag. Using it is simple:
 ```cs
 {lb}exec{semi}kaolib{rb}
