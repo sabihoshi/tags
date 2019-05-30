@@ -5,7 +5,7 @@
 	{exec;whileregex;"~f" "/-\+|\+-/g" "-"}{//;Sign convention}{if;{get;~v};{if;{get;~nf};!=;{get;~f};{set;~nf;{get;~f}}03 - {get;~f}}}
 	{set;~f;{regexreplace;{get;~f};/PI/g;3.141592653589793}}{//;Constants}{if;{get;~v};{if;{get;~nf};!=;{get;~f};{set;~nf;{get;~f}}04 - {get;~f}}}
 	{set;~f;{regexreplace;{get;~f};/E/g;2.718281828459045}}{if;{get;~v};{if;{get;~nf};!=;{get;~f};{set;~nf;{get;~f}}05 - {get;~f}}}
-	{exec;whileregex;"~f" "/sqrt\((-?(?:\d+\.\d*|\.?\d+))\)/g" "(($1)^(1/2))"}{//;Math.sqrt(x)}{if;{get;~v};{if;{get;~nf};!=;{get;~f};{set;~nf;{get;~f}}06 - {get;~f}}}
+	{exec;whileregex;"~f" "/sqrt\((-?(?:\d+\.\d*|\.?\d+))\)/g" "(($1)^(0.5))"}{//;Math.sqrt(x)}{if;{get;~v};{if;{get;~nf};!=;{get;~f};{set;~nf;{get;~f}}06 - {get;~f}}}
 	{exec;whileregex;"~f" "/cbrt\((-?(?:\d+\.\d*|\.?\d+))\)/g" "(($1)^(1/3))"}{//;Math.cbrt(x)}{if;{get;~v};{if;{get;~nf};!=;{get;~f};{set;~nf;{get;~f}}07 - {get;~f}}}
 	{exec;whileregex;"~f" "/root\((.+?),(.+?)\)/g" "(($1)^(1/$2))"}{//;Math.root(x,y)}{if;{get;~v};{if;{get;~nf};!=;{get;~f};{set;~nf;{get;~f}}08 - {get;~f}}}
 	{exec;whileregex;"~f" "/pow\((.+?),(.+?)\)/g" "(($1)^($2))"}{//;Math.pow(x,y)}{if;{get;~v};{if;{get;~nf};!=;{get;~f};{set;~nf;{get;~f}}09 - {get;~f}}}
