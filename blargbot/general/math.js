@@ -1,4 +1,4 @@
-{//; A function where it will recursively call itself as long as the regex provided is true }
+{trim;{//; A function where it will recursively call itself as long as the regex provided is true }
 {function;whileregex;
 	{set;~r;{params;1}}{set;~c;{params;2;n}}{set;~i;{params;0}}
 	{while;{inject;{lb}regextest{semi}{get;{get;~i}}{semi}{get;~r}{rb}};
@@ -56,13 +56,14 @@
 {set;~debug;[]}
 {set;~f;{flag;_}}
 {set;~last;{get;~f}}
+{set;~loops;0}
 
 {//; Use point or comma for decimals }
 {if;{flagset;d};
 	{set;~f;{func.flip;{get;~f}}}
 }
 
-{while;{logic;!;{regextest;{get;~f};/^(?:-?(?:\d+\{get;~decimal}\d*|\{get;~decimal}?\d+)$|NaN)/}};
+{while;{logic;!;{regextest;{get;~f};/^(?:-?(?:\d+\.\d*|\.?\d+)$|NaN)/}};
 	{void;{increment;~loops}}
 	{set;~s;0}
 	{//; 1: Spaces, newlines, and commas }
@@ -177,6 +178,6 @@
 
 {set;~result;{parsefloat;{get;~f}}}
 {if;{flagset;v};
-	{output;```cs{newline}{clean;{join;{get;~debug};{newline}}}{newline;2} A: {if;{flagset;d};{func.flip;{get;~result}};{get;~result}}{newline}Repeats: {get;~loops}```};
-	{output;{if;{flagset;d};{func.flip;{get;~result}};{get;~result}}}
-}
+	```cs{newline}{clean;{join;{get;~debug};{newline}}}{newline;2} A: {if;{flagset;d};{func.flip;{get;~result}};{get;~result}}{newline}Repeats: {get;~loops}```;
+	{if;{flagset;d};{func.flip;{get;~result}};{get;~result}}
+}}
