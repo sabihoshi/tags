@@ -3,7 +3,7 @@
 	{set;~r;{params;1}}{set;~c;{params;2;n}}{set;~i;{params;0}}
 	{while;{inject;{lb}regextest{semi}{get;{get;~i}}{semi}{get;~r}{rb}};
 		{void;{increment;~loops}}
-		{set;{get;~i};{ui;
+		{set;{get;~i};{trim;
 			{func.exponent;
 				{inject;{lb}regexreplace{semi}{get;{get;~i}}{semi}{get;~r}{semi}{get;~c}{rb}}
 			}
@@ -16,7 +16,7 @@
 	{set;~r;{params;1}}{set;~c;{params;2;n}}{set;~i;{params;0}}
 	{while;{inject;{lb}regextest{semi}{get;{get;~i}}{semi}{get;~r}{rb}};
 		{void;{increment;~loops}}
-		{set;{get;~i};{ui;
+		{set;{get;~i};{trim;
 			{func.exponent;
 				{inject;{inject;
 					{lb}regexreplace{semi}{get;{get;~i}}{semi}{get;~r}{semi}{get;~c}{rb}
@@ -27,7 +27,7 @@
 }
 
 {//; A function to fix exponents as changed by JavaScript }
-{function;exponent;{ui;
+{function;exponent;{trim;
 	{inject;
 		{regexreplace;{params};/(\d+|\d+\.\d+)e\+?(\d+)/g;
 			{lb}realpad{semi}{lb}replace{semi}$1{semi}.{semi}{rb}{semi}{lb}math{semi}+{semi}0$2{semi}1{rb}{semi}0{semi}right{rb}
@@ -39,62 +39,78 @@
 {function;debug;
 	{void;{increment;~s}}
 	{if;{get;~last};!=;{get;~f};
-		{push;~debug;{repeat;​{space}​;{math;-;2;{length;{get;~s}}}}{get;~s}: {get;~f}}
+		{push;~debug;{repeat;​{space}​;{math;-;2;{length;{get;~s}}}}{get;~s}: {if;{flagset;d};{func.flip;{get;~f}};{get;~f}}}
 		{set;~last;{get;~f}}
 	}
 }
 
+{//; A function to flip the delimiters }
+{function;flip;{trim;
+	{set;~output;{regexreplace;{params};/\./g;$DOT$}}
+	{set;~output;{regexreplace;{get;~output};/,/g;.}}
+	{set;~output;{regexreplace;{get;~output};/\$DOT\$/g;,}}
+	{get;~output}
+}}
+
 {//; Initialization }
 {set;~debug;[]}
-{if;{args;0};==;-v;
-	{set;~f;{args;1;n}}
-	{set;~verbose;true}
-	{set;~loops;0};
-	{set;~f;{args}}
-	{set;~verbose;false}
-}
+{set;~f;{flag;_}}
 {set;~last;{get;~f}}
-{while;{logic;!;{regextest;{get;~f};/^(?:-?(?:\d+\.\d*|\.?\d+)$|NaN)/}};
+
+{//; Use point or comma for decimals }
+{if;{flagset;d};
+	{set;~f;{func.flip;{get;~f}}}
+}
+
+{while;{logic;!;{regextest;{get;~f};/^(?:-?(?:\d+\{get;~decimal}\d*|\{get;~decimal}?\d+)$|NaN)/}};
 	{void;{increment;~loops}}
 	{set;~s;0}
 	{//; 1: Spaces, newlines, and commas }
     {set;~f;{regexreplace;{get;~f};/[\s,]/g;}}
 	{func.debug}
 
-	{//; 2: Resolve -(x) -> -x}
+	{//; 2: Words conversion }
+    {set;~f;{regexreplace;{get;~f};/plus|add/ig;+}}
+	{set;~f;{regexreplace;{get;~f};/minus|subtract/ig;-}}
+	{set;~f;{regexreplace;{get;~f};/divided?(?:by|)/ig;/}}
+	{set;~f;{regexreplace;{get;~f};/multipl(?:y|ied)(?:by|)/ig;/}}
+	{set;~f;{regexreplace;{get;~f};/mod(?:ulo)/ig;%}}
+	{func.debug}
+
+	{//; 3: Resolve -(x) -> -x}
 	{set;~f;{regexreplace;{get;~f};/-\((-?(?:\d+\.\d*|\.?\d+))\)/g;-$1}}
 	{func.debug}
 
-	{//; 3: Resolve x) -> x, (x -> x }
+	{//; 4: Resolve x) -> x, (x -> x }
 	{set;~f;{regexreplace;{get;~f};/^[(]*(-?(?:\d+\.\d*|\.?\d+))[)]*$/g;$1}}
 	{func.debug}
 
-	{//; 4: Resolve (x) -> x }
+	{//; 5: Resolve (x) -> x }
 	{set;~f;{regexreplace;{get;~f};/(?:^|([(]-?))\((-?(?:\d+\.\d*|\.?\d+))\)(?:([)])|$)/g;$1$2$3}}
 	{func.debug}
 
-	{//; 5: Fix sign convention }
+	{//; 6: Fix sign convention }
 	{func.whileregex;~f;/--|\+\+/g;+}
 	{func.whileregex;~f;/-\+|\+-/g;-}
 	{func.debug}
 
-	{//; 6: Exponents }
+	{//; 7: Exponents }
 	{set;~f;{func.exponent;{get;~f}}}
 
-	{//; 7: Convert constants }
+	{//; 8: Convert constants }
 	{set;~f;{regexreplace;{get;~f};/(?:Math\.|)PI/ig;3.141592653589793}}
 	{set;~f;{regexreplace;{get;~f};/(?:Math\.|)E/ig;2.718281828459045}}
 	{func.debug}
 
-	{//; 8: Math.sqrt(x) }
+	{//; 9: Math.sqrt(x) }
 	{func.whileregex;~f;/(?:Math\.|)Sqrt\((-?(?:\d+\.\d*|\.?\d+))\)/ig;(($1)^(0.5))}
 	{func.debug}
 
-	{//; 9: Math.cbrt(x) }
+	{//; 10: Math.cbrt(x) }
 	{func.whileregex;~f;/(?:Math\.|)Cbrt\((-?(?:\d+\.\d*|\.?\d+))\)/ig;(($1)^(1/3))}
 	{func.debug}
 
-	{//; 10: Math.root(x,y) }
+	{//; 12: Math.root(x,y) }
 	{func.whileregex;~f;/(?:Math\.|)Root\((.+?),(.+?)\)/ig;(($1)^(1/$2))}
 	{func.debug}
 
@@ -158,7 +174,9 @@
 	}
 	{func.debug}
 }
-{if;{get;~verbose};
-	{output;```cs{newline}{clean;{join;{get;~debug};{newline}}}{newline;2} A: {parsefloat;{get;~f}}{newline}Repeats: {get;~loops}```};
-	{output;{parsefloat;{get;~f}}}
+
+{set;~result;{parsefloat;{get;~f}}}
+{if;{flagset;v};
+	{output;```cs{newline}{clean;{join;{get;~debug};{newline}}}{newline;2} A: {if;{flagset;d};{func.flip;{get;~result}};{get;~result}}{newline}Repeats: {get;~loops}```};
+	{output;{if;{flagset;d};{func.flip;{get;~result}};{get;~result}}}
 }
