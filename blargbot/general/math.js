@@ -1,20 +1,164 @@
-{clean;{fallback;NaN}{if;{lower;{args;0}};==;-v;{set;~f;{exec;number;{clean;{args;1;n}}}}{set;~v;true};{set;~f;{exec;number;{clean;{args}}}}{set;~v;false}}{if;{get;~v};```cs{set;~c;{get;~f}}}
+{//; A function where it will recursively call itself as long as the regex provided is true }
+{function;whileregex;
+	{set;~r;{params;1}}{set;~c;{params;2;n}}{set;~i;{params;0}}
+	{while;{inject;{lb}regextest{semi}{get;{get;~i}}{semi}{get;~r}{rb}};
+		{void;{increment;~loops}}
+		{set;{get;~i};{ui;
+			{func.exponent;
+				{inject;{lb}regexreplace{semi}{get;{get;~i}}{semi}{get;~r}{semi}{get;~c}{rb}}
+			}
+		}}
+	}
+}
+
+{//; A function where it will recursively inject itself as long as the regex provided is true }
+{function;whileregexinject;
+	{set;~r;{params;1}}{set;~c;{params;2;n}}{set;~i;{params;0}}
+	{while;{inject;{lb}regextest{semi}{get;{get;~i}}{semi}{get;~r}{rb}};
+		{void;{increment;~loops}}
+		{set;{get;~i};{ui;
+			{func.exponent;
+				{inject;{inject;
+					{lb}regexreplace{semi}{get;{get;~i}}{semi}{get;~r}{semi}{get;~c}{rb}
+				}}
+			}
+		}}
+	}
+}
+
+{//; A function to fix exponents as changed by JavaScript }
+{function;exponent;{ui;
+	{inject;
+		{regexreplace;{params};/(\d+|\d+\.\d+)e\+?(\d+)/g;
+			{lb}realpad{semi}{lb}replace{semi}$1{semi}.{semi}{rb}{semi}{lb}math{semi}+{semi}0$2{semi}1{rb}{semi}0{semi}right{rb}
+		}
+	}
+}}
+
+{//; A function for debug logging }
+{function;debug;
+	{void;{increment;~s}}
+	{if;{get;~last};!=;{get;~f};
+		{push;~debug;{repeat;​{space}​;{math;-;2;{length;{get;~s}}}}{get;~s}: {get;~f}}
+		{set;~last;{get;~f}}
+	}
+}
+
+{//; Initialization }
+{set;~debug;[]}
+{if;{args;0};==;-v;
+	{set;~f;{args;1;n}}
+	{set;~verbose;true}
+	{set;~loops;0};
+	{set;~f;{args}}
+	{set;~verbose;false}
+}
+{set;~last;{get;~f}}
 {while;{logic;!;{regextest;{get;~f};/^(?:-?(?:\d+\.\d*|\.?\d+)$|NaN)/}};
-    {set;~f;{regexreplace;{get;~f};/\s+|\s*\+\s*0(?!\d+\.\d*|\.?\d+)\s*/g;}}{//;Spaces and commas and results with zero}{if;{get;~v};{if;{get;~nf};!=;{get;~f};{set;~nf;{get;~f}}01 - {get;~f}}}
-	{exec;whileregex;"~f" "/--|\+\+/g" "+"}{//;Sign convention}{if;{get;~v};{if;{get;~nf};!=;{get;~f};{set;~nf;{get;~f}}02 - {get;~f}}}
-	{exec;whileregex;"~f" "/-\+|\+-/g" "-"}{//;Sign convention}{if;{get;~v};{if;{get;~nf};!=;{get;~f};{set;~nf;{get;~f}}03 - {get;~f}}}
-	{set;~f;{regexreplace;{get;~f};/PI/g;3.141592653589793}}{//;Constants}{if;{get;~v};{if;{get;~nf};!=;{get;~f};{set;~nf;{get;~f}}04 - {get;~f}}}
-	{set;~f;{regexreplace;{get;~f};/E/g;2.718281828459045}}{if;{get;~v};{if;{get;~nf};!=;{get;~f};{set;~nf;{get;~f}}05 - {get;~f}}}
-	{exec;whileregex;"~f" "/sqrt\((-?(?:\d+\.\d*|\.?\d+))\)/g" "(($1)^(0.5))"}{//;Math.sqrt(x)}{if;{get;~v};{if;{get;~nf};!=;{get;~f};{set;~nf;{get;~f}}06 - {get;~f}}}
-	{exec;whileregex;"~f" "/cbrt\((-?(?:\d+\.\d*|\.?\d+))\)/g" "(($1)^(1/3))"}{//;Math.cbrt(x)}{if;{get;~v};{if;{get;~nf};!=;{get;~f};{set;~nf;{get;~f}}07 - {get;~f}}}
-	{exec;whileregex;"~f" "/root\((.+?),(.+?)\)/g" "(($1)^(1/$2))"}{//;Math.root(x,y)}{if;{get;~v};{if;{get;~nf};!=;{get;~f};{set;~nf;{get;~f}}08 - {get;~f}}}
-	{exec;whileregex;"~f" "/pow\((.+?),(.+?)\)/g" "(($1)^($2))"}{//;Math.pow(x,y)}{if;{get;~v};{if;{get;~nf};!=;{get;~f};{set;~nf;{get;~f}}09 - {get;~f}}}
-	{exec;whileregexinject;"~f" "/((?:\d+\.\d*|\.?\d+))(\^)(-?(?:\d+\.\d*|\.?\d+))/" "{lb}lb{rb}math{lb}semi{rb}$2{lb}semi{rb}$1{lb}semi{rb}$3{lb}rb{rb}"}{//;Solve x^y}{if;{get;~v};{if;{get;~nf};!=;{get;~f};{set;~nf;{get;~f}}10 - {get;~f}}}
-	{set;~f;{exec;number;{get;~f}}}
-	{exec;whileregexinject;"~f" "/(-?(?:\d+\.\d*|\.?\d+))([*/%])(-?(?:\d+\.\d*|\.?\d+))/" "{lb}lb{rb}math{lb}semi{rb}$2{lb}semi{rb}$1{lb}semi{rb}$3{lb}rb{rb}"}{//;Solve x*y, x/y, x%y}{if;{get;~v};{if;{get;~nf};!=;{get;~f};{set;~nf;{get;~f}}11 - {get;~f}}}
-	{exec;whileregexinject;"~f" "/(-?(?:\d+\.\d*|\.?\d+))([-+])(\d+\.\d*|\.?\d+)/" "{lb}lb{rb}math{lb}semi{rb}$2{lb}semi{rb}$1{lb}semi{rb}$3{lb}rb{rb}"}{//;Solve x+y, x-y}{if;{get;~v};{if;{get;~nf};!=;{get;~f};{set;~nf;{get;~f}}12 - {get;~f}}}
-	{exec;whileregex;"~f" "/\((-?(?:\d+\.\d*|\.?\d+))\)\((-?(?:\d+\.\d*|\.?\d+))\)/g" "($1*$2)"}{//;Resolve (x)(y) -> (x*y)}{if;{get;~v};{if;{get;~nf};!=;{get;~f};{set;~nf;{get;~f}}13 - {get;~f}}}
-	{exec;whileregex;"~f" "/\((-?(?:\d+\.\d*|\.?\d+))\)(?![-+/*])(\d+\.\d*|\.?\d+)|(?![-+/*])(\d+\.\d*|\.?\d+)\((-?(?:\d+\.\d*|\.?\d+))\)/g" "($1$3*$2$4)"}{//;Resolve (x)y, y(x) -> (x*y)}{if;{get;~v};{if;{get;~nf};!=;{get;~f};{set;~nf;{get;~f}}14 - {get;~f}}}
-	{exec;whileregexinject;"~f" "/\((-?(?:\d+\.\d*|\.?\d+))\)([-+/*])(-?(?:\d+\.\d*|\.?\d+))|(-?(?:\d+\.\d*|\.?\d+))([-+/*])\((-?(?:\d+\.\d*|\.?\d+))\)/" "{lb}lb{rb}math{lb}semi{rb}$2$5{lb}semi{rb}$1$4{lb}semi{rb}$3$6{lb}rb{rb}"}{//;Solve (x)+y, (x)*y, (x)/y, (x)-y}{if;{get;~v};{if;{get;~nf};!=;{get;~f};{set;~nf;{get;~f}}15 - {get;~f}}}
-	{set;~f;{regexreplace;{get;~f};/(?:^|([(]-?))\((-?(?:\d+\.\d*|\.?\d+))\)(?:([)])|$)/g;$1$2$3}}{//;Resolve (x) -> x}{if;{get;~v};{if;{get;~nf};!=;{get;~f};{set;~nf;{get;~f}}16 - {get;~f}}{newline}}
-}}{if;{get;~v};{newline}A{space}-{space}}{parsefloat;{get;~f}}{if;{get;~v};```}
+	{void;{increment;~loops}}
+	{set;~s;0}
+	{//; 1: Spaces, newlines, and commas }
+    {set;~f;{regexreplace;{get;~f};/[\s,]/g;}}
+	{func.debug}
+
+	{//; 2: Resolve -(x) -> -x}
+	{set;~f;{regexreplace;{get;~f};/-\((-?(?:\d+\.\d*|\.?\d+))\)/g;-$1}}
+	{func.debug}
+
+	{//; 3: Resolve x) -> x, (x -> x }
+	{set;~f;{regexreplace;{get;~f};/^[(]*(-?(?:\d+\.\d*|\.?\d+))[)]*$/g;$1}}
+	{func.debug}
+
+	{//; 4: Resolve (x) -> x }
+	{set;~f;{regexreplace;{get;~f};/(?:^|([(]-?))\((-?(?:\d+\.\d*|\.?\d+))\)(?:([)])|$)/g;$1$2$3}}
+	{func.debug}
+
+	{//; 5: Fix sign convention }
+	{func.whileregex;~f;/--|\+\+/g;+}
+	{func.whileregex;~f;/-\+|\+-/g;-}
+	{func.debug}
+
+	{//; 6: Exponents }
+	{set;~f;{func.exponent;{get;~f}}}
+
+	{//; 7: Convert constants }
+	{set;~f;{regexreplace;{get;~f};/(?:Math\.|)PI/ig;3.141592653589793}}
+	{set;~f;{regexreplace;{get;~f};/(?:Math\.|)E/ig;2.718281828459045}}
+	{func.debug}
+
+	{//; 8: Math.sqrt(x) }
+	{func.whileregex;~f;/(?:Math\.|)Sqrt\((-?(?:\d+\.\d*|\.?\d+))\)/ig;(($1)^(0.5))}
+	{func.debug}
+
+	{//; 9: Math.cbrt(x) }
+	{func.whileregex;~f;/(?:Math\.|)Cbrt\((-?(?:\d+\.\d*|\.?\d+))\)/ig;(($1)^(1/3))}
+	{func.debug}
+
+	{//; 10: Math.root(x,y) }
+	{func.whileregex;~f;/(?:Math\.|)Root\((.+?),(.+?)\)/ig;(($1)^(1/$2))}
+	{func.debug}
+
+	{//; 11: Math.pow(x,y) }
+	{func.whileregex;~f;/(?:Math\.|)Pow\((.+?),(.+?)\)/ig;(($1)^($2))}
+	{func.debug}
+
+	{//; 12: Resolve missing * in operations }
+	{func.whileregex;~f;
+		/(-?(?:\d+\.\d*|\.?\d+))\((-?(?:\d+\.\d*|\.?\d+))\)|\((-?(?:\d+\.\d*|\.?\d+))\)(\d+\.\d*|\.?\d+)/g;
+		($1$3*$2$4)
+	}
+	{func.whileregex;~f;
+		/\((-?(?:\d+\.\d*|\.?\d+))\)\((-?(?:\d+\.\d*|\.?\d+))\)/g;
+		($1*$2)
+	}
+	{func.debug}
+
+	{//; 13: Solve ^ }
+	{func.whileregexinject;~f;
+		/(-?(?:\d+\.\d*|\.?\d+))\^(-?(?:\d+\.\d*|\.?\d+))|(-?(?:\d+\.\d*|\.?\d+))\^\((-?(?:\d+\.\d*|\.?\d+))\)/g;
+		{lb}lb{rb}math{lb}semi{rb}^{lb}semi{rb}$1$3{lb}semi{rb}$2$4{lb}rb{rb}
+	}
+	{func.whileregexinject;~f;
+		/\((-?(?:\d+\.\d*|\.?\d+))\)\^(-?(?:\d+\.\d*|\.?\d+))|\((-?(?:\d+\.\d*|\.?\d+))\)\^\((-?(?:\d+\.\d*|\.?\d+))\)/g;
+		{lb}lb{rb}math{lb}semi{rb}^{lb}semi{rb}$1$3{lb}semi{rb}$2$4{lb}rb{rb}
+	}
+	{func.debug}
+
+	{//; 14: Solve %, *, / }
+	{//;  x  [%*/]  x
+	     (x) [%*/] (x)
+	}
+	{func.whileregexinject;~f;
+		/(\d+\.\d*|\.?\d+)([%*/])(-?(?:\d+\.\d*|\.?\d+))|\((-?(?:\d+\.\d*|\.?\d+))\)([%*/])\((-?(?:\d+\.\d*|\.?\d+))\)/g;
+		{lb}lb{rb}math{lb}semi{rb}$2$5{lb}semi{rb}$1$4{lb}semi{rb}$3$6{lb}rb{rb}
+	}
+	{//; (x) [%*/]  x
+		  x  [%*/] (x)
+	}
+	{func.whileregexinject;~f;
+		/\((-?(?:\d+\.\d*|\.?\d+))\)([%*/])(-?(?:\d+\.\d*|\.?\d+))|(\d+\.\d*|\.?\d+)([%*/])\((-?(?:\d+\.\d*|\.?\d+))\)/g;
+		{lb}lb{rb}math{lb}semi{rb}$2$5{lb}semi{rb}$1$4{lb}semi{rb}$3$6{lb}rb{rb}
+	}
+	{func.debug}
+
+	{//; 15: Solve +, - }
+	{//;  x  [+-]  x
+	     (x) [+-] (x)
+	}
+	{func.whileregexinject;~f;
+		/(-?(?:\d+\.\d*|\.?\d+))([+-])(-?(?:\d+\.\d*|\.?\d+))|\((-?(?:\d+\.\d*|\.?\d+))\)([+-])\((-?(?:\d+\.\d*|\.?\d+))\)/g;
+		{lb}lb{rb}math{lb}semi{rb}$2$5{lb}semi{rb}$1$4{lb}semi{rb}$3$6{lb}rb{rb}
+	}
+	{//; (x) [+-]  x
+		  x  [+-] (x)
+	}
+	{func.whileregexinject;~f;
+		/\((-?(?:\d+\.\d*|\.?\d+))\)([+-])(-?(?:\d+\.\d*|\.?\d+))|(-?(?:\d+\.\d*|\.?\d+))([+-])\((-?(?:\d+\.\d*|\.?\d+))\)/g;
+		{lb}lb{rb}math{lb}semi{rb}$2$5{lb}semi{rb}$1$4{lb}semi{rb}$3$6{lb}rb{rb}
+	}
+	{func.debug}
+}
+{if;{get;~verbose};
+	{output;```cs{newline}{clean;{join;{get;~debug};{newline}}}{newline;2} A: {parsefloat;{get;~f}}{newline}Repeats: {get;~loops}```};
+	{output;{parsefloat;{get;~f}}}
+}
