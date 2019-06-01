@@ -1,24 +1,44 @@
-{trim;{//; A function where it will recursively call itself as long as the regex provided is true. }
+{void;
+{//; A function where it will recursively call itself as long as the regex provided is true. }
 {function;whileregex;
-    {set;~r;{params;1}}{set;~c;{params;2;n}}{set;~i;{params;0}}
-    {while;{inject;{lb}regextest{semi}{get;{get;~i}}{semi}{get;~r}{rb}};
+    {set;~o;{increment;~s}}
+    {set;~check;[]}
+    {set;~i;{params;0}}{set;~c;{params;1}}{set;~r;{slice;{paramsarray};2}}
+    {foreach;~regex;~r;
         {void;{increment;~loops}}
-        {set;{get;~i};{trim;
-            {func.exponent;
-                {inject;{lb}regexreplace{semi}{get;{get;~i}}{semi}{get;~r}{semi}{get;~c}{rb}}
-            }
-        }}
+        {push;~check;{lb}regextest{semi}{lb}get{semi}{lb}get{semi}~i{rb}{rb}{semi}{get;~regex}{rb}}
     }
+    {if;{inject;{lb}logic{semi}||{semi}{join;{get;~check};{semi}}{rb}};
+    {while;{inject;{lb}logic{semi}||{semi}{join;{get;~check};{semi}}{rb}};
+        {void;{increment;~loops}}
+        {foreach;~regex;~r;
+            {void;{increment;~loops}}
+            {set;{get;~i};{trim;
+                {func.exponent;
+                    {inject;
+                        {lb}regexreplace{semi}{get;{get;~i}}{semi}{get;~regex}{semi}{get;~c}{rb}
+                    }
+                }
+            }}
+            {func.debug}
+            {set;~s;{get;~o}}
+        }
+    }}
 }
 
 {//; A function to retroactively recursively call the regexes provided and apply the replace rule. }
 {function;whileregexinject;
+    {set;~o;{increment;~s}}
     {set;~check;[]}
     {set;~i;{params;0}}{set;~c;{params;1}}{set;~r;{slice;{paramsarray};2}}
+    {join;{get;~r}}
     {foreach;~regex;~r;
+        {void;{increment;~loops}}
         {push;~check;{lb}regextest{semi}{lb}get{semi}{lb}get{semi}~i{rb}{rb}{semi}{get;~regex}{rb}}
     }
+    {if;{inject;{lb}logic{semi}||{semi}{join;{get;~check};{semi}}{rb}};
     {while;{inject;{lb}logic{semi}||{semi}{join;{get;~check};{semi}}{rb}};
+        {void;{increment;~loops}}
         {foreach;~regex;~r;
             {void;{increment;~loops}}
             {set;{get;~i};{trim;
@@ -28,8 +48,10 @@
                     }}
                 }
             }}
+            {func.debug}
+            {set;~s;{get;~o}}
         }
-    }
+    }}
 }
 
 {//; A function to fix exponents as changed by JavaScript. }
@@ -74,7 +96,18 @@
     {set;~f;{func.flip;{get;~f}}}
 }
 
-{while;{logic;!;{regextest;{get;~f};/^(?:-?(?:\d+\.\d*|\.?\d+)$|NaN)/}};
+{//; Convert variables }
+{if;{flagset;n};
+    {set;~vars;{split;{flag;n};,}}
+    {foreach;~var;~vars;
+        {set;~f;{inject;{regexreplace;{trim;{get;~var}};/([A-Z])=([+-]?(?:\d+\.\d*|\.?\d+))/g;{lb}regexreplace{semi}{get;~f}{semi}/$1/g{semi}$2{rb}}}}
+    }
+    {set;~s;-1}
+    {func.debug}
+}
+
+{while;{logic;&&;{logic;!;{regextest;{get;~f};/^[+-]?(?:\d+\.\d*|\.?\d+)$|NaN|`(?:Not a number|Too many loops)`/}};{bool;{get;~lastEval};!=;{get;~f}}};
+    {set;~lastEval;{get;~f}}
     {void;{increment;~loops}}
     {set;~s;0}
     {//; 1: Spaces, newlines, and commas. }
@@ -89,82 +122,76 @@
     {set;~f;{regexreplace;{get;~f};/mod(?:ulo)/ig;%}}
     {func.debug}
 
-    {//; 3: Resolve -(x) -> -x}
-    {set;~f;{regexreplace;{get;~f};/-\((-?(?:\d+\.\d*|\.?\d+))\)/g;-$1}}
+    {//; 3: Resolve [%*/^+=](x) -> [%*/^+=]x}
+    {set;~f;{regexreplace;{get;~f};/([%*/^+=])\(([+-]?(?:\d+\.\d*|\.?\d+))\)/g;$1$2}}
     {func.debug}
 
     {//; 4: Resolve x) -> x, (x -> x }
-    {set;~f;{regexreplace;{get;~f};/^[(]*(-?(?:\d+\.\d*|\.?\d+))[)]*$/g;$1}}
+    {set;~f;{regexreplace;{get;~f};/^[(]*([+-]?(?:\d+\.\d*|\.?\d+))[)]*$/g;$1}}
     {func.debug}
 
     {//; 5: Resolve (x) -> x }
-    {set;~f;{regexreplace;{get;~f};/(?:^|([(]-?))\((-?(?:\d+\.\d*|\.?\d+))\)(?:([)])|$)/g;$1$2$3}}
+    {set;~f;{regexreplace;{get;~f};/\(([+-]?(?:\d+\.\d*|\.?\d+))\)/g;$1}}
     {func.debug}
 
-    {//; 6: Fix sign convention. }
-    {func.whileregex;~f;/--|\+\+/g;+}
-    {func.whileregex;~f;/-\+|\+-/g;-}
-    {func.debug}
+    {//; 6-7: Fix sign convention. }
+    {func.whileregex;~f;+;/--|\+\+/g}
+    {func.whileregex;~f;-;/-\+|\+-/g}
 
-    {//; 7: Exponents }
+    {//; 8: Exponents }
     {set;~f;{func.exponent;{get;~f}}}
     {func.debug}
 
-    {//; 8: Convert constants. }
+    {//; 9: Convert constants. }
     {set;~f;{regexreplace;{get;~f};/(?:Math\.|)PI/ig;3.141592653589793}}
     {set;~f;{regexreplace;{get;~f};/(?:Math\.|)E/ig;2.718281828459045}}
     {func.debug}
 
-    {//; 9: Math.sqrt(x) }
-    {func.whileregex;~f;/(?:Math\.|)Sqrt\((-?(?:\d+\.\d*|\.?\d+))\)/ig;(($1)^(0.5))}
-    {func.debug}
+    {//; 10: Math.sqrt(x) }
+    {func.whileregex;~f;(($1)^(0.5));/(?:Math\.|)Sqrt\((-?(?:\d+\.\d*|\.?\d+))\)/ig}
 
-    {//; 10: Math.cbrt(x) }
-    {func.whileregex;~f;/(?:Math\.|)Cbrt\((-?(?:\d+\.\d*|\.?\d+))\)/ig;(($1)^(1/3))}
-    {func.debug}
+    {//; 11: Math.cbrt(x) }
+    {func.whileregex;~f;(($1)^(1/3));/(?:Math\.|)Cbrt\((-?(?:\d+\.\d*|\.?\d+))\)/ig}
 
-    {//; 11: Math.root(x,y) }
-    {func.whileregex;~f;/(?:Math\.|)Root\((.+?),(.+?)\)/ig;(($1)^(1/$2))}
-    {func.debug}
+    {//; 12: Math.root(x,y) }
+    {func.whileregex;~f;(($1)^(1/$2));/(?:Math\.|)Root\((.+?),(.+?)\)/ig}
 
-    {//; 12: Math.pow(x,y) }
-    {func.whileregex;~f;/(?:Math\.|)Pow\((.+?),(.+?)\)/ig;(($1)^($2))}
-    {func.debug}
+    {//; 13: Math.pow(x,y) }
+    {func.whileregex;~f;(($1)^($2));/(?:Math\.|)Pow\((.+?),(.+?)\)/ig}
 
-    {//; 13: Resolve missing * in operations. }
-    {func.whileregex;~f;
-        /(\d+\.\d*|\.?\d+)\((-?(?:\d+\.\d*|\.?\d+))\)|\((-?(?:\d+\.\d*|\.?\d+))\)(\d+\.\d*|\.?\d+)/g;
-        ($1$3*$2$4)
+    {//; 14-15: Resolve missing * in operations. }
+    {func.whileregex;~f;$1$3*$2$4;
+        /(\d)(\()|(\))(\d)/g
     }
-    {func.whileregex;~f;
-        /\((-?(?:\d+\.\d*|\.?\d+))\)\((-?(?:\d+\.\d*|\.?\d+))\)/g;
-        ($1*$2)
+    {func.whileregex;~f;($1*$2);
+        /(\d+\.\d*|\.?\d+)\((-?(?:\d+\.\d*|\.?\d+))\)/g;
+        /\((-?(?:\d+\.\d*|\.?\d+))\)(\d+\.\d*|\.?\d+)/g;
+        /\((-?(?:\d+\.\d*|\.?\d+))\)\((-?(?:\d+\.\d*|\.?\d+))\)/g
     }
-    {func.debug}
 
-    {//; 15: Solve %, *, /, ^ }
+    {//; 16: Solve %, *, /, ^ }
     {func.whileregexinject;~f;
         {lb}lb{rb}math{lb}semi{rb}$2{lb}semi{rb}$1{lb}semi{rb}$3{lb}rb{rb};
-        /(\d+\.\d*|\.?\d+)([%*/^])(-?(?:\d+\.\d*|\.?\d+))/g;
-        /\((-?(?:\d+\.\d*|\.?\d+))\)([%*/^])\((-?(?:\d+\.\d*|\.?\d+))\)/g;
-        /(\d+\.\d*|\.?\d+)([%*/^])\((-?(?:\d+\.\d*|\.?\d+))\)/g;
-        /\((-?(?:\d+\.\d*|\.?\d+))\)([%*/^])(-?(?:\d+\.\d*|\.?\d+))/g
+        /(\d+\.\d*|\.?\d+)([%*/^])([+-]?(?:\d+\.\d*|\.?\d+))/g;
+        /\((-?(?:\d+\.\d*|\.?\d+))\)([%*/^])\(([+-]?(?:\d+\.\d*|\.?\d+))\)/g;
+        /\((-?(?:\d+\.\d*|\.?\d+))\)([%*/^])([+-]?(?:\d+\.\d*|\.?\d+))/g;
+        /(\d+\.\d*|\.?\d+)([%*/^])\(([+-]?(?:\d+\.\d*|\.?\d+))\)/g
     }
-    {func.debug}
 
-    {//; 16: Solve +, - }
+    {//; 17: Solve +, - }
     {func.whileregexinject;~f;
-        {lb}lb{rb}math{lb}semi{rb}$2{lb}semi{rb}$1{lb}semi{rb}$3{lb}rb{rb};
-        /(?=^|[^%*/^)])(-?(?:\d+\.\d*|\.?\d+))([+-])(-?(?:\d+\.\d*|\.?\d+))(?![%*/^(])/g;
-        /\((-?(?:\d+\.\d*|\.?\d+))\)([+-])\((-?(?:\d+\.\d*|\.?\d+))\)/g;
-        /(-?(?:\d+\.\d*|\.?\d+))([+-])\((-?(?:\d+\.\d*|\.?\d+))\)/g;
-        /\((-?(?:\d+\.\d*|\.?\d+))\)([+-])(-?(?:\d+\.\d*|\.?\d+))/g
+        $1({lb}lb{rb}math{lb}semi{rb}$3{lb}semi{rb}$2{lb}semi{rb}$4{lb}rb{rb});
+        /(^|[^%*/^])(-?(?:\d+\.\d*|\.?\d+))([+-])(-?(?:\d+\.\d*|\.?\d+))(?=(?![%*/^])|$)/g;
+        /(^|[^%*/^])\((-?(?:\d+\.\d*|\.?\d+))\)([+-])\((-?(?:\d+\.\d*|\.?\d+))\)/g;
+        /(^|[^%*/^])\((-?(?:\d+\.\d*|\.?\d+))\)([+-])(-?(?:\d+\.\d*|\.?\d+))(?=(?![%*/^])|$)/g;
+        /(^|[^%*/^])(-?(?:\d+\.\d*|\.?\d+))([+-])\((-?(?:\d+\.\d*|\.?\d+))\)(?=(?![%*/^])|$)/g
     }
-    {func.debug}
 }
-
-{set;~result;{parsefloat;{get;~f}}}
+{if;{logic;||;{logic;!;{regextest;{get;~f};/^[+-]?(?:\d+\.\d*|\.?\d+)$|NaN|`(?:Not a number|Too many loops)`/}};{bool;{parsefloat;{get;~f}};==;NaN}};
+    {set;~result;`Invalid expression`};
+    {set;~result;{parsefloat;{get;~f}}}
+}}
 {if;{flagset;v};
     ```cs{newline}{clean;{join;{get;~debug};{newline}}}{newline;2} A: {if;{flagset;d};{func.flip;{get;~result}};{get;~result}}{newline}Repeats: {get;~loops}```;
     {if;{flagset;d};{func.flip;{get;~result}};{get;~result}}
-}}
+}
