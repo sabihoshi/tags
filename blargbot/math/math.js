@@ -185,7 +185,7 @@
         /(^|[^%*/^])(-?(?:\d+\.\d*|\.?\d+))([+-])\((-?(?:\d+\.\d*|\.?\d+))\)(?=(?![%*/^])|$)/g
     }
 }
-{if;{logic;||;{logic;!;{regextest;{get;~f};/^[+-]?(?:\d+\.\d*|\.?\d+)$|NaN|`(?:Not a number|Too many loops)`/}};{bool;{parsefloat;{get;~f}};==;NaN}};
+{if;{logic;!;{regextest;{get;~f};/^[+-]?(?:\d+\.\d*|\.?\d+)(?:e(([-+])?\d+)|)$/}};
     {set;~result;`Invalid expression`};
     {set;~result;{parsefloat;{get;~f}}}
 }}
