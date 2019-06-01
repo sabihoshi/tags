@@ -147,19 +147,17 @@
     {set;~f;{regexreplace;{get;~f};/(?:Math\.|)E/ig;2.718281828459045}}
     {func.debug}
 
-    {//; 10: Math.sqrt(x) }
-    {func.whileregex;~f;(($1)^(0.5));/(?:Math\.|)Sqrt\((-?(?:\d+\.\d*|\.?\d+))\)/ig}
+    {//; 10: Math.sqrt(x)
+     //      Math.cbrt(x)
+     //      Math.root(x,y)
+     //      Math.pow(x,y) }
+    {set;~f;{regexreplace;{get;~f};/(?:Math\.|)Sqrt\((-?(?:\d+\.\d*|\.?\d+))\)/ig;(($1)^(0.5))}}
+    {set;~f;{regexreplace;{get;~f};/(?:Math\.|)Cbrt\((-?(?:\d+\.\d*|\.?\d+))\)/ig;(($1)^(0.3333333333333333))}}
+    {set;~f;{regexreplace;{get;~f};/(?:Math\.|)Root\(([+-]?(?:\d+\.\d*|\.?\d+)),([+-]?(?:\d+\.\d*|\.?\d+))\)/ig;(($1)^(1/$2))}}
+    {set;~f;{regexreplace;{get;~f};/(?:Math\.|)Pow\(([+-]?(?:\d+\.\d*|\.?\d+)),([+-]?(?:\d+\.\d*|\.?\d+))\)/ig;(($1)^($2))}}
+    {func.debug}
 
-    {//; 11: Math.cbrt(x) }
-    {func.whileregex;~f;(($1)^(1/3));/(?:Math\.|)Cbrt\((-?(?:\d+\.\d*|\.?\d+))\)/ig}
-
-    {//; 12: Math.root(x,y) }
-    {func.whileregex;~f;(($1)^(1/$2));/(?:Math\.|)Root\((.+?),(.+?)\)/ig}
-
-    {//; 13: Math.pow(x,y) }
-    {func.whileregex;~f;(($1)^($2));/(?:Math\.|)Pow\((.+?),(.+?)\)/ig}
-
-    {//; 14-15: Resolve missing * in operations. }
+    {//; 11: Resolve missing * in operations. }
     {func.whileregex;~f;$1$3*$2$4;
         /(\d)(\()|(\))(\d)/g
     }
@@ -169,7 +167,7 @@
         /\((-?(?:\d+\.\d*|\.?\d+))\)\((-?(?:\d+\.\d*|\.?\d+))\)/g
     }
 
-    {//; 16: Solve %, *, /, ^ }
+    {//; 12: Solve %, *, /, ^ }
     {func.whileregexinject;~f;
         {lb}lb{rb}math{lb}semi{rb}$2{lb}semi{rb}$1{lb}semi{rb}$3{lb}rb{rb};
         /(\d+\.\d*|\.?\d+)([%*/^])([+-]?(?:\d+\.\d*|\.?\d+))/g;
@@ -178,7 +176,7 @@
         /(\d+\.\d*|\.?\d+)([%*/^])\(([+-]?(?:\d+\.\d*|\.?\d+))\)/g
     }
 
-    {//; 17: Solve +, - }
+    {//; 13: Solve +, - }
     {func.whileregexinject;~f;
         $1({lb}lb{rb}math{lb}semi{rb}$3{lb}semi{rb}$2{lb}semi{rb}$4{lb}rb{rb});
         /(^|[^%*/^])(-?(?:\d+\.\d*|\.?\d+))([+-])(-?(?:\d+\.\d*|\.?\d+))(?=(?![%*/^])|$)/g;
