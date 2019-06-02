@@ -97,7 +97,7 @@
 {if;{flagset;n};
     {set;~vars;{split;{flag;n};|}}
     {foreach;~var;~vars;
-        {set;~f_{get;~depth};{inject;{regexreplace;{trim;{get;~var}};/([A-Z])=([+-]?(?:\d+\.\d*|\.?\d+))/g;{lb}regexreplace{semi}{get;~f_{get;~depth}}{semi}/$1/g{semi}($2){rb}}}}
+        {set;~f_{get;~depth};{inject;{regexreplace;{trim;{get;~var}};/([A-Z])=(.+)/g;{lb}regexreplace{semi}{get;~f_{get;~depth}}{semi}/$1/g{semi}($2){rb}}}}
     }
     {set;~s;-1}
     {func.debug}
@@ -195,12 +195,12 @@
         /\((-?(?:\d+\.\d*|\.?\d+))\)\((-?(?:\d+\.\d*|\.?\d+))\)/g
     }
 
-    {//; 102: Resolve (x) -> x }
+    {//; 12: Resolve (x) -> x }
     {set;~f_{get;~depth};{regexreplace;{get;~f_{get;~depth}};/\(([+-]?)(\d+\.\d*|\.?\d+)\)/g;$1$2}}
     {func.debug}
 
-    {//; 13: Resolve [%*/^+=](x) -> [%*/^+=]x}
-    {set;~f_{get;~depth};{regexreplace;{get;~f_{get;~depth}};/([%*/^+=])\(([+-]?(?:\d+\.\d*|\.?\d+))\)/g;$1$2}}
+    {//; 13: Resolve [%*/^+-](x) -> [%*/^+-]x}
+    {set;~f_{get;~depth};{regexreplace;{get;~f_{get;~depth}};/([%*/^+-])\(([+-]?(?:\d+\.\d*|\.?\d+))\)/g;$1$2}}
     {func.debug}
 
     {//; 14: Resolve x) -> x, (x -> x }
@@ -210,10 +210,11 @@
     {//; 15: Solve +, - }
     {func.whileregexinject;~f_{get;~depth};
         $1({lb}lb{rb}math{lb}semi{rb}$3{lb}semi{rb}$2{lb}semi{rb}$4{lb}rb{rb});
-        /(^|[^%*/^])(-?(?:\d+\.\d*|\.?\d+))([+-])(-?(?:\d+\.\d*|\.?\d+))(?=(?![%*/^])|$)/g;
-        /(^|[^%*/^])\((-?(?:\d+\.\d*|\.?\d+))\)([+-])\((-?(?:\d+\.\d*|\.?\d+))\)/g;
-        /(^|[^%*/^])\((-?(?:\d+\.\d*|\.?\d+))\)([+-])(-?(?:\d+\.\d*|\.?\d+))(?=(?![%*/^])|$)/g;
-        /(^|[^%*/^])(-?(?:\d+\.\d*|\.?\d+))([+-])\((-?(?:\d+\.\d*|\.?\d+))\)(?=(?![%*/^])|$)/g
+        /(^|[+-])(-?(?:\d+\.\d*|\.?\d+))([+-])(-?(?:\d+\.\d*|\.?\d+))(?=[+-]|$)/g;
+        /(^|[+-])\((-?(?:\d+\.\d*|\.?\d+))\)([+-])\((-?(?:\d+\.\d*|\.?\d+))\)/g;
+        /(^|[+-])\((-?(?:\d+\.\d*|\.?\d+))\)([+-])(-?(?:\d+\.\d*|\.?\d+))(?=[+-]|$)/g;
+        /(^|[+-])(-?(?:\d+\.\d*|\.?\d+))([+-])\((-?(?:\d+\.\d*|\.?\d+))\)(?=[+-]|$)/g;
+        /()\(([+-]?(?:\d+\.\d*|\.?\d+))([+-])([+-]?(?:\d+\.\d*|\.?\d+))\)/g
     }
 }
 {if;{logic;!;{regextest;{get;~f_{get;~depth}};/^[+-]?(?:\d+\.\d*|\.?\d+)(?:e(([-+])?\d+)|)$|Infinity/}};
