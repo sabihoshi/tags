@@ -166,7 +166,7 @@
         /(\d+\.\d*|\.?\d+)!/g
     }
 
-    {//; 7: Solve ^ }
+    {//; 8: Solve ^ }
     {func.whileregexinject;~f_{get;~depth};
         {lb}lb{rb}math{lb}semi{rb}^{lb}semi{rb}$1{lb}semi{rb}$3{lb}rb{rb};
         /(\d+\.\d*|\.?\d+)(\^|\*\*)([+-]?(?:\d+\.\d*|\.?\d+))(?!.*(\d+\.\d*|\.?\d+)(\^|\*\*)([+-]?(?:\d+\.\d*|\.?\d+)))/g;
@@ -175,7 +175,17 @@
         /(\d+\.\d*|\.?\d+)(\^|\*\*)\(([+-]?(?:\d+\.\d*|\.?\d+))\)(?!.*(\d+\.\d*|\.?\d+)(\^|\*\*)\(([+-]?(?:\d+\.\d*|\.?\d+))\))/g
     }
 
-    {//; 89: Resolve missing * in operations. }
+
+    {//; 9: Solve %, *, /, ^ }
+    {func.whileregexinject;~f_{get;~depth};
+        {lb}lb{rb}math{lb}semi{rb}$2{lb}semi{rb}$1{lb}semi{rb}$3{lb}rb{rb};
+        /(\d+\.\d*|\.?\d+)([%*/])([+-]?(?:\d+\.\d*|\.?\d+))/g;
+        /\((-?(?:\d+\.\d*|\.?\d+))\)([%*/])\(([+-]?(?:\d+\.\d*|\.?\d+))\)/g;
+        /\((-?(?:\d+\.\d*|\.?\d+))\)([%*/])([+-]?(?:\d+\.\d*|\.?\d+))/g;
+        /(\d+\.\d*|\.?\d+)([%*/])\(([+-]?(?:\d+\.\d*|\.?\d+))\)/g
+    }
+
+    {//; 10-11: Resolve missing * in operations. }
     {func.whileregex;~f_{get;~depth};$1$3*$2$4;
         /(\d)(\()|(\))(\d)/g
     }
@@ -185,26 +195,17 @@
         /\((-?(?:\d+\.\d*|\.?\d+))\)\((-?(?:\d+\.\d*|\.?\d+))\)/g
     }
 
-    {//; 10: Resolve (x) -> x }
+    {//; 102: Resolve (x) -> x }
     {set;~f_{get;~depth};{regexreplace;{get;~f_{get;~depth}};/\(([+-]?)(\d+\.\d*|\.?\d+)\)/g;$1$2}}
     {func.debug}
 
-    {//; 11: Resolve [%*/^+=](x) -> [%*/^+=]x}
+    {//; 13: Resolve [%*/^+=](x) -> [%*/^+=]x}
     {set;~f_{get;~depth};{regexreplace;{get;~f_{get;~depth}};/([%*/^+=])\(([+-]?(?:\d+\.\d*|\.?\d+))\)/g;$1$2}}
     {func.debug}
 
-    {//; 12: Resolve x) -> x, (x -> x }
+    {//; 14: Resolve x) -> x, (x -> x }
     {set;~f_{get;~depth};{regexreplace;{get;~f_{get;~depth}};/^[(]*([+-]?(?:\d+\.\d*|\.?\d+))[)]*$/g;$1}}
     {func.debug}
-
-    {//; 14: Solve %, *, /, ^ }
-    {func.whileregexinject;~f_{get;~depth};
-        {lb}lb{rb}math{lb}semi{rb}$2{lb}semi{rb}$1{lb}semi{rb}$3{lb}rb{rb};
-        /(\d+\.\d*|\.?\d+)([%*/])([+-]?(?:\d+\.\d*|\.?\d+))/g;
-        /\((-?(?:\d+\.\d*|\.?\d+))\)([%*/])\(([+-]?(?:\d+\.\d*|\.?\d+))\)/g;
-        /\((-?(?:\d+\.\d*|\.?\d+))\)([%*/])([+-]?(?:\d+\.\d*|\.?\d+))/g;
-        /(\d+\.\d*|\.?\d+)([%*/])\(([+-]?(?:\d+\.\d*|\.?\d+))\)/g
-    }
 
     {//; 15: Solve +, - }
     {func.whileregexinject;~f_{get;~depth};
