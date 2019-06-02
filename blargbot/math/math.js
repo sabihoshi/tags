@@ -87,8 +87,9 @@
 {//; Initialization }
 {if;{get;~depth};==;;{set;~depth;0}}
 {if;{get;~inputs};==;;{set;~inputs;[]}}
-{push;~inputs;{args}}
+{if;{get;~debugs};==;;{set;~debugs;[]}}
 {set;~debug_{get;~depth};[]}
+{push;~inputs;{args}}
 {set;~f_{get;~depth};{trim;{regexreplace;{args};/^(.*?)(?:\s+-[vnd=].*|$)$/i;$1}}}
 {set;~last_{get;~depth};{get;~f_{get;~depth}}}
 {set;~loops;0}
@@ -235,7 +236,10 @@
         }};
         {set;~result;{if;{regextest;{get;~f_{get;~depth}};/Infinity/};Infinity;{parsefloat;{func.exponent;{get;~f_{get;~depth}}}}}}
     }
+    {push;~debugs;{trim;
+        ```cs{newline}{clean;{join;{get;~debug_{get;~depth}};{newline}}}{newline;2} A: {if;{logic;&&;{flagset;d};{logic;!;{flagset;=}}};{func.flip;{get;~result}};{get;~result}}{newline}Repeats: {get;~loops}```
+    }}
 }}{if;{flagset;v};
-    ```cs{newline}{clean;{join;{get;~debug_{get;~depth}};{newline}}}{newline;2} A: {if;{logic;&&;{flagset;d};{logic;!;{flagset;=}}};{func.flip;{get;~result}};{get;~result}}{newline}Repeats: {get;~loops}```;
+    {join;{get;~debugs};};
     {if;{logic;&&;{flagset;d};{logic;!;{flagset;=}}};{func.flip;{get;~result}};{get;~result}}
 }
