@@ -2,7 +2,7 @@
 {//; A function where it will recursively call itself as long as the regex provided is true. }
 {function;whileregex;
     {set;~o;{increment;~s}}
-    {set;~check;[]}
+    {set;~check;[]}=
     {set;~i;{params;0}}{set;~c;{params;1}}{set;~r;{slice;{paramsarray};2}}
     {foreach;~regex;~r;
         {void;{increment;~loops}}
@@ -22,6 +22,7 @@
             }}
             {func.debug}
             {set;~s;{get;~o}}
+            {func.checkIfChanged}
         }
     }}
 }
@@ -49,6 +50,7 @@
             }}
             {func.debug}
             {set;~s;{get;~o}}
+            {func.checkIfChanged}
         }
     }}
 }
@@ -90,7 +92,7 @@
 {if;{get;~debugs};==;;{set;~debugs;[]}}
 {set;~debug_{get;~depth};[]}
 {push;~inputs;{args}}
-{set;~f_{get;~depth};{trim;{regexreplace;{args};/^(.*?)(?:\s+-[vnd=].*|$)$/i;$1}}}
+{set;~f_{get;~depth};{trim;{regexreplace;{args};/^(.*?)(?:\s+-[vndi=].*|$)$/i;$1}}}
 {set;~last_{get;~depth};{get;~f_{get;~depth}}}
 {set;~loops;0}
 
@@ -119,7 +121,93 @@
     }}
 }
 
-{while;{logic;&&;{logic;!;{regextest;{get;~f_{get;~depth}};/^[+-]?(?:\d+\.\d*|\.?\d+)$|NaN|`(?:Not a number|Too many loops)`/}};{bool;{get;~lastEval_{get;~depth}};!=;{get;~f_{get;~depth}}}};
+{function;cleanEquation;
+    {//; Resolve missing * in operations. }
+    {func.whileregex;~f_{get;~depth};$1$3*$2$4;
+        /(\d)(\()|(\))(\d)/g
+    }
+    {func.checkIfChanged}
+
+    {func.whileregex;~f_{get;~depth};($1*$2);
+        /(\d+\.\d*|\.?\d+)\((-?(?:\d+\.\d*|\.?\d+))\)/g;
+        /\((-?(?:\d+\.\d*|\.?\d+))\)(\d+\.\d*|\.?\d+)/g;
+        /\((-?(?:\d+\.\d*|\.?\d+))\)\((-?(?:\d+\.\d*|\.?\d+))\)/g
+    }
+
+    {//; Resolve (x) -> x }
+    {set;~f_{get;~depth};{regexreplace;{get;~f_{get;~depth}};/\(([+-]?)(\d+\.\d*|\.?\d+)\)/g;$1$2}}
+    {func.debug}
+    {func.checkIfChanged}
+
+    {//; Resolve [%*/^+-](x) -> [%*/^+-]x}
+    {set;~f_{get;~depth};{regexreplace;{get;~f_{get;~depth}};/([%*/^+-])\(([+-]?(?:\d+\.\d*|\.?\d+))\)/g;$1$2}}
+    {func.debug}
+    {func.checkIfChanged}
+
+    {//; Resolve x) -> x, (x -> x }
+    {set;~f_{get;~depth};{regexreplace;{get;~f_{get;~depth}};/^[(]*([+-]?(?:\d+\.\d*|\.?\d+))[)]*$/g;$1}}
+    {func.debug}
+    {func.checkIfChanged}
+}
+
+{function;leftToRight;
+    {//; Solve %, *, /, +, - }
+    {func.whileregexinject;~f_{get;~depth};
+        {lb}lb{rb}if{lb}semi{rb}$3{lb}semi{rb}=={lb}semi{rb}!{lb}semi{rb}
+            {lb}lb{rb}set{lb}semi{rb}~output{lb}semi{rb}1{lb}rb{rb}{lb}lb{rb}set{lb}semi{rb}~continue{lb}semi{rb}true{lb}rb{rb}{lb}lb{rb}set{lb}semi{rb}~i{lb}semi{rb}{lb}lb{rb}math{lb}semi{rb}+{lb}semi{rb}$1{lb}semi{rb}1{lb}rb{rb}{lb}rb{rb}{lb}lb{rb}while{lb}semi{rb}{lb}lb{rb}get{lb}semi{rb}~continue{lb}rb{rb}{lb}semi{rb}{lb}lb{rb}void{lb}semi{rb}{lb}lb{rb}increment{lb}semi{rb}~loops{lb}rb{rb}{lb}rb{rb}{lb}lb{rb}set{lb}semi{rb}~output{lb}semi{rb}{lb}lb{rb}math{lb}semi{rb}*{lb}semi{rb}{lb}lb{rb}get{lb}semi{rb}~output{lb}rb{rb}{lb}semi{rb}{lb}lb{rb}decrement{lb}semi{rb}~i{lb}rb{rb}{lb}rb{rb}{lb}rb{rb}{lb}lb{rb}if{lb}semi{rb}{lb}lb{rb}get{lb}semi{rb}~output{lb}rb{rb}{lb}semi{rb}=={lb}semi{rb}Infinity{lb}semi{rb}{lb}lb{rb}set{lb}semi{rb}~continue{lb}semi{rb}false{lb}rb{rb}{lb}rb{rb}{lb}lb{rb}if{lb}semi{rb}{lb}lb{rb}get{lb}semi{rb}~i{lb}rb{rb}{lb}semi{rb}<={lb}semi{rb}1{lb}semi{rb}{lb}lb{rb}set{lb}semi{rb}~continue{lb}semi{rb}false{lb}rb{rb}{lb}rb{rb}{lb}rb{rb}{lb}lb{rb}get{lb}semi{rb}~output{lb}rb{rb}
+        {lb}semi{rb}
+            {lb}lb{rb}math{lb}semi{rb}$2{lb}semi{rb}$1{lb}semi{rb}$3{lb}rb{rb}
+        {lb}rb{rb};
+        /(\d+\.\d*|\.?\d+)([%*/+-])(-?(?:\d+\.\d*|\.?\d+))/;
+        /\((-?(?:\d+\.\d*|\.?\d+))\)([%*/+-])\((-?(?:\d+\.\d*|\.?\d+))\)/;
+        /\((-?(?:\d+\.\d*|\.?\d+))\)([%*/+-])(-?(?:\d+\.\d*|\.?\d+))/;
+        /(\d+\.\d*|\.?\d+)([%*/+-])\((-?(?:\d+\.\d*|\.?\d+))\)/;
+        /(\d+\.\d*|\.?\d+)(!)/
+    }
+    {func.debug}
+    {func.cleanEquation}
+}
+
+{function;PEMDAS;
+    {//; Solve x! }
+    {func.whileregexinject;~f_{get;~depth};
+        {lb}lb{rb}set{lb}semi{rb}~output{lb}semi{rb}1{lb}rb{rb}{lb}lb{rb}set{lb}semi{rb}~continue{lb}semi{rb}true{lb}rb{rb}{lb}lb{rb}set{lb}semi{rb}~i{lb}semi{rb}{lb}lb{rb}math{lb}semi{rb}+{lb}semi{rb}$1{lb}semi{rb}1{lb}rb{rb}{lb}rb{rb}{lb}lb{rb}while{lb}semi{rb}{lb}lb{rb}get{lb}semi{rb}~continue{lb}rb{rb}{lb}semi{rb}{lb}lb{rb}void{lb}semi{rb}{lb}lb{rb}increment{lb}semi{rb}~loops{lb}rb{rb}{lb}rb{rb}{lb}lb{rb}set{lb}semi{rb}~output{lb}semi{rb}{lb}lb{rb}math{lb}semi{rb}*{lb}semi{rb}{lb}lb{rb}get{lb}semi{rb}~output{lb}rb{rb}{lb}semi{rb}{lb}lb{rb}decrement{lb}semi{rb}~i{lb}rb{rb}{lb}rb{rb}{lb}rb{rb}{lb}lb{rb}if{lb}semi{rb}{lb}lb{rb}get{lb}semi{rb}~output{lb}rb{rb}{lb}semi{rb}=={lb}semi{rb}Infinity{lb}semi{rb}{lb}lb{rb}set{lb}semi{rb}~continue{lb}semi{rb}false{lb}rb{rb}{lb}rb{rb}{lb}lb{rb}if{lb}semi{rb}{lb}lb{rb}get{lb}semi{rb}~i{lb}rb{rb}{lb}semi{rb}<={lb}semi{rb}1{lb}semi{rb}{lb}lb{rb}set{lb}semi{rb}~continue{lb}semi{rb}false{lb}rb{rb}{lb}rb{rb}{lb}rb{rb}{lb}lb{rb}get{lb}semi{rb}~output{lb}rb{rb};
+        /(\d+\.\d*|\.?\d+)!/
+    }
+
+    {//; Solve ^ }
+    {func.whileregexinject;~f_{get;~depth};
+        {lb}lb{rb}math{lb}semi{rb}^{lb}semi{rb}$1{lb}semi{rb}$3{lb}rb{rb};
+        /(\d+\.\d*|\.?\d+)(\^|\*\*)([+-]?(?:\d+\.\d*|\.?\d+))(?!.*(\d+\.\d*|\.?\d+)(\^|\*\*)([+-]?(?:\d+\.\d*|\.?\d+)))/;
+        /\((-?(?:\d+\.\d*|\.?\d+))\)(\^|\*\*)\(([+-]?(?:\d+\.\d*|\.?\d+))\)(?!.*\((-?(?:\d+\.\d*|\.?\d+))\)(\^|\*\*)\(([+-]?(?:\d+\.\d*|\.?\d+))\))/;
+        /\((-?(?:\d+\.\d*|\.?\d+))\)(\^|\*\*)([+-]?(?:\d+\.\d*|\.?\d+))(?!.*\((-?(?:\d+\.\d*|\.?\d+))\)(\^|\*\*)([+-]?(?:\d+\.\d*|\.?\d+)))/;
+        /(\d+\.\d*|\.?\d+)(\^|\*\*)\(([+-]?(?:\d+\.\d*|\.?\d+))\)(?!.*(\d+\.\d*|\.?\d+)(\^|\*\*)\(([+-]?(?:\d+\.\d*|\.?\d+))\))/
+    }
+
+
+    {//; Solve %, *, / }
+    {func.whileregexinject;~f_{get;~depth};
+        {lb}lb{rb}math{lb}semi{rb}$2{lb}semi{rb}$1{lb}semi{rb}$3{lb}rb{rb};
+        /(\d+\.\d*|\.?\d+)([%*/])([+-]?(?:\d+\.\d*|\.?\d+))/;
+        /\((-?(?:\d+\.\d*|\.?\d+))\)([%*/])\(([+-]?(?:\d+\.\d*|\.?\d+))\)/;
+        /\((-?(?:\d+\.\d*|\.?\d+))\)([%*/])([+-]?(?:\d+\.\d*|\.?\d+))/;
+        /(\d+\.\d*|\.?\d+)([%*/])\(([+-]?(?:\d+\.\d*|\.?\d+))\)/
+    }
+
+    {func.cleanEquation}
+
+    {//; Solve +, - }
+    {func.whileregexinject;~f_{get;~depth};
+        $1({lb}lb{rb}math{lb}semi{rb}$3{lb}semi{rb}$2{lb}semi{rb}$4{lb}rb{rb});
+        /(^|[+-])(-?(?:\d+\.\d*|\.?\d+))([+-])(-?(?:\d+\.\d*|\.?\d+))(?=[+-]|$)/;
+        /(^|[+-])\((-?(?:\d+\.\d*|\.?\d+))\)([+-])\((-?(?:\d+\.\d*|\.?\d+))\)/;
+        /(^|[+-])\((-?(?:\d+\.\d*|\.?\d+))\)([+-])(-?(?:\d+\.\d*|\.?\d+))(?=[+-]|$)/;
+        /(^|[+-])(-?(?:\d+\.\d*|\.?\d+))([+-])\((-?(?:\d+\.\d*|\.?\d+))\)(?=[+-]|$)/;
+        /()\(([+-]?(?:\d+\.\d*|\.?\d+))([+-])([+-]?(?:\d+\.\d*|\.?\d+))\)/
+    }
+}
+
+{function;solve;
     {set;~lastEval_{get;~depth};{get;~f_{get;~depth}}}
     {void;{increment;~loops}}
     {set;~s;0}
@@ -138,20 +226,20 @@
     {set;~f_{get;~depth};{regexreplace;{get;~f_{get;~depth}};/factor(?:ial|)(?:of|by|)/ig;!}}
     {func.debug}
 
-    {//; 2-3: Fix sign convention. }
+    {//; Fix sign convention. }
     {func.whileregex;~f_{get;~depth};+;/--|\+\+/g}
     {func.whileregex;~f_{get;~depth};-;/-\+|\+-/g}
 
-    {//; 4: Exponents }
+    {//; Exponents }
     {set;~f_{get;~depth};{func.exponent;{get;~f_{get;~depth}}}}
     {func.debug}
 
-    {//; 5: Convert constants. }
+    {//; Convert constants. }
     {set;~f_{get;~depth};{regexreplace;{get;~f_{get;~depth}};/(?:Math\.|)PI/ig;3.141592653589793}}
     {set;~f_{get;~depth};{regexreplace;{get;~f_{get;~depth}};/(?:Math\.|)E/ig;2.718281828459045}}
     {func.debug}
 
-    {//; 6: Math.sqrt(x)
+    {//;    Math.sqrt(x)
      //     Math.cbrt(x)
      //     Math.root(x,y)
      //     Math.pow(x,y) }
@@ -161,63 +249,24 @@
     {set;~f_{get;~depth};{regexreplace;{get;~f_{get;~depth}};/(?:Math\.|)Pow\(([+-]?(?:\d+\.\d*|\.?\d+))\|([+-]?(?:\d+\.\d*|\.?\d+))\)/ig;(($1)^($2))}}
     {func.debug}
 
-    {//; 7: Solve x! }
-    {func.whileregexinject;~f_{get;~depth};
-        {lb}lb{rb}set{lb}semi{rb}~output{lb}semi{rb}1{lb}rb{rb}{lb}lb{rb}set{lb}semi{rb}~continue{lb}semi{rb}true{lb}rb{rb}{lb}lb{rb}set{lb}semi{rb}~i{lb}semi{rb}{lb}lb{rb}math{lb}semi{rb}+{lb}semi{rb}$1{lb}semi{rb}1{lb}rb{rb}{lb}rb{rb}{lb}lb{rb}while{lb}semi{rb}{lb}lb{rb}get{lb}semi{rb}~continue{lb}rb{rb}{lb}semi{rb}{lb}lb{rb}void{lb}semi{rb}{lb}lb{rb}increment{lb}semi{rb}~loops{lb}rb{rb}{lb}rb{rb}{lb}lb{rb}set{lb}semi{rb}~output{lb}semi{rb}{lb}lb{rb}math{lb}semi{rb}*{lb}semi{rb}{lb}lb{rb}get{lb}semi{rb}~output{lb}rb{rb}{lb}semi{rb}{lb}lb{rb}decrement{lb}semi{rb}~i{lb}rb{rb}{lb}rb{rb}{lb}rb{rb}{lb}lb{rb}if{lb}semi{rb}{lb}lb{rb}get{lb}semi{rb}~output{lb}rb{rb}{lb}semi{rb}=={lb}semi{rb}Infinity{lb}semi{rb}{lb}lb{rb}set{lb}semi{rb}~continue{lb}semi{rb}false{lb}rb{rb}{lb}rb{rb}{lb}lb{rb}if{lb}semi{rb}{lb}lb{rb}get{lb}semi{rb}~i{lb}rb{rb}{lb}semi{rb}<={lb}semi{rb}1{lb}semi{rb}{lb}lb{rb}set{lb}semi{rb}~continue{lb}semi{rb}false{lb}rb{rb}{lb}rb{rb}{lb}rb{rb}{lb}lb{rb}get{lb}semi{rb}~output{lb}rb{rb};
-        /(\d+\.\d*|\.?\d+)!/g
+    {if;{flagset;i};
+        {func.leftToRight};
+        {func.PEMDAS}
     }
 
-    {//; 8: Solve ^ }
-    {func.whileregexinject;~f_{get;~depth};
-        {lb}lb{rb}math{lb}semi{rb}^{lb}semi{rb}$1{lb}semi{rb}$3{lb}rb{rb};
-        /(\d+\.\d*|\.?\d+)(\^|\*\*)([+-]?(?:\d+\.\d*|\.?\d+))(?!.*(\d+\.\d*|\.?\d+)(\^|\*\*)([+-]?(?:\d+\.\d*|\.?\d+)))/g;
-        /\((-?(?:\d+\.\d*|\.?\d+))\)(\^|\*\*)\(([+-]?(?:\d+\.\d*|\.?\d+))\)(?!.*\((-?(?:\d+\.\d*|\.?\d+))\)(\^|\*\*)\(([+-]?(?:\d+\.\d*|\.?\d+))\))/g;
-        /\((-?(?:\d+\.\d*|\.?\d+))\)(\^|\*\*)([+-]?(?:\d+\.\d*|\.?\d+))(?!.*\((-?(?:\d+\.\d*|\.?\d+))\)(\^|\*\*)([+-]?(?:\d+\.\d*|\.?\d+)))/g;
-        /(\d+\.\d*|\.?\d+)(\^|\*\*)\(([+-]?(?:\d+\.\d*|\.?\d+))\)(?!.*(\d+\.\d*|\.?\d+)(\^|\*\*)\(([+-]?(?:\d+\.\d*|\.?\d+))\))/g
-    }
+    {func.checkIfChanged}
+}
 
-
-    {//; 9: Solve %, *, /, ^ }
-    {func.whileregexinject;~f_{get;~depth};
-        {lb}lb{rb}math{lb}semi{rb}$2{lb}semi{rb}$1{lb}semi{rb}$3{lb}rb{rb};
-        /(\d+\.\d*|\.?\d+)([%*/])([+-]?(?:\d+\.\d*|\.?\d+))/g;
-        /\((-?(?:\d+\.\d*|\.?\d+))\)([%*/])\(([+-]?(?:\d+\.\d*|\.?\d+))\)/g;
-        /\((-?(?:\d+\.\d*|\.?\d+))\)([%*/])([+-]?(?:\d+\.\d*|\.?\d+))/g;
-        /(\d+\.\d*|\.?\d+)([%*/])\(([+-]?(?:\d+\.\d*|\.?\d+))\)/g
-    }
-
-    {//; 10-11: Resolve missing * in operations. }
-    {func.whileregex;~f_{get;~depth};$1$3*$2$4;
-        /(\d)(\()|(\))(\d)/g
-    }
-    {func.whileregex;~f_{get;~depth};($1*$2);
-        /(\d+\.\d*|\.?\d+)\((-?(?:\d+\.\d*|\.?\d+))\)/g;
-        /\((-?(?:\d+\.\d*|\.?\d+))\)(\d+\.\d*|\.?\d+)/g;
-        /\((-?(?:\d+\.\d*|\.?\d+))\)\((-?(?:\d+\.\d*|\.?\d+))\)/g
-    }
-
-    {//; 12: Resolve (x) -> x }
-    {set;~f_{get;~depth};{regexreplace;{get;~f_{get;~depth}};/\(([+-]?)(\d+\.\d*|\.?\d+)\)/g;$1$2}}
-    {func.debug}
-
-    {//; 13: Resolve [%*/^+-](x) -> [%*/^+-]x}
-    {set;~f_{get;~depth};{regexreplace;{get;~f_{get;~depth}};/([%*/^+-])\(([+-]?(?:\d+\.\d*|\.?\d+))\)/g;$1$2}}
-    {func.debug}
-
-    {//; 14: Resolve x) -> x, (x -> x }
-    {set;~f_{get;~depth};{regexreplace;{get;~f_{get;~depth}};/^[(]*([+-]?(?:\d+\.\d*|\.?\d+))[)]*$/g;$1}}
-    {func.debug}
-
-    {//; 15: Solve +, - }
-    {func.whileregexinject;~f_{get;~depth};
-        $1({lb}lb{rb}math{lb}semi{rb}$3{lb}semi{rb}$2{lb}semi{rb}$4{lb}rb{rb});
-        /(^|[+-])(-?(?:\d+\.\d*|\.?\d+))([+-])(-?(?:\d+\.\d*|\.?\d+))(?=[+-]|$)/g;
-        /(^|[+-])\((-?(?:\d+\.\d*|\.?\d+))\)([+-])\((-?(?:\d+\.\d*|\.?\d+))\)/g;
-        /(^|[+-])\((-?(?:\d+\.\d*|\.?\d+))\)([+-])(-?(?:\d+\.\d*|\.?\d+))(?=[+-]|$)/g;
-        /(^|[+-])(-?(?:\d+\.\d*|\.?\d+))([+-])\((-?(?:\d+\.\d*|\.?\d+))\)(?=[+-]|$)/g;
-        /()\(([+-]?(?:\d+\.\d*|\.?\d+))([+-])([+-]?(?:\d+\.\d*|\.?\d+))\)/g
+{function;checkIfChanged;
+    {if;
+        {logic;&&;
+            {logic;!;{regextest;{get;~f_{get;~depth}};/^[+-]?(?:\d+\.\d*|\.?\d+)$|NaN|`(?:Not a number|Too many loops)`/}};
+            {bool;{get;~lastEval_{get;~depth}};!=;{get;~f_{get;~depth}}}};
+        {func.solve}
     }
 }
+
+{func.solve}
 {if;{logic;!;{regextest;{get;~f_{get;~depth}};/^[+-]?(?:\d+\.\d*|\.?\d+)(?:e(([-+])?\d+)|)$|Infinity/}};
     {set;~result;`Invalid expression`};
     {if;{flagset;=};
