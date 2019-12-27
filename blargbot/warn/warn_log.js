@@ -1,27 +1,9 @@
 {if;{logic;!;{iscc}};{return}}
-{if;{flagset;v};
-	{if;{argslength};==;2;
-		{set;~user;{userid}};
-		{suppresslookup}
-		{set;~user;{userid;{args;1}}}
-		{if;{get;~user};==;;{usermention}, please provide a valid user!{return}}
-	}
-	{if;{length;{get;_{get;~user}warn.log}};==;0;User does not have any logs.{return}}
-	{//; eColor snippet by Allen Miquel#8168 }
-	{set;~eColor;[]}
-	{set;~roles;{get;~user}}
-	{foreach;~color;{get;~roles};{if;{rolecolor;{get;~color}};!=;000000;{push;{get;~eColor};{rolecolor;{get;~color}}}}}
-	{if;{length;{get;~eColor}};==;0;{set;~eColor;peach}}
-	{set;~embed;
-		author.name:{username;{get;~user}}#{userdiscrim;{get;~user}} ({userid;{get;~user}});
-		author.icon_url:{useravatar;{get;~user}};
-		color:{get;~eColor;0}
-	}
-	{apply;push;~embed;{get;_{get;~user}warn.log}}
-	{embed;{apply;embedbuild;{get;~embed}}}
-	{return}
-}
-{if;{get;~user};==;;{usermention}, please provide a valid user!{return}}
+
+{suppresslookup}
+{set;~user;{args;0}}
+{if;{get;~user};==;{null};{return}}
+
 {//; Make sure array exists }
 {if;{logic;!;{isarray;{get;_{get;~user}warn.log}}};
 	{set;_{get;~user}warn.log;[]}

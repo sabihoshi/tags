@@ -9,8 +9,8 @@
 
 {//; Warn logging }
 {if;{lower;{args;0}};==;view;
-	{exec;warn_log;"{join;{argsarray};" "}" -v};
-	{exec;warn_log;{args}}
+	{apply;exec;warn_view;{slice;{argsarray};1}}{return};
+	{apply;exec;warn_log;{argsarray}}
 }
 
 {//; Actually warning the user }
@@ -22,7 +22,6 @@
 {exec;warn_dm;{args}}
 
 {//; 1. Automatically pardon the user after 24 hours if no time flag is set. }
-
 {timer;{void;{pardon;{get;~user};{flag;c};Auto-pardon after set time.}};{if;{flagset;t};{flag;t};24h}}{return}
 
 {//; 2. Automatically pardon ONLY when time flag is set. Remove if using 1. }
