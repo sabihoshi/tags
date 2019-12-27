@@ -13,7 +13,8 @@
 	{set;~step;{params;3}}
 	{set;~result;[]}
 	{//; Apply is used here as a workaround to .SelectMany(), so you don't have a 2d array suddenly. }
-	{for;~i;0;<;{math;*;{get;~length};{get;~step}};{get;~step};
+    {set;~start;{math;*;{get;~start};{get;~step}}}
+	{for;~i;{get;~start};<;{math;+;{get;~start};{math;*;{get;~length};{get;~step}}};{get;~step};
 		{void;{apply;push;~result;{func.sliceReversed;{get;~array};{get;~i};{get;~step}}}}
 	}
 	{get;~result}
