@@ -1,7 +1,7 @@
 {if;{logic;!;{iscc}};{return}}
 
 {suppresslookup}
-{set;~user;{args;0}}
+{set;~user;{userid;{args;0}}}
 {if;{get;~user};==;{null};{return}}
 
 {//; Make sure array exists }
