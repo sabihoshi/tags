@@ -1,0 +1,56 @@
+{//; This function shows the chess board and translate it. }
+{function;chess_show;
+
+}
+
+{//; This is a function to create enums.
+     Usage: <enumName.name> [value]
+}
+{function;CreateEnum;
+    {if;{params;0};==;{null};
+        {func.throwHelper;{func.Enum;Error.ArgumentOutOfRange};The name of the enum cannot be empty!}
+    }
+    {if;{get;{params;0}};==;{null};
+        {jset;{params;0};}
+    }
+}
+
+{//; A function to retrieve enums}
+
+{//; This function is a throwhelper for common errors. }
+{func.CreateEnum;{j;[
+    ["Error.ArgumentOutOfRange", 0],
+    InvalidOperationException
+    ArgumentException, ArgumentNullException, and ArgumentOutOfRangeException
+    NullReferenceException, IndexOutOfRangeException, and AccessViolationException
+]}}
+{function;throwHelper;
+    {switch;{params;0};
+        {func.Enum;Error.ArgumentOutOfRange};
+            {output;ArgumentOutOfRangeException: {throw;{params;1}}};
+
+
+        ;{output;{func.throwHelper;0;The provided exception was invalid. Please contact the owner of the tag to fix this issue.}}
+
+    }
+    {return}
+}
+
+
+{//; This function starts the chess game  }
+{function;chess_start;
+    {//; Parameters: [enemy] [starting positions]  [starting enemy positions] }
+
+    {set;~enemy;{userid;{params;0};quiet}}
+    {if;{get;~enemy};==;{null};
+        Invalid enemy was provided!
+        {return}
+    }
+    {set;@{userid}.chess.data;
+        {j;
+            "enemy": 1,
+            ""
+
+        }
+    }
+}

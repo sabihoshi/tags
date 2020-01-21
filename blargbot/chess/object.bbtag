@@ -1,0 +1,27 @@
+{//; This class implements how an object would work in OOP languages.
+     The feature I hope to implement is to be able to reference other objects
+
+     Example: {func.object;currentUser.Id}
+}
+{//;
+    Params: <objectName>[.attribute...];<value>
+}
+{func.setObject;
+    {set;~object;{split;{params;0};.}}
+    {set;~objectName;{get;~object;0}}
+
+    {//; Initialize the qualified name of the object for referencing }
+    {if;{get;~objectName};==;{null};
+
+    }
+
+    {//; Set the value according to the attributes placed. }
+    {jset;{get;~objectName};
+        {join;{slice;{get;~object;1}};.};
+        {params;1}
+    }
+}
+
+{func.object;
+
+}
