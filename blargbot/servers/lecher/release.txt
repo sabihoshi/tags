@@ -1,0 +1,18 @@
+{set;~webhook;{flag;w}}
+{set;~id;{shift;{regexmatch;{get;~webhook};/\d{17,20}/}}}
+{set;~key;{shift;{regexmatch;{get;~webhook};/[\w-]+$/}}}
+
+{set;~embed;[]}
+
+{set;~flags;{j;[
+    {"flag": "t", "key": "title"},
+    {"flag": "d", "key": "description"}
+]}}
+{foreach;~flag;~flags;
+    {if;{flagset;{jget;~flag;flag}};
+        {push;~embed;{jget;~flag;key}:{flag;{jget;~flag;flag}}}
+    }
+}
+
+{delete}
+{webhook;{get;~id};{get;~key};{flag;_};{apply;embedbuild;{get;~embed}}}
