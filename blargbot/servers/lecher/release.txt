@@ -2,7 +2,7 @@
 {set;~id;{shift;{regexmatch;{get;~webhook};/\d{17,20}/}}}
 {set;~key;{shift;{regexmatch;{get;~webhook};/[\w-]+$/}}}
 
-{set;~embed;[]}
+{set;~embed;["author.name:{username}", "author.icon_url:{useravatar}"]}
 
 {set;~flags;{j;[
     {"flag": "t", "key": "title"},
