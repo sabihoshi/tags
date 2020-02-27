@@ -15,5 +15,7 @@
     }
 }
 
+"[<:Twitter:682246371079880730>](https://twitter.com/kami_shun0505) [<:EHentai:682301919200673811>](https://e-hentai.org/g/1503018/2db137502d/) [<:Nhentai:682301919158730771>](https://nhentai.net/g/288477/)"
+
 {delete}
 {webhook;{get;~id};{get;~key};{flag;_};{apply;embedbuild;{get;~embed}}}
