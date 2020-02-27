@@ -6,7 +6,8 @@
 
 {set;~flags;{j;[
     {"flag": "t", "key": "title"},
-    {"flag": "d", "key": "description"}
+    {"flag": "d", "key": "description"},
+    {"flag": "i", "key": "thumbnail.url"}
 ]}}
 {foreach;~flag;~flags;
     {if;{flagset;{jget;~flag;flag}};
