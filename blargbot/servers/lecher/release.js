@@ -4,6 +4,10 @@
 
 {set;~embed;["author.name:{username}", "author.icon_url:{useravatar}"]}
 
+{function;getOrNull;
+    {if;{get;{params;0}};==;{null};{params;1};{get;{params;0}}}
+}
+
 {//; Release details }
 {set;~title;{flag;_}}
 {set;~description;{flag;d}}
@@ -34,13 +38,13 @@
 
 {set;~embed;
     title:{get;~title};
-    description:{foreach;~link;~links;{get;~{jget;~link;name}}{space}};
-    image:{get;~image};
-    color:{get;~color};
+    description:{foreach;~link;~links;[{jget;~link;emoji}]({get;~{jget;~link;name}}){space}};
+    thumbnail.url:{get;~image};
+    color:{func.getOrNull;{get;~color};#000000};
 
-    fields.name;Description;
-    fields.value;{get;~description};
+    fields.name:Description;
+    fields.value:{get;~description};
     fields.inline:true
 }
 
-{webhook;{get;~id};{get;~key};{flag;_};{apply;embedbuild;{get;~embed}}}
+{webhook;{get;~id};{get;~key};{flag;c};{apply;embedbuild;{get;~embed}}}
