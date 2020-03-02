@@ -42,6 +42,51 @@
 
 {set;~flags;{j;[
     {
+        "flag": "_",
+        "variable": "title",
+        "isRequired": true
+    },
+    {
+        "flag": "a",
+        "variable": "author",
+        "isRequired": false
+    },
+    {
+        "flag": "d",
+        "variable": "description",
+        "isRequired": false
+    },
+    {
+        "flag": "i",
+        "variable": "image",
+        "isRequired": false
+    },
+    {
+        "flag": "s",
+        "variable": "subtitle",
+        "isRequired": false
+    },
+    {
+        "flag": "c",
+        "variable": "color",
+        "isRequired": false
+    },
+    {
+        "flag": "t",
+        "variable": "title",
+        "isRequired": true
+    },
+    {
+        "flag": "t",
+        "variable": "title",
+        "isRequired": true
+    },
+    {
+        "flag": "t",
+        "variable": "title",
+        "isRequired": true
+    },
+    {
         "flag": "t",
         "variable": "title",
         "isRequired": true
