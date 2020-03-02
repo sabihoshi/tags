@@ -12,11 +12,20 @@
     {filter;~link;~links;{bool;{get;~{jget;~link;name}};!=;{null}}}
 }
 
+{//; Usage: [array] [variable] [fieldName] }
+{function;pushIfNotEmpty;
+    {if;{get;{params;1}};!=;{null};
+        {push;{params;0};{params;2}:{get;{params;1}}}
+    }
+}
+
 {//; Release details }
 {set;~title;{flag;_}}
 {set;~author;{flag;a}}
 {set;~description;{flag;d}}
 {set;~image;{flag;i}}
+{set;~subtitle;{flag;s}}
+{set;~color;{color;{flag;c}}}
 
 {//; Links }
 {set;~twitter;{flag;t}}
@@ -50,10 +59,12 @@
 {set;~embed;
     author.name:{get;~author};
     title:{get;~title};
-    description:{newline}{foreach;~link;{func.getLinks};[{jget;~link;emoji}]({get;~{jget;~link;name}}){space}};
-    thumbnail.url:{get;~image};
-    color:{func.getOrNull;{get;~color};#000000};
+    description:{get;~subtitle}{newline}{foreach;~link;{func.getLinks};[{jget;~link;emoji}]({get;~{jget;~link;name}}){space}};
+    color:{func.getOrNull;{get;~color};000000};
 }
+
+{func.pushIfNotEmpty;~embed;~image;thumbnail.url}
+
 {if;{get;~description};!=;{null};
     {push;~embed;
         fields.name:Description;
@@ -64,5 +75,5 @@
 
 {if;{get;~webhook};==;{null};
     {embed;{apply;embedbuild;{get;~embed}}};
-    {webhook;{get;~id};{get;~key};{flag;c};{apply;embedbuild;{get;~embed}}}
+    {webhook;{get;~id};{get;~key};{flag;C};{apply;embedbuild;{get;~embed}}}
 }
