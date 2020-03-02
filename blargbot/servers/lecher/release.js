@@ -12,6 +12,13 @@
     {filter;~link;~links;{bool;{get;~{jget;~link;name}};!=;{null}}}
 }
 
+{//; Usage: [question] [variable] }
+{function;prompt;
+    {if;{get;{params;1}};==;{null};
+        {send;{channelid};{params;0};}
+    }
+}
+
 {//; Usage: [array] [variable] [fieldName] }
 {function;pushIfNotEmpty;
     {if;{get;{params;1}};!=;{null};
@@ -32,6 +39,14 @@
 {set;~e-hentai;{flag;e}}
 {set;~nhentai;{flag;n}}
 {set;~mangadex;{flag;m}}
+
+{set;~flags;{j;[
+    {
+        "flag": "t",
+        "variable": "title",
+        "isRequired": true
+    }
+]}}
 
 {set;~links;{j;[
     {
