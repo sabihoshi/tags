@@ -53,10 +53,13 @@
     description:{newline}{foreach;~link;{func.getLinks};[{jget;~link;emoji}]({get;~{jget;~link;name}}){space}};
     thumbnail.url:{get;~image};
     color:{func.getOrNull;{get;~color};#000000};
-
-    fields.name:Description;
-    fields.value:{get;~description};
-    fields.inline:true
+}
+{if;{get;~description};!=;{null};
+    {push;~embed;
+        fields.name:Description;
+        fields.value:{get;~description};
+        fields.inline:true
+    }
 }
 
 {if;{get;~webhook};==;{null};
