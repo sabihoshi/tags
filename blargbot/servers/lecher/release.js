@@ -22,6 +22,7 @@
 {set;~twitter;{flag;t}}
 {set;~e-hentai;{flag;e}}
 {set;~nhentai;{flag;n}}
+{set;~mangadex;{flag;m}}
 
 {set;~links;{j;[
     {
@@ -38,6 +39,11 @@
         "name": "nhentai",
         "emoji": "<:Nhentai:682301919158730771>",
         "link": "nhentai.net"
+    },
+    {
+        "name": "mangadex",
+        "emoji": "<:MangaDex:682246635593400364>",
+        "link": "mangadex.org"
     }
 ]}}
 
