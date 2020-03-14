@@ -37,6 +37,7 @@
 {//; Links }
 {set;~twitter;{flag;t}}
 {set;~e-hentai;{flag;e}}
+{set;~exhentai;{flag;E}}
 {set;~nhentai;{flag;n}}
 {set;~mangadex;{flag;m}}
 
@@ -113,6 +114,11 @@
         "name": "mangadex",
         "emoji": "<:MangaDex:682246635593400364>",
         "link": "mangadex.org"
+    },
+    {
+        "name": "exhentai",
+        "emoji": "<:SadPanda:688248903648149548>".
+        "link": "exhentai.org"
     }
 ]}}
 
