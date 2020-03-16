@@ -1,0 +1,3 @@
+{set;~manga;{jget;{request;https://mangadex.org/api/manga/{jget;{regexmatch;{args};/\d+/};0}};body.manga}}
+
+{exec;release;{jget;~manga;title} -d {jget;~manga;description} -i https://mangadex.org{jget;~manga;cover_url} -a {jget;~manga;author} -s Genres: [WIP]}
