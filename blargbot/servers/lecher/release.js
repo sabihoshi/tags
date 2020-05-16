@@ -40,6 +40,7 @@
 {set;~exhentai;{flag;E}}
 {set;~nhentai;{flag;n}}
 {set;~mangadex;{flag;m}}
+{set;~pixiv;{flag;p}}
 
 {set;~flags;{j;[
     {
@@ -71,26 +72,6 @@
         "flag": "c",
         "variable": "color",
         "isRequired": false
-    },
-    {
-        "flag": "t",
-        "variable": "title",
-        "isRequired": true
-    },
-    {
-        "flag": "t",
-        "variable": "title",
-        "isRequired": true
-    },
-    {
-        "flag": "t",
-        "variable": "title",
-        "isRequired": true
-    },
-    {
-        "flag": "t",
-        "variable": "title",
-        "isRequired": true
     }
 ]}}
 
@@ -106,6 +87,11 @@
         "link": "e-hentai.org"
     },
     {
+        "name": "exhentai",
+        "emoji": "<:SadPanda:688248903648149548>",
+        "link": "exhentai.org"
+    },
+    {
         "name": "nhentai",
         "emoji": "<:Nhentai:682301919158730771>",
         "link": "nhentai.net"
@@ -116,9 +102,9 @@
         "link": "mangadex.org"
     },
     {
-        "name": "exhentai",
-        "emoji": "<:SadPanda:688248903648149548>".
-        "link": "exhentai.org"
+        "name": "pixiv",
+        "emoji": "<:pixiv:704276974855520266>",
+        "link": "pixiv.net"
     }
 ]}}
 
