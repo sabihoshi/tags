@@ -82,6 +82,16 @@
         "link": "twitter.com"
     },
     {
+        "name": "pixiv",
+        "emoji": "<:Pixiv:682246370773827643>",
+        "link": "pixiv.net"
+    },
+    {
+        "name": "mangadex",
+        "emoji": "<:MangaDex:682246635593400364>",
+        "link": "mangadex.org"
+    },
+    {
         "name": "e-hentai",
         "emoji": "<:EHentai:682301919200673811>",
         "link": "e-hentai.org"
@@ -95,16 +105,6 @@
         "name": "nhentai",
         "emoji": "<:Nhentai:682301919158730771>",
         "link": "nhentai.net"
-    },
-    {
-        "name": "mangadex",
-        "emoji": "<:MangaDex:682246635593400364>",
-        "link": "mangadex.org"
-    },
-    {
-        "name": "pixiv",
-        "emoji": "<:pixiv:704276974855520266>",
-        "link": "pixiv.net"
     }
 ]}}
 
